@@ -297,3 +297,7 @@ const createFilmDetailsComponent = () => {
     </section>`
   );
 };
+
+const renderComponent = (container, component, place = `beforeend`) => {
+  container.insertAdjacentHTML(place, component);
+};
