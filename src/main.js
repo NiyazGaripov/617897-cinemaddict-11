@@ -115,3 +115,11 @@ const createShowMoreButtonComponent = () => {
     `<button class="films-list__show-more">Show more</button>`
   );
 };
+
+const createFilmStatisticsComponent = () => {
+  return (
+    `<section class="footer__statistics">
+      <p>130 291 movies inside</p>
+    </section>`
+  );
+};
