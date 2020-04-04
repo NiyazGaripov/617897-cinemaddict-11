@@ -2,9 +2,9 @@
 const pageHeaderElement = document.querySelector(`.header`);
 const pageMainElement = document.querySelector(`.main`);
 const pageFooterElement = document.querySelector(`.footer`);
-const filmCards = [0, 1, 2, 3, 4];
-const filmTopRatedCards = [0, 1];
-const filmMostCommentedCards = [0, 1];
+const FILM_CARDS_AMOUNT = 5;
+const FILM_RATED_CARDS_AMOUNT = 2;
+const FILM_COMMENTED_CARDS_AMOUNT = 2;
 
 const createProfileComponent = () => {
   return (
@@ -40,10 +40,10 @@ const createSortComponent = () => {
 };
 
 const createFilmsListComponent = () => {
-  const filmCardsComponent = createFilmCardsComponent(filmCards);
+  const filmCardsComponent = createFilmCardsComponent(FILM_CARDS_AMOUNT);
   const showMoreButtonComponent = createShowMoreButtonComponent();
-  const filmTopRatedCardsComponent = createFilmCardsComponent(filmTopRatedCards);
-  const filmMostCommentedCardsComponent = createFilmCardsComponent(filmMostCommentedCards);
+  const filmTopRatedCardsComponent = createFilmCardsComponent(FILM_RATED_CARDS_AMOUNT);
+  const filmMostCommentedCardsComponent = createFilmCardsComponent(FILM_COMMENTED_CARDS_AMOUNT);
 
   return (
     `<section class="films">
@@ -77,14 +77,13 @@ const createFilmsListComponent = () => {
   );
 };
 
-const createFilmCardsComponent = (filmsAmount) => {
+const createFilmCardsComponent = (amount) => {
   let filmCardsComponent = ``;
   const filmCardComponent = createFilmCardComponent();
 
-  filmsAmount.forEach(() => {
+  for (let i = 0; i < amount; i++) {
     filmCardsComponent = `${filmCardsComponent}${filmCardComponent}`;
-  });
-
+  }
   return filmCardsComponent;
 };
 
