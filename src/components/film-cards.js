@@ -1,4 +1,4 @@
-import {createFilmCardComponent} from './components/film-card.js';
+import {createFilmCardComponent} from './film-card.js';
 
 export const createFilmCardsComponent = (amount) => {
   let filmCardsComponent = ``;

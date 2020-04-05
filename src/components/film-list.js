@@ -1,5 +1,5 @@
-import {createFilmCardsComponent} from './components/film-cards.js';
-import {createShowMoreButtonComponent} from './components/show-more-button.js';
+import {createFilmCardsComponent} from './film-cards.js';
+import {createShowMoreButtonComponent} from './show-more-button.js';
 
 const FILM_CARDS_AMOUNT = 5;
 const FILM_RATED_CARDS_AMOUNT = 2;
