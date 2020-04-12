@@ -1,4 +1,4 @@
-import {renderComponent} from './components/utils.js';
+import {renderComponent} from './utils.js';
 import {createProfileComponent} from './components/profile.js';
 import {createNavigationComponent} from './components/navigation.js';
 import {createSortComponent} from './components/sorting.js';
