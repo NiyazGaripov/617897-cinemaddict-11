@@ -10,3 +10,11 @@ const generateFilmCard = () => {
     comments: [{}],
   };
 };
+
+const generateFilmsCards = (amount) => {
+  return new Array(amount)
+    .fill(``)
+    .map(generateFilmCard);
+};
+
+export {generateFilmsCards};
