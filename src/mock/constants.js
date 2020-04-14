@@ -12,4 +12,11 @@ const EMOJIS = [
   `angry`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS};
+const COMMENT_AUTHORS = [
+  `Tim Macoveev`,
+  `John Doe`,
+  `Tim Doe`,
+  `John Macoveev`,
+];
+
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS};
