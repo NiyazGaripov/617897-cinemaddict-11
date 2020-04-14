@@ -36,4 +36,15 @@ const POSTERS = [
   `made-for-each-other`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS};
+const FILM_TITLES = [
+  `The Dance of Life`,
+  `Sagebrush Trail`,
+  `The Man with the Golden Arm`,
+  `Santa Claus Conquers the Martians`,
+  `Popeye the Sailor Meets Sindbad the Sailor`,
+  `The Great Flamarion`,
+  `Made for Each Other`,
+];
+
+
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES};
