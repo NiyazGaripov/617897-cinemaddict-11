@@ -1,3 +1,11 @@
+import {generateComments} from './comments.js';
+import {getRandomIntegerNumber, getRandomArrayItem} from './../utils.js';
+
+const MIN_COMMENTS_AMOUNT = 0;
+const MAX_COMMENTS_AMOUNT = 5;
+const commentsAmount = getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
+const comments = generateComments(commentsAmount);
+
 const generateFilmCard = () => {
   return {
     poster: `./images/posters/the-dance-of-life.jpg`,
@@ -7,7 +15,7 @@ const generateFilmCard = () => {
     duration: `1h 55m`,
     genre: `Musical`,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
-    comments: [{}],
+    comments,
   };
 };
 
