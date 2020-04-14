@@ -1,3 +1,7 @@
+import {getRandomArrayItem} from './../utils.js';
+import {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES} from './constants.js';
+
+
 const generateComment = () => {
   return {
     text: `Interesting setting and a good cast`,
