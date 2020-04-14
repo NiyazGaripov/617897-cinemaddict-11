@@ -26,4 +26,14 @@ const COMMENT_DATES = [
   `2020/03/21 15:30`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES};
+const POSTERS = [
+  `the-dance-of-life`,
+  `sagebrush-trail`,
+  `the-man-with-the-golden-arm`,
+  `santa-claus-conquers-the-martians`,
+  `popeye-meets-sinbad`,
+  `the-great-flamarion`,
+  `made-for-each-other`,
+];
+
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS};
