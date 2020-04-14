@@ -46,5 +46,13 @@ const FILM_TITLES = [
   `Made for Each Other`,
 ];
 
+const GENRE = [
+  `Musical`,
+  `Western`,
+  `Drama`,
+  `Comedy`,
+  `Cartoon`,
+  `Mystery`,
+];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, GENRE};
