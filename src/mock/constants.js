@@ -5,4 +5,11 @@ const TEXT_COMMENTS = [
   `Almost two hours? Seriously?`
 ];
 
-export {TEXT_COMMENTS};
+const EMOJIS = [
+  `smile`,
+  `sleeping`,
+  `puke`,
+  `angry`,
+];
+
+export {TEXT_COMMENTS, EMOJIS};
