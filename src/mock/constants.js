@@ -46,6 +46,16 @@ const FILM_TITLES = [
   `Made for Each Other`,
 ];
 
+const DURATION = [
+  `1h 55m`,
+  `54m`,
+  `1h 59m`,
+  `1h 21m`,
+  `16m`,
+  `1h 18m`,
+  `1h 32m`,
+];
+
 const GENRE = [
   `Musical`,
   `Western`,
@@ -65,4 +75,4 @@ const DESCRIPTION_FILMS = [
   `John Mason (James Stewart) is a young, somewhat timid attorney in New York City. He has been doing his job well, and he has a chance of bei…`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, GENRE, DESCRIPTION_FILMS};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATION, GENRE, DESCRIPTION_FILMS};
