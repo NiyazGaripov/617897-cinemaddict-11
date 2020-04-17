@@ -1,7 +1,10 @@
 export const createFilmCardComponent = (amount) => {
-  const {poster, title, rating, releaseYear, duration, genre, description, comments} = amount;
+  const {poster, title, rating, releaseYear, duration, genre, description, comments, isWatchList, isWatched, isFavorite} = amount;
 
   const commentsAmount = comments.length;
+  const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
+  const watchedActiveClass = isWatched ? `film-card__controls-item--active` : ``;
+  const favoriteActiveClass = isFavorite ? `film-card__controls-item--active` : ``;
 
   return (
     `<article class="film-card">
@@ -16,9 +19,9 @@ export const createFilmCardComponent = (amount) => {
       <p class="film-card__description">${description}</p>
       <a class="film-card__comments">${commentsAmount} comments</a>
       <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
+        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${watchListActiveClass}">Add to watchlist</button>
+        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${watchedActiveClass}">Mark as watched</button>
+        <button class="film-card__controls-item button film-card__controls-item--favorite ${favoriteActiveClass}">Mark as favorite</button>
       </form>
     </article>`
   );

@@ -21,6 +21,9 @@ const generateFilmCard = () => {
   const description = getRandomArrayItem(DESCRIPTION_FILMS);
   const commentsAmount = getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
   const comments = generateComments(commentsAmount);
+  const isWatchList = Math.random() > 0.5;
+  const isWatched = Math.random() > 0.5;
+  const isFavorite = Math.random() > 0.5;
 
   return {
     poster,
@@ -31,6 +34,9 @@ const generateFilmCard = () => {
     genre,
     description,
     comments,
+    isWatchList,
+    isWatched,
+    isFavorite,
   };
 };
 
