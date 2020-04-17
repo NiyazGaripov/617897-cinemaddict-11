@@ -1,4 +1,4 @@
-export const createFilmCardComponent = (amount) => {
+const createFilmCardComponent = (amount) => {
   const {poster, title, rating, releaseYear, duration, genre, description, comments, isWatchList, isWatched, isFavorite} = amount;
 
   const commentsAmount = comments.length;
@@ -26,3 +26,5 @@ export const createFilmCardComponent = (amount) => {
     </article>`
   );
 };
+
+export {createFilmCardComponent};
