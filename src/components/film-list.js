@@ -2,9 +2,9 @@ import {createFilmCardsComponent} from './film-cards.js';
 import {createShowMoreButtonComponent} from './show-more-button.js';
 import {generateFilmsCards} from './../mock/film-cards.js';
 
-const FILM_CARDS_AMOUNT = 5;
-const FILM_RATED_CARDS_AMOUNT = 2;
-const FILM_COMMENTED_CARDS_AMOUNT = 2;
+const FILM_CARDS_AMOUNT = 20;
+const FILM_RATED_CARDS_AMOUNT = 15;
+const FILM_COMMENTED_CARDS_AMOUNT = 10;
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 const filmCardsTopRated = generateFilmsCards(FILM_RATED_CARDS_AMOUNT);
 const filmCardsMostCommented = generateFilmsCards(FILM_COMMENTED_CARDS_AMOUNT);
