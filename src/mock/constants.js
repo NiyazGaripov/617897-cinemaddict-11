@@ -27,13 +27,13 @@ const COMMENT_DATES = [
 ];
 
 const POSTERS = [
-  `the-dance-of-life`,
-  `sagebrush-trail`,
-  `the-man-with-the-golden-arm`,
-  `santa-claus-conquers-the-martians`,
-  `popeye-meets-sinbad`,
-  `the-great-flamarion`,
-  `made-for-each-other`,
+  `the-dance-of-life.jpg`,
+  `sagebrush-trail.jpg`,
+  `the-man-with-the-golden-arm.jpg`,
+  `santa-claus-conquers-the-martians.jpg`,
+  `popeye-meets-sinbad.png`,
+  `the-great-flamarion.jpg`,
+  `made-for-each-other.png`,
 ];
 
 const FILM_TITLES = [

@@ -12,7 +12,7 @@ export const createFilmCardComponent = (amount) => {
         <span class="film-card__duration">${duration}</span>
         <span class="film-card__genre">${genre}</span>
       </p>
-      <img src="./images/posters/${poster}.jpg" alt="${poster}" class="film-card__poster">
+      <img src="./images/posters/${poster}" alt="${title}" class="film-card__poster">
       <p class="film-card__description">${description}</p>
       <a class="film-card__comments">${commentsAmount} comments</a>
       <form class="film-card__controls">
