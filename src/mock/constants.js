@@ -46,7 +46,7 @@ const FILM_TITLES = [
   `Made for Each Other`,
 ];
 
-const DURATION = [
+const DURATIONS = [
   `1h 55m`,
   `54m`,
   `1h 59m`,
@@ -56,7 +56,7 @@ const DURATION = [
   `1h 32m`,
 ];
 
-const GENRE = [
+const GENRES = [
   `Musical`,
   `Western`,
   `Drama`,
@@ -81,4 +81,4 @@ const PROFILE = [
   `Movie Buff`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATION, GENRE, DESCRIPTION_FILMS, PROFILE};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, PROFILE};

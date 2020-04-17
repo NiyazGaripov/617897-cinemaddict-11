@@ -1,5 +1,5 @@
 import {getRandomIntegerNumber, getRandomArrayItem} from './../utils.js';
-import {POSTERS, FILM_TITLES, DURATION, GENRE, DESCRIPTION_FILMS} from './constants.js';
+import {POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS} from './constants.js';
 import {generateComments} from './comments.js';
 
 const DATE = new Date();
@@ -16,8 +16,8 @@ const generateFilmCard = () => {
   const title = getRandomArrayItem(FILM_TITLES);
   const rating = `${getRandomIntegerNumber(MIN_RATING, MAX_RATING)}.${getRandomIntegerNumber(MIN_RATING, MAX_RATING)}`;
   const releaseYear = getRandomIntegerNumber(MIN_RELEASE_YEAR, MAX_RELEASE_YEAR);
-  const duration = getRandomArrayItem(DURATION);
-  const genre = getRandomArrayItem(GENRE);
+  const duration = getRandomArrayItem(DURATIONS);
+  const genre = getRandomArrayItem(GENRES);
   const description = getRandomArrayItem(DESCRIPTION_FILMS);
   const commentsAmount = getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
   const comments = generateComments(commentsAmount);
