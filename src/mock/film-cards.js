@@ -1,5 +1,5 @@
 import {getRandomIntegerNumber, getRandomArrayItem, getRandomDate} from './../utils.js';
-import {POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS} from './constants.js';
+import {POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES} from './constants.js';
 import {generateComments} from './comments.js';
 
 const MIN_RATING = 0;
@@ -19,6 +19,7 @@ const generateFilmCard = () => {
   const director = getRandomArrayItem(DIRECTORS);
   const writers = WRITERS.join(`, `);
   const actors = ACTORS.join(`, `);
+  const country = getRandomArrayItem(COUNTRIES);
   const commentsAmount = getRandomIntegerNumber(MIN_COMMENTS_AMOUNT, MAX_COMMENTS_AMOUNT);
   const comments = generateComments(commentsAmount);
   const isWatchList = Math.random() > 0.5;
@@ -37,6 +38,7 @@ const generateFilmCard = () => {
     director,
     writers,
     actors,
+    country,
     comments,
     isWatchList,
     isWatched,
