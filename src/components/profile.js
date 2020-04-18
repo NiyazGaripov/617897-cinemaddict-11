@@ -1,8 +1,8 @@
-import {PROFILE} from './../mock/constants.js';
+import {PROFILES} from './../mock/constants.js';
 import {getRandomArrayItem} from './../utils.js';
 
 const createProfileComponent = () => {
-  const userRank = getRandomArrayItem(PROFILE);
+  const userRank = getRandomArrayItem(PROFILES);
   return (
     `<section class="header__profile profile">
       <p class="profile__rating">${userRank}</p>
