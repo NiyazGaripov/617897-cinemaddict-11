@@ -1,6 +1,7 @@
 const createFilmCardComponent = (amount) => {
-  const {poster, title, rating, releaseYear, duration, genre, description, comments, isWatchList, isWatched, isFavorite} = amount;
+  const {poster, title, rating, release, duration, genre, description, comments, isWatchList, isWatched, isFavorite} = amount;
 
+  const releaseYear = release.getFullYear();
   const commentsAmount = comments.length;
   const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
   const watchedActiveClass = isWatched ? `film-card__controls-item--active` : ``;
