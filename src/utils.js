@@ -32,4 +32,11 @@ const generateDescription = (desc, minAmount, maxAmount) => {
     .join(` `);
 };
 
-export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription};
+const getShortDescription = (desc, limit) => {
+  if (desc.length >= limit) {
+    return desc.slice(0, limit).trim() + `…`;
+  }
+  return desc;
+};
+
+export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription};
