@@ -23,4 +23,13 @@ const getRandomDate = () => {
   return targetDate;
 };
 
-export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate};
+const generateDescription = (desc, minAmount, maxAmount) => {
+  const sentencesAmount = getRandomIntegerNumber(minAmount, maxAmount);
+
+  return new Array(sentencesAmount)
+    .fill(``)
+    .map(() => `${getRandomArrayItem(desc)}`)
+    .join(` `);
+};
+
+export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription};
