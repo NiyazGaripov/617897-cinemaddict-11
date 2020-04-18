@@ -81,6 +81,16 @@ const AGES = [
   `18+`
 ];
 
+const DIRECTORS = [
+  `Anthony Mann`,
+  `Steven Spielberg`,
+  `Martin Scorsese`,
+  `Ridley Scott`,
+  `John Woo`,
+  `Christopher Nolan`,
+  `Peter Jackson`,
+];
+
 const PROFILES = [
   `Novice`,
   `Fan`,
@@ -100,4 +110,4 @@ const SORT_ITEM_NAMES = [
   `rating`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
