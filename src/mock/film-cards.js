@@ -1,4 +1,4 @@
-import {getRandomIntegerNumber, getRandomArrayItem, getRandomDate} from './../utils.js';
+import {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription} from './../utils.js';
 import {POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES} from './constants.js';
 import {generateComments} from './comments.js';
 
@@ -6,6 +6,8 @@ const MIN_RATING = 0;
 const MAX_RATING = 9;
 const MIN_COMMENTS_AMOUNT = 0;
 const MAX_COMMENTS_AMOUNT = 5;
+const MIN_SENTENCES_AMOUNT = 1;
+const MAX_SENTENCES_AMOUNT = 5;
 
 const generateFilmCard = () => {
   const poster = getRandomArrayItem(POSTERS);
@@ -14,7 +16,7 @@ const generateFilmCard = () => {
   const release = getRandomDate();
   const duration = getRandomArrayItem(DURATIONS);
   const genre = getRandomArrayItem(GENRES);
-  const description = getRandomArrayItem(DESCRIPTION_FILMS);
+  const description = generateDescription(DESCRIPTION_FILMS, MIN_SENTENCES_AMOUNT, MAX_SENTENCES_AMOUNT);
   const age = getRandomArrayItem(AGES);
   const director = getRandomArrayItem(DIRECTORS);
   const writers = WRITERS.join(`, `);
