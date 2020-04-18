@@ -75,6 +75,12 @@ const DESCRIPTION_FILMS = [
   `John Mason (James Stewart) is a young, somewhat timid attorney in New York City. He has been doing his job well, and he has a chance of bei…`,
 ];
 
+const AGES = [
+  `6+`,
+  `12+`,
+  `18+`
+];
+
 const PROFILES = [
   `Novice`,
   `Fan`,
@@ -94,4 +100,4 @@ const SORT_ITEM_NAMES = [
   `rating`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, COMMENT_DATES, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
