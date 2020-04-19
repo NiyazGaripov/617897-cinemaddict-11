@@ -28,7 +28,8 @@ const filmCardsComponent = createFilmCardsComponent(filmCards);
 const showMoreButtonComponent = createShowMoreButtonComponent();
 const filmTopRatedCardsComponent = createFilmCardsComponent(filmCardsTopRated);
 const filmMostCommentedCardsComponent = createFilmCardsComponent(filmCardsMostCommented);
-
+const FILM_CARDS_AMOUNT_ON_START = 5;
+const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 
 renderComponent(pageHeader, createProfileComponent());
 renderComponent(pageMain, createNavigationComponent(navList));
