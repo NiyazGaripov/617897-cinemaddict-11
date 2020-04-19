@@ -39,7 +39,6 @@ const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 const filmsListTopRatedContainer = films.querySelector(`.films-list--extra .films-list__container`);
 const filmsListMostCommentedContainer = films.querySelector(`.films-list--extra:last-child .films-list__container`);
-const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
 
 filmCards
   .slice(BEGIN_INDEX, showingFilmCards)
@@ -58,3 +57,17 @@ filmCardsMostCommented.forEach((card) => {
 renderComponent(filmsList, showMoreButtonComponent);
 renderComponent(pageFooter, createFilmStatisticsComponent());
 // renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
+
+const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
+
+showMoreButton.addEventListener(`click`, () => {
+  const prevFilmCards = showingFilmCards;
+  showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
+
+  filmCards
+    .slice(prevFilmCards, showingFilmCards)
+    .forEach((card) => {
+      renderComponent(filmsListContainer, createFilmCardComponent(card));
+    });
+
+});
