@@ -39,4 +39,10 @@ const getShortDescription = (desc, limit) => {
   return desc;
 };
 
-export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription};
+const setValueFormat = (value) => {
+  const COEFFICIENT = 10;
+
+  return value < COEFFICIENT ? `0${value}` : String(value);
+};
+
+export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat};
