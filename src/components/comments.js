@@ -1,5 +1,15 @@
+import {setValueFormat} from './../utils.js';
+
 const createCommentComponent = (comment) => {
   const {text, emoji, author, date} = comment;
+
+  const MONTH_COEFFICIENT = 1;
+  const year = date.getFullYear();
+  const month = setValueFormat(date.getMonth() + MONTH_COEFFICIENT);
+  const day = date.getDate();
+  const hours = setValueFormat(date.getHours());
+  const minutes = setValueFormat(date.getMinutes());
+  const commentDate = `${year}/${month}/${day} ${hours}:${minutes}`;
 
   return (
     `<li class="film-details__comment">
@@ -10,7 +20,7 @@ const createCommentComponent = (comment) => {
         <p class="film-details__comment-text">${text}</p>
         <p class="film-details__comment-info">
           <span class="film-details__comment-author">${author}</span>
-          <span class="film-details__comment-day">${date}</span>
+          <span class="film-details__comment-day">${commentDate}</span>
           <button class="film-details__comment-delete">Delete</button>
         </p>
       </div>
