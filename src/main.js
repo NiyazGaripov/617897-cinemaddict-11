@@ -2,11 +2,14 @@ import {renderComponent} from './utils.js';
 import {createProfileComponent} from './components/profile.js';
 import {createNavigationComponent} from './components/navigation.js';
 import {createSortComponent} from './components/sorting.js';
+import {createFilmCardsComponent} from './components/film-cards.js';
 import {createFilmsListComponent} from './components/film-list.js';
+import {createShowMoreButtonComponent} from './components/show-more-button.js';
 import {createFilmStatisticsComponent} from './components/film-statistics.js';
 import {createFilmDetailsComponent} from './components/film-details.js';
 import {generateNavigationList} from './mock/nav-list.js';
 import {generateSortList} from './mock/sort-list.js';
+import {generateFilmsCards} from './mock/film-cards.js';
 import {FILM_SECTIONS} from './mock/constants.js';
 
 const pageHeader = document.querySelector(`.header`);
