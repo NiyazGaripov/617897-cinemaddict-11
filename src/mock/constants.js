@@ -123,6 +123,21 @@ const COUNTRIES = [
   `Canada`,
 ];
 
+const FILM_SECTIONS = [
+  {
+    section: ``,
+    title: `All movies. Upcoming`
+  },
+  {
+    section: `extra`,
+    title: `Top rated`
+  },
+  {
+    section: `extra`,
+    title: `Most commented`
+  }
+];
+
 const PROFILES = [
   `Novice`,
   `Fan`,
@@ -142,4 +157,4 @@ const SORT_ITEM_NAMES = [
   `rating`,
 ];
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, MONTH_NAMES, COUNTRIES, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, MONTH_NAMES, COUNTRIES, FILM_SECTIONS, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES};
