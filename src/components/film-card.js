@@ -1,9 +1,10 @@
-import {getShortDescription} from './../utils.js';
+import {getRandomArrayItem, getShortDescription} from './../utils.js';
 
 const createFilmCardComponent = (amount) => {
-  const {poster, title, rating, release, duration, genre, description, comments, isWatchList, isWatched, isFavorite} = amount;
+  const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = amount;
 
   const releaseYear = release.getFullYear();
+  const genre = getRandomArrayItem(genres);
   const shortDescription = getShortDescription(description, 140);
   const commentsAmount = comments.length;
   const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
@@ -17,7 +18,7 @@ const createFilmCardComponent = (amount) => {
       <p class="film-card__info">
         <span class="film-card__year">${releaseYear}</span>
         <span class="film-card__duration">${duration}</span>
-        <span class="film-card__genre">${genre}</span>
+        <span class="film-card__genre">${genre.name}</span>
       </p>
       <img src="./images/posters/${poster}" alt="${title}" class="film-card__poster">
       <p class="film-card__description">${shortDescription}</p>
