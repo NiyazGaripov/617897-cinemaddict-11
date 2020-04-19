@@ -17,3 +17,14 @@ const createCommentComponent = (comment) => {
     </li>`
   );
 };
+const createCommentsComponent = (comments) => {
+  const commentsComponent = comments.map((comment) => createCommentComponent(comment)).join(`\n`);
+
+  return (
+    `<ul class="film-details__comments-list">
+      ${commentsComponent}
+    </ul>`
+  );
+};
+
+export {createCommentsComponent};
