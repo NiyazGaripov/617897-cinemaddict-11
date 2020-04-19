@@ -40,5 +40,9 @@ const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 const filmsListTopRatedContainer = films.querySelector(`.films-list--extra .films-list__container`);
 const filmsListMostCommentedContainer = films.querySelector(`.films-list--extra:last-child .films-list__container`);
 
+renderComponent(filmsListContainer, filmCardsComponent);
+renderComponent(filmsList, showMoreButtonComponent);
+renderComponent(filmsListTopRatedContainer, filmTopRatedCardsComponent);
+renderComponent(filmsListMostCommentedContainer, filmMostCommentedCardsComponent);
 renderComponent(pageFooter, createFilmStatisticsComponent());
-// renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
+renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
