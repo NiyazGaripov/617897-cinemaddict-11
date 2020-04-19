@@ -1,48 +1,27 @@
-import {createFilmCardsComponent} from './film-cards.js';
-import {createShowMoreButtonComponent} from './show-more-button.js';
-import {generateFilmsCards} from './../mock/film-cards.js';
+const createFilmSectionsComponent = (item) => {
+  const {section, title} = item;
 
-const FILM_CARDS_AMOUNT = 20;
-const FILM_RATED_CARDS_AMOUNT = 15;
-const FILM_COMMENTED_CARDS_AMOUNT = 10;
-const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
-const filmCardsTopRated = generateFilmsCards(FILM_RATED_CARDS_AMOUNT);
-const filmCardsMostCommented = generateFilmsCards(FILM_COMMENTED_CARDS_AMOUNT);
-
-export const createFilmsListComponent = () => {
-  const filmCardsComponent = createFilmCardsComponent(filmCards);
-  const showMoreButtonComponent = createShowMoreButtonComponent();
-  const filmTopRatedCardsComponent = createFilmCardsComponent(filmCardsTopRated);
-  const filmMostCommentedCardsComponent = createFilmCardsComponent(filmCardsMostCommented);
-
+  const sectionClass = section === `extra` ? `films-list--extra` : `films-list`;
+  const hiddenClass = section === `extra` ? `` : `visually-hidden`;
   return (
-    `<section class="films">
-      <section class="films-list">
-        <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
+    `<section class="${sectionClass}">
+      <h2 class="films-list__title ${hiddenClass}">${title}</h2>
 
-        <div class="films-list__container">
-          ${filmCardsComponent}
-        </div>
+      <div class="films-list__container">
 
-          ${showMoreButtonComponent}
-      </section>
-
-      <section class="films-list--extra">
-        <h2 class="films-list__title">Top rated</h2>
-
-        <div class="films-list__container">
-          ${filmTopRatedCardsComponent}
-        </div>
-      </section>
-
-      <section class="films-list--extra">
-        <h2 class="films-list__title">Most commented</h2>
-
-        <div class="films-list__container">
-          ${filmMostCommentedCardsComponent}
-        </div>
-
-      </section>
+      </div>
     </section>`
   );
 };
+
+const createFilmsListComponent = (sections) => {
+  const filmSections = sections.map((section) => createFilmSectionsComponent(section)).join(`\n`);
+
+  return (
+    `<section class="films">
+      ${filmSections}
+    </section>`
+  );
+};
+
+export {createFilmsListComponent};
