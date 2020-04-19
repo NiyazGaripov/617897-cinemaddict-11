@@ -39,6 +39,7 @@ const filmsList = films.querySelector(`.films-list`);
 const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 const filmsListTopRatedContainer = films.querySelector(`.films-list--extra .films-list__container`);
 const filmsListMostCommentedContainer = films.querySelector(`.films-list--extra:last-child .films-list__container`);
+const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
 
 filmCards
   .slice(BEGIN_INDEX, showingFilmCards)
