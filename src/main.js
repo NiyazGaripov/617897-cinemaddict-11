@@ -2,7 +2,7 @@ import {renderComponent} from './utils.js';
 import {createProfileComponent} from './components/profile.js';
 import {createNavigationComponent} from './components/navigation.js';
 import {createSortComponent} from './components/sorting.js';
-import {createFilmCardsComponent} from './components/film-cards.js';
+import {createFilmCardComponent} from './components/film-card.js';
 import {createFilmsListComponent} from './components/film-list.js';
 import {createShowMoreButtonComponent} from './components/show-more-button.js';
 import {createFilmStatisticsComponent} from './components/film-statistics.js';
@@ -20,16 +20,14 @@ const sortList = generateSortList();
 const FILM_CARDS_AMOUNT = 20;
 const FILM_RATED_CARDS_AMOUNT = 2;
 const FILM_COMMENTED_CARDS_AMOUNT = 2;
-const FIRST_INDEX = 0;
+const BEGIN_INDEX = 0;
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
-const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(FIRST_INDEX, FILM_RATED_CARDS_AMOUNT);
-const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(FIRST_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
-const filmCardsComponent = createFilmCardsComponent(filmCards);
+const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
+const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
 const showMoreButtonComponent = createShowMoreButtonComponent();
-const filmTopRatedCardsComponent = createFilmCardsComponent(filmCardsTopRated);
-const filmMostCommentedCardsComponent = createFilmCardsComponent(filmCardsMostCommented);
 const FILM_CARDS_AMOUNT_ON_START = 5;
 const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
+let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
 renderComponent(pageHeader, createProfileComponent());
 renderComponent(pageMain, createNavigationComponent(navList));
@@ -42,9 +40,20 @@ const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 const filmsListTopRatedContainer = films.querySelector(`.films-list--extra .films-list__container`);
 const filmsListMostCommentedContainer = films.querySelector(`.films-list--extra:last-child .films-list__container`);
 
-renderComponent(filmsListContainer, filmCardsComponent);
+filmCards
+  .slice(BEGIN_INDEX, showingFilmCards)
+  .forEach((card) => {
+    renderComponent(filmsListContainer, createFilmCardComponent(card));
+  });
+
+filmCardsTopRated.forEach((card) => {
+  renderComponent(filmsListTopRatedContainer, createFilmCardComponent(card));
+});
+
+filmCardsMostCommented.forEach((card) => {
+  renderComponent(filmsListMostCommentedContainer, createFilmCardComponent(card));
+});
+
 renderComponent(filmsList, showMoreButtonComponent);
-renderComponent(filmsListTopRatedContainer, filmTopRatedCardsComponent);
-renderComponent(filmsListMostCommentedContainer, filmMostCommentedCardsComponent);
 renderComponent(pageFooter, createFilmStatisticsComponent());
-renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
+// renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
