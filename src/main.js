@@ -33,5 +33,12 @@ renderComponent(pageHeader, createProfileComponent());
 renderComponent(pageMain, createNavigationComponent(navList));
 renderComponent(pageMain, createSortComponent(sortList));
 renderComponent(pageMain, createFilmsListComponent(FILM_SECTIONS));
+
+const films = document.querySelector(`.films`);
+const filmsList = films.querySelector(`.films-list`);
+const filmsListContainer = filmsList.querySelector(`.films-list__container`);
+const filmsListTopRatedContainer = films.querySelector(`.films-list--extra .films-list__container`);
+const filmsListMostCommentedContainer = films.querySelector(`.films-list--extra:last-child .films-list__container`);
+
 renderComponent(pageFooter, createFilmStatisticsComponent());
 // renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
