@@ -70,4 +70,7 @@ showMoreButton.addEventListener(`click`, () => {
       renderComponent(filmsListContainer, createFilmCardComponent(card));
     });
 
+  if (showingFilmCards >= filmCards.length) {
+    showMoreButton.remove();
+  }
 });
