@@ -56,9 +56,15 @@ filmCardsMostCommented.forEach((card) => {
 
 renderComponent(filmsList, showMoreButtonComponent);
 renderComponent(pageFooter, createFilmStatisticsComponent());
-// renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
 
+const filmCardCollections = films.querySelectorAll(`.film-card`);
 const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
+
+filmCardCollections.forEach((it) => {
+  it.addEventListener(`click`, () => {
+    renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
+  });
+});
 
 showMoreButton.addEventListener(`click`, () => {
   const prevFilmCards = showingFilmCards;
