@@ -1,3 +1,7 @@
+const MIN_COEFFICIENT = 0;
+const MAX_COEFFICIENT = 30000;
+const MAX_VALUE = 10;
+
 const renderComponent = (container, component, place = `beforeend`) => {
   container.insertAdjacentHTML(place, component);
 };
@@ -13,8 +17,6 @@ const getRandomArrayItem = (array) => {
 };
 
 const getRandomDate = () => {
-  const MIN_COEFFICIENT = 0;
-  const MAX_COEFFICIENT = 30000;
   const targetDate = new Date();
   const diffValue = getRandomIntegerNumber(MIN_COEFFICIENT, MAX_COEFFICIENT);
 
@@ -40,9 +42,7 @@ const getShortDescription = (desc, limit) => {
 };
 
 const setValueFormat = (value) => {
-  const COEFFICIENT = 10;
-
-  return value < COEFFICIENT ? `0${value}` : String(value);
+  return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
 export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat};
