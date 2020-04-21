@@ -11,7 +11,6 @@ const createGenresMarkup = (genres) => {
 };
 const createFilmDetailsComponent = (film) => {
   const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, comments, isWatchList, isWatched, isFavorite} = film;
-
   const releaseDate = `${release.getDate()} ${MONTH_NAMES[release.getMonth()]} ${release.getFullYear()}`;
   const createGenres = createGenresMarkup(genres);
   const commentsAmount = comments.length;

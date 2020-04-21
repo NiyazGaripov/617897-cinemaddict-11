@@ -2,7 +2,6 @@ import {getRandomArrayItem, getShortDescription} from './../utils.js';
 
 const createFilmCardComponent = (amount) => {
   const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = amount;
-
   const releaseYear = release.getFullYear();
   const genre = getRandomArrayItem(genres);
   const shortDescription = getShortDescription(description, 140);

@@ -12,21 +12,21 @@ import {generateSortList} from './mock/sort-list.js';
 import {generateFilmsCards} from './mock/film-cards.js';
 import {FILM_SECTIONS} from './mock/constants.js';
 
+const FILM_CARDS_AMOUNT = 20;
+const FILM_RATED_CARDS_AMOUNT = 2;
+const FILM_COMMENTED_CARDS_AMOUNT = 2;
+const BEGIN_INDEX = 0;
+const FILM_CARDS_AMOUNT_ON_START = 5;
+const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 const pageHeader = document.querySelector(`.header`);
 const pageMain = document.querySelector(`.main`);
 const pageFooter = document.querySelector(`.footer`);
 const navList = generateNavigationList();
 const sortList = generateSortList();
-const FILM_CARDS_AMOUNT = 20;
-const FILM_RATED_CARDS_AMOUNT = 2;
-const FILM_COMMENTED_CARDS_AMOUNT = 2;
-const BEGIN_INDEX = 0;
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
 const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
 const showMoreButtonComponent = createShowMoreButtonComponent();
-const FILM_CARDS_AMOUNT_ON_START = 5;
-const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
 renderComponent(pageHeader, createProfileComponent());

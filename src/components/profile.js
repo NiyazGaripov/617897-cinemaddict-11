@@ -3,6 +3,7 @@ import {getRandomArrayItem} from './../utils.js';
 
 const createProfileComponent = () => {
   const userRank = getRandomArrayItem(PROFILES);
+
   return (
     `<section class="header__profile profile">
       <p class="profile__rating">${userRank}</p>

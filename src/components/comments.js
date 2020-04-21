@@ -1,9 +1,8 @@
 import {setValueFormat} from './../utils.js';
 
 const createCommentComponent = (comment) => {
-  const {text, emoji, author, date} = comment;
-
   const MONTH_COEFFICIENT = 1;
+  const {text, emoji, author, date} = comment;
   const year = date.getFullYear();
   const month = setValueFormat(date.getMonth() + MONTH_COEFFICIENT);
   const day = date.getDate();
