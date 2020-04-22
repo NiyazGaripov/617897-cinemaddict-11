@@ -1,9 +1,22 @@
-export const createSortComponent = () => {
+const createSortItemComponent = (item, isActive) => {
+  const {title} = item;
+  const activeClass = isActive ? `sort__button--active` : ``;
+
+  return (
+    `<li>
+      <a href="#" class="sort__button ${activeClass}">Sort by ${title}</a>
+    </li>`
+  );
+};
+
+const createSortComponent = (list) => {
+  const createSortList = list.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
+
   return (
     `<ul class="sort">
-      <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
-      <li><a href="#" class="sort__button">Sort by date</a></li>
-      <li><a href="#" class="sort__button">Sort by rating</a></li>
+      ${createSortList}
     </ul>`
   );
 };
+
+export {createSortComponent};
