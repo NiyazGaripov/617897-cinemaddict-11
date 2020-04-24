@@ -1,5 +1,5 @@
 import {PROFILES} from './../mock/constants.js';
-import {getRandomArrayItem} from './../utils.js';
+import {getRandomArrayItem, createElement} from './../utils.js';
 
 const createProfileComponent = () => {
   const userRank = getRandomArrayItem(PROFILES);
@@ -12,4 +12,26 @@ const createProfileComponent = () => {
   );
 };
 
-export {createProfileComponent};
+class Profile {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createProfileComponent();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Profile};
