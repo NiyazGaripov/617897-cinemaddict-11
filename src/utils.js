@@ -57,4 +57,11 @@ const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
-export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat};
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement};
