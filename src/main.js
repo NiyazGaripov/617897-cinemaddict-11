@@ -71,4 +71,9 @@ const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.lengt
 renderComponent(pageHeader, new Profile().getElement());
 renderComponent(pageMain, new Navigation(navList).getElement());
 renderComponent(pageMain, new Sort(sortList).getElement());
-renderComponent(pageMain, new FilmList(FILM_SECTIONS).getElement());
+
+const filmListComponent = new FilmList(FILM_SECTIONS);
+renderComponent(pageMain, filmListComponent.getElement());
+renderFilmList(filmListComponent, filmCards);
+renderFilmListTopRated(filmListComponent, filmCardsTopRated);
+renderFilmListMostCommented(filmListComponent, filmCardsMostCommented);
