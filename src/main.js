@@ -102,12 +102,3 @@ renderFilmListTopRated(filmListComponent, filmCardsTopRated);
 renderFilmListMostCommented(filmListComponent, filmCardsMostCommented);
 
 renderComponent(pageFooter, new FilmStatistics().getElement());
-
-// const filmCardCollections = films.querySelectorAll(`.film-card`);
-// const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
-
-// filmCardCollections.forEach((it) => {
-//   it.addEventListener(`click`, () => {
-//     renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
-//   });
-// });
