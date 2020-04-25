@@ -45,6 +45,15 @@ const renderFilmListTopRated = (filmListComponent, filmCards) => {
     });
 };
 
+const renderFilmListMostCommented = (filmListComponent, filmCards) => {
+  const filmsListContainer = filmListComponent.getElement().querySelector(`.films-list--extra:last-child .films-list__container`);
+
+  filmCards
+    .forEach((card) => {
+      renderFilmCard(filmsListContainer, card);
+    });
+};
+
 const pageHeader = document.querySelector(`.header`);
 const pageMain = document.querySelector(`.main`);
 const pageFooter = document.querySelector(`.footer`);
