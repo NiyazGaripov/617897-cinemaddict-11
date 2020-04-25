@@ -15,7 +15,7 @@ const createFilmDetailsComponent = (film) => {
   const releaseDate = `${release.getDate()} ${MONTH_NAMES[release.getMonth()]} ${release.getFullYear()}`;
   const createGenres = createGenresMarkup(genres);
   const commentsAmount = comments.length;
-  const commentList = new Comment(comments).getElement();
+  const commentList = new Comment(comments).getTemplate();
 
   return (
     `<section class="film-details">
