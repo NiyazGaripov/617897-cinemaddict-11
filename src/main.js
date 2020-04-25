@@ -36,6 +36,15 @@ const renderFilmList = (filmListComponent, filmCards) => {
     });
 };
 
+const renderFilmListTopRated = (filmListComponent, filmCards) => {
+  const filmsListContainer = filmListComponent.getElement().querySelector(`.films-list--extra .films-list__container`);
+
+  filmCards
+    .forEach((card) => {
+      renderFilmCard(filmsListContainer, card);
+    });
+};
+
 const pageHeader = document.querySelector(`.header`);
 const pageMain = document.querySelector(`.main`);
 const pageFooter = document.querySelector(`.footer`);
