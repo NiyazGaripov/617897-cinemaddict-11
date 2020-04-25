@@ -26,5 +26,5 @@ const sortList = generateSortList();
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
 const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
-const showMoreButtonComponent = createShowMoreButtonComponent();
+const showMoreButtonComponent = new ShowMoreButton().getElement();
 let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
