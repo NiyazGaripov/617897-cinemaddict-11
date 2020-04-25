@@ -25,11 +25,34 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
   const filmTitle = filmCardComponent.getElement().querySelector(`.film-card__title`);
   const filmComments = filmCardComponent.getElement().querySelector(`.film-card__comments`);
 
+  const onCardElementClick = () => {
+    document.body.appendChild(filmInfoComponent.getElement());
+  };
+
+  const onFilmInfoCloseButtonClick = () => {
+    document.body.removeChild(filmInfoComponent.getElement());
+  };
+
+  filmPoster.addEventListener(`click`, () => {
+    onCardElementClick();
+  });
+
+  filmTitle.addEventListener(`click`, () => {
+    onCardElementClick();
+  });
+
+  filmComments.addEventListener(`click`, () => {
+    onCardElementClick();
+  });
+
   const filmInfoComponent = new FilmInfo(filmCard);
   const filmInfoCloseButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
 
+  filmInfoCloseButton.addEventListener(`click`, () => {
+    onFilmInfoCloseButtonClick();
+  });
+
   renderComponent(filmsListContainer, filmCardComponent.getElement());
-  // renderComponent(document.body, filmInfoComponent.getElement());
 };
 
 const renderFilmList = (filmListComponent, filmCards) => {
