@@ -32,3 +32,4 @@ let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 renderComponent(pageHeader, new Profile().getElement());
 renderComponent(pageMain, new Navigation(navList).getElement());
 renderComponent(pageMain, new Sort(sortList).getElement());
+renderComponent(pageMain, new FilmList(FILM_SECTIONS).getElement());
