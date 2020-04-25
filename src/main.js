@@ -30,3 +30,4 @@ const showMoreButtonComponent = new ShowMoreButton().getElement();
 let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
 renderComponent(pageHeader, new Profile().getElement());
+renderComponent(pageMain, new Navigation(navList).getElement());
