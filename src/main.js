@@ -26,6 +26,7 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
 };
 
 const renderFilmList = (filmListComponent, filmCards) => {
+  const filmsListSection = filmListComponent.getElement().querySelector(`.films-list`);
   const filmsListContainer = filmListComponent.getElement().querySelector(`.films-list .films-list__container`);
   let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
@@ -34,6 +35,10 @@ const renderFilmList = (filmListComponent, filmCards) => {
     .forEach((card) => {
       renderFilmCard(filmsListContainer, card);
     });
+
+  const showMoreButtonComponent = new ShowMoreButton();
+
+  renderComponent(filmsListSection, showMoreButtonComponent.getElement());
 };
 
 const renderFilmListTopRated = (filmListComponent, filmCards) => {
@@ -62,7 +67,6 @@ const sortList = generateSortList();
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
 const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
-const showMoreButtonComponent = new ShowMoreButton().getElement();
 
 renderComponent(pageHeader, new Profile().getElement());
 renderComponent(pageMain, new Navigation(navList).getElement());
