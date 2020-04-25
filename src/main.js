@@ -21,8 +21,15 @@ const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 
 const renderFilmCard = (filmsListContainer, filmCard) => {
   const filmCardComponent = new FilmCard(filmCard);
+  const filmPoster = filmCardComponent.getElement().querySelector(`img`);
+  const filmTitle = filmCardComponent.getElement().querySelector(`.film-card__title`);
+  const filmComments = filmCardComponent.getElement().querySelector(`.film-card__comments`);
+
+  const filmInfoComponent = new FilmInfo(filmCard);
+  const filmInfoCloseButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
 
   renderComponent(filmsListContainer, filmCardComponent.getElement());
+  // renderComponent(document.body, filmInfoComponent.getElement());
 };
 
 const renderFilmList = (filmListComponent, filmCards) => {
@@ -95,3 +102,12 @@ renderFilmListTopRated(filmListComponent, filmCardsTopRated);
 renderFilmListMostCommented(filmListComponent, filmCardsMostCommented);
 
 renderComponent(pageFooter, new FilmStatistics().getElement());
+
+// const filmCardCollections = films.querySelectorAll(`.film-card`);
+// const showMoreButton = filmsList.querySelector(`.films-list__show-more`);
+
+// filmCardCollections.forEach((it) => {
+//   it.addEventListener(`click`, () => {
+//     renderComponent(document.body, createFilmDetailsComponent(filmCards[0]));
+//   });
+// });
