@@ -39,6 +39,22 @@ const renderFilmList = (filmListComponent, filmCards) => {
   const showMoreButtonComponent = new ShowMoreButton();
 
   renderComponent(filmsListSection, showMoreButtonComponent.getElement());
+
+  showMoreButtonComponent.getElement().addEventListener(`click`, () => {
+    const prevFilmCards = showingFilmCards;
+    showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
+
+    filmCards
+      .slice(prevFilmCards, showingFilmCards)
+      .forEach((card) => {
+        renderFilmCard(filmsListContainer, card);
+      });
+
+    if (showingFilmCards >= filmCards.length) {
+      showMoreButtonComponent.getElement().remove();
+      showMoreButtonComponent.removeElement();
+    }
+  });
 };
 
 const renderFilmListTopRated = (filmListComponent, filmCards) => {
