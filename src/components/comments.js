@@ -1,4 +1,4 @@
-import {setValueFormat} from './../utils.js';
+import {setValueFormat, createElement} from './../utils.js';
 
 const createCommentComponent = (comment) => {
   const MONTH_COEFFICIENT = 1;
@@ -36,4 +36,27 @@ const createCommentsComponent = (comments) => {
   );
 };
 
-export {createCommentsComponent};
+class Comment {
+  constructor(comments) {
+    this._comments = comments;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCommentsComponent(this._comments);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Comment};

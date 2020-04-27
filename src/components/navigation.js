@@ -1,3 +1,5 @@
+import {createElement} from './../utils.js';
+
 const createNavigationItemComponent = (item, isActive, hasCount) => {
   const {path, title, amount} = item;
   const activeClass = isActive ? `main-navigation__item--active` : ``;
@@ -23,4 +25,27 @@ const createNavigationComponent = (list) => {
   );
 };
 
-export {createNavigationComponent};
+class Navigation {
+  constructor(list) {
+    this._list = list;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createNavigationComponent(this._list);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {Navigation};

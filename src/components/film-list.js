@@ -1,3 +1,5 @@
+import {createElement} from './../utils.js';
+
 const createFilmSectionsComponent = (item) => {
   const {section, title} = item;
   const sectionClass = section === `extra` ? `films-list--extra` : `films-list`;
@@ -14,7 +16,7 @@ const createFilmSectionsComponent = (item) => {
   );
 };
 
-const createFilmsListComponent = (sections) => {
+const createFilmListComponent = (sections) => {
   const filmSections = sections.map((section) => createFilmSectionsComponent(section)).join(`\n`);
 
   return (
@@ -23,5 +25,27 @@ const createFilmsListComponent = (sections) => {
     </section>`
   );
 };
+class FilmList {
+  constructor(sections) {
+    this._sections = sections;
+    this._element = null;
+  }
 
-export {createFilmsListComponent};
+  getTemplate() {
+    return createFilmListComponent(this._sections);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {FilmList};

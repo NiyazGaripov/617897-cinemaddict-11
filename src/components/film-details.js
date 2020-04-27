@@ -1,5 +1,6 @@
 import {MONTH_NAMES} from './../mock/constants.js';
-import {createCommentsComponent} from './comments.js';
+import {Comment} from './comments.js';
+import {createElement} from './../utils.js';
 
 const createGenresMarkup = (genres) => {
   return genres.map((genre) => {
@@ -14,7 +15,7 @@ const createFilmDetailsComponent = (film) => {
   const releaseDate = `${release.getDate()} ${MONTH_NAMES[release.getMonth()]} ${release.getFullYear()}`;
   const createGenres = createGenresMarkup(genres);
   const commentsAmount = comments.length;
-  const commentList = createCommentsComponent(comments);
+  const commentList = new Comment(comments).getTemplate();
 
   return (
     `<section class="film-details">
@@ -135,4 +136,27 @@ const createFilmDetailsComponent = (film) => {
   );
 };
 
-export {createFilmDetailsComponent};
+class FilmInfo {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmDetailsComponent(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {FilmInfo};

@@ -1,7 +1,7 @@
-import {getRandomArrayItem, getShortDescription} from './../utils.js';
+import {getRandomArrayItem, getShortDescription, createElement} from './../utils.js';
 
-const createFilmCardComponent = (amount) => {
-  const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = amount;
+const createFilmCardComponent = (filmCard) => {
+  const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = filmCard;
   const releaseYear = release.getFullYear();
   const genre = getRandomArrayItem(genres);
   const shortDescription = getShortDescription(description, 140);
@@ -31,4 +31,27 @@ const createFilmCardComponent = (amount) => {
   );
 };
 
-export {createFilmCardComponent};
+class FilmCard {
+  constructor(filmCard) {
+    this._filmCard = filmCard;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmCardComponent(this._filmCard);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {FilmCard};

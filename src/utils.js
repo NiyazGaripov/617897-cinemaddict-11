@@ -2,8 +2,20 @@ const MIN_COEFFICIENT = 0;
 const MAX_COEFFICIENT = 30000;
 const MAX_VALUE = 10;
 
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
 const renderComponent = (container, component, place = `beforeend`) => {
-  container.insertAdjacentHTML(place, component);
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(component);
+      break;
+    case RenderPosition.BEFOREEND:
+      container.append(component);
+      break;
+  }
 };
 
 const getRandomIntegerNumber = (min, max) => {
@@ -45,4 +57,11 @@ const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
-export {renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat};
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement};
