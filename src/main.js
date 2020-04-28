@@ -69,6 +69,12 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
 const renderFilmList = (filmListComponent, filmCards) => {
   const filmsListSection = filmListComponent.getElement().querySelector(`.films-list`);
   const filmsListContainer = filmListComponent.getElement().querySelector(`.films-list .films-list__container`);
+  const hasFilms = filmCards.length > 0;
+
+  if (!hasFilms) {
+    renderComponent(filmsListSection, new NoData().getElement());
+  }
+
   let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
   const renderCards = (cards, container, begin, end) => {
