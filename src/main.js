@@ -7,6 +7,7 @@ import {FilmList} from './components/film-list.js';
 import {ShowMoreButton} from './components/show-more-button.js';
 import {FilmStatistics} from './components/film-statistics.js';
 import {FilmInfo} from './components/film-details.js';
+import {NoData} from './components/no-data.js';
 import {generateNavigationList} from './mock/nav-list.js';
 import {generateSortList} from './mock/sort-list.js';
 import {generateFilmsCards} from './mock/film-cards.js';
