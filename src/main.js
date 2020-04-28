@@ -20,33 +20,36 @@ const FILM_CARDS_AMOUNT_ON_START = 5;
 const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 
 const renderFilmCard = (filmsListContainer, filmCard) => {
+  const body = document.body;
   const filmCardComponent = new FilmCard(filmCard);
   const filmPoster = filmCardComponent.getElement().querySelector(`img`);
   const filmTitle = filmCardComponent.getElement().querySelector(`.film-card__title`);
   const filmComments = filmCardComponent.getElement().querySelector(`.film-card__comments`);
 
-  const onCardElementClick = () => {
-    document.body.appendChild(filmInfoComponent.getElement());
+  const showFilmDetails = () => {
+    body.classList.add(`hide-overflow`);
+    body.appendChild(filmInfoComponent.getElement());
   };
 
-  const onFilmInfoCloseButtonClick = () => {
-    document.body.removeChild(filmInfoComponent.getElement());
+  const hideFilmDetails = () => {
+    body.classList.remove(`hide-overflow`);
+    body.removeChild(filmInfoComponent.getElement());
   };
 
-  const setEventListener = (element, callback) => {
-    element.addEventListener(`click`, () => {
+  const setEventListener = (element, evt, callback) => {
+    element.addEventListener(evt, () => {
       callback();
     });
   };
 
-  setEventListener(filmPoster, onCardElementClick);
-  setEventListener(filmTitle, onCardElementClick);
-  setEventListener(filmComments, onCardElementClick);
+  setEventListener(filmPoster, `click`, showFilmDetails);
+  setEventListener(filmTitle, `click`, showFilmDetails);
+  setEventListener(filmComments, `click`, showFilmDetails);
 
   const filmInfoComponent = new FilmInfo(filmCard);
   const filmInfoCloseButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
 
-  setEventListener(filmInfoCloseButton, onFilmInfoCloseButtonClick);
+  setEventListener(filmInfoCloseButton, `click`, hideFilmDetails);
 
   renderComponent(filmsListContainer, filmCardComponent.getElement());
 };
