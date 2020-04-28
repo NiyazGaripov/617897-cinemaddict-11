@@ -29,11 +29,22 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
   const showFilmDetails = () => {
     body.classList.add(`hide-overflow`);
     body.appendChild(filmInfoComponent.getElement());
+    document.addEventListener(`keydown`, onEscKeyDown);
   };
 
   const hideFilmDetails = () => {
     body.classList.remove(`hide-overflow`);
     body.removeChild(filmInfoComponent.getElement());
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  };
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      hideFilmDetails();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
   };
 
   const setEventListener = (element, evt, callback) => {
