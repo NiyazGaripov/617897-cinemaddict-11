@@ -1,6 +1,7 @@
 const MIN_COEFFICIENT = 0;
 const MAX_COEFFICIENT = 30000;
 const MAX_VALUE = 10;
+const ESC_KEYCODE = 27;
 
 const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
@@ -64,4 +65,10 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement};
+const onEscKeyDown = (evt, calback) => {
+  if (evt.keyCode === ESC_KEYCODE) {
+    calback();
+  }
+};
+
+export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement, onEscKeyDown};

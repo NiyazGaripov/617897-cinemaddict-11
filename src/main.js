@@ -1,4 +1,4 @@
-import {renderComponent} from './utils.js';
+import {renderComponent, onEscKeyDown} from './utils.js';
 import {Profile} from './components/profile.js';
 import {Navigation} from './components/navigation.js';
 import {Sort} from './components/sort.js';
@@ -7,6 +7,7 @@ import {FilmList} from './components/film-list.js';
 import {ShowMoreButton} from './components/show-more-button.js';
 import {FilmStatistics} from './components/film-statistics.js';
 import {FilmInfo} from './components/film-details.js';
+import {NoData} from './components/no-data.js';
 import {generateNavigationList} from './mock/nav-list.js';
 import {generateSortList} from './mock/sort-list.js';
 import {generateFilmsCards} from './mock/film-cards.js';
@@ -20,33 +21,43 @@ const FILM_CARDS_AMOUNT_ON_START = 5;
 const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 
 const renderFilmCard = (filmsListContainer, filmCard) => {
+  const body = document.body;
   const filmCardComponent = new FilmCard(filmCard);
   const filmPoster = filmCardComponent.getElement().querySelector(`img`);
   const filmTitle = filmCardComponent.getElement().querySelector(`.film-card__title`);
   const filmComments = filmCardComponent.getElement().querySelector(`.film-card__comments`);
 
-  const onCardElementClick = () => {
-    document.body.appendChild(filmInfoComponent.getElement());
+  const showFilmDetails = () => {
+    body.classList.add(`hide-overflow`);
+    body.appendChild(filmInfoComponent.getElement());
+    document.addEventListener(`keydown`, onDocumentEscKeyDown);
   };
 
-  const onFilmInfoCloseButtonClick = () => {
-    document.body.removeChild(filmInfoComponent.getElement());
+  const hideFilmDetails = () => {
+    body.classList.remove(`hide-overflow`);
+    body.removeChild(filmInfoComponent.getElement());
+    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
   };
 
-  const setEventListener = (element, callback) => {
-    element.addEventListener(`click`, () => {
+  const onDocumentEscKeyDown = (evt) => {
+    onEscKeyDown(evt, hideFilmDetails);
+    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
+  };
+
+  const setEventListener = (element, evt, callback) => {
+    element.addEventListener(evt, () => {
       callback();
     });
   };
 
-  setEventListener(filmPoster, onCardElementClick);
-  setEventListener(filmTitle, onCardElementClick);
-  setEventListener(filmComments, onCardElementClick);
+  setEventListener(filmPoster, `click`, showFilmDetails);
+  setEventListener(filmTitle, `click`, showFilmDetails);
+  setEventListener(filmComments, `click`, showFilmDetails);
 
   const filmInfoComponent = new FilmInfo(filmCard);
   const filmInfoCloseButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
 
-  setEventListener(filmInfoCloseButton, onFilmInfoCloseButtonClick);
+  setEventListener(filmInfoCloseButton, `click`, hideFilmDetails);
 
   renderComponent(filmsListContainer, filmCardComponent.getElement());
 };
@@ -54,6 +65,12 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
 const renderFilmList = (filmListComponent, filmCards) => {
   const filmsListSection = filmListComponent.getElement().querySelector(`.films-list`);
   const filmsListContainer = filmListComponent.getElement().querySelector(`.films-list .films-list__container`);
+  const hasFilms = filmCards.length > 0;
+
+  if (!hasFilms) {
+    renderComponent(filmsListSection, new NoData().getElement());
+  }
+
   let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
   const renderCards = (cards, container, begin, end) => {
