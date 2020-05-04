@@ -30,13 +30,18 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
   const showFilmDetails = () => {
     body.classList.add(`hide-overflow`);
     body.appendChild(filmInfoComponent.getElement());
-    document.addEventListener(`keydown`, onEscKeyDown);
+    document.addEventListener(`keydown`, onDocumentEscKeyDown);
   };
 
   const hideFilmDetails = () => {
     body.classList.remove(`hide-overflow`);
     body.removeChild(filmInfoComponent.getElement());
-    document.removeEventListener(`keydown`, onEscKeyDown);
+    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
+  };
+
+  const onDocumentEscKeyDown = (evt) => {
+    onEscKeyDown(evt, hideFilmDetails);
+    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
   };
 
   const setEventListener = (element, evt, callback) => {
