@@ -1,4 +1,4 @@
-import {renderComponent} from './utils.js';
+import {renderComponent, onEscKeyDown} from './utils.js';
 import {Profile} from './components/profile.js';
 import {Navigation} from './components/navigation.js';
 import {Sort} from './components/sort.js';
@@ -37,15 +37,6 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
     body.classList.remove(`hide-overflow`);
     body.removeChild(filmInfoComponent.getElement());
     document.removeEventListener(`keydown`, onEscKeyDown);
-  };
-
-  const onEscKeyDown = (evt) => {
-    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
-
-    if (isEscKey) {
-      hideFilmDetails();
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
   };
 
   const setEventListener = (element, evt, callback) => {

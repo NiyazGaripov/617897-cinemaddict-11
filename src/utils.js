@@ -64,4 +64,12 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement};
+const onEscKeyDown = (evt, calback) => {
+  const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+  if (isEscKey) {
+    calback();
+  }
+};
+
+export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement, onEscKeyDown};
