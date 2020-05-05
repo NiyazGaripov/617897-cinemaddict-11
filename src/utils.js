@@ -3,22 +3,6 @@ const MAX_COEFFICIENT = 30000;
 const MAX_VALUE = 10;
 const ESC_KEYCODE = 27;
 
-const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
-};
-
-const renderComponent = (container, component, place = `beforeend`) => {
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(component);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(component);
-      break;
-  }
-};
-
 const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
 };
@@ -58,17 +42,10 @@ const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
-const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
-};
-
 const onEscKeyDown = (evt, calback) => {
   if (evt.keyCode === ESC_KEYCODE) {
     calback();
   }
 };
 
-export {RenderPosition, renderComponent, getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, createElement, onEscKeyDown};
+export {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, onEscKeyDown};
