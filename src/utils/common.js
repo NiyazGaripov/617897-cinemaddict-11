@@ -22,22 +22,6 @@ const getRandomDate = () => {
   return targetDate;
 };
 
-const generateDescription = (desc, minAmount, maxAmount) => {
-  const sentencesAmount = getRandomIntegerNumber(minAmount, maxAmount);
-
-  return new Array(sentencesAmount)
-    .fill(``)
-    .map(() => `${getRandomArrayItem(desc)}`)
-    .join(` `);
-};
-
-const getShortDescription = (desc, limit) => {
-  if (desc.length >= limit) {
-    return desc.slice(0, limit).trim() + `…`;
-  }
-  return desc;
-};
-
 const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
@@ -48,4 +32,4 @@ const onEscKeyDown = (evt, calback) => {
   }
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription, getShortDescription, setValueFormat, onEscKeyDown};
+export {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, setValueFormat, onEscKeyDown};
