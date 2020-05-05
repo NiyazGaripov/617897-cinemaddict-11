@@ -60,7 +60,7 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
 
   setEventListener(filmInfoCloseButton, `click`, hideFilmDetails);
 
-  renderComponent(filmsListContainer, filmCardComponent.getElement());
+  renderComponent(filmsListContainer, filmCardComponent);
 };
 
 const renderFilmList = (filmListComponent, filmCards) => {
@@ -69,7 +69,7 @@ const renderFilmList = (filmListComponent, filmCards) => {
   const hasFilms = filmCards.length > 0;
 
   if (!hasFilms) {
-    renderComponent(filmsListSection, new NoData().getElement());
+    renderComponent(filmsListSection, new NoData());
   }
 
   let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
@@ -86,7 +86,7 @@ const renderFilmList = (filmListComponent, filmCards) => {
 
   const showMoreButtonComponent = new ShowMoreButton();
 
-  renderComponent(filmsListSection, showMoreButtonComponent.getElement());
+  renderComponent(filmsListSection, showMoreButtonComponent);
 
   showMoreButtonComponent.getElement().addEventListener(`click`, () => {
     const prevFilmCards = showingFilmCards;
@@ -121,14 +121,14 @@ const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 const filmCardsTopRated = filmCards.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
 const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
 
-renderComponent(pageHeader, new Profile().getElement());
-renderComponent(pageMain, new Navigation(navList).getElement());
-renderComponent(pageMain, new Sort(sortList).getElement());
+renderComponent(pageHeader, new Profile());
+renderComponent(pageMain, new Navigation(navList));
+renderComponent(pageMain, new Sort(sortList));
 
 const filmListComponent = new FilmList(FILM_SECTIONS);
-renderComponent(pageMain, filmListComponent.getElement());
+renderComponent(pageMain, filmListComponent);
 renderFilmList(filmListComponent, filmCards);
 renderFilmListExtra(filmListComponent, filmCardsTopRated, filmsTopRatedClass);
 renderFilmListExtra(filmListComponent, filmCardsMostCommented, filmsMostCommentedClass);
 
-renderComponent(pageFooter, new FilmStatistics().getElement());
+renderComponent(pageFooter, new FilmStatistics());

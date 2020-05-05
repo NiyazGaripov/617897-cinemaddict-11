@@ -6,10 +6,10 @@ const RenderPosition = {
 const renderComponent = (container, component, place = `beforeend`) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-      container.prepend(component);
+      container.prepend(component.getElement());
       break;
     case RenderPosition.BEFOREEND:
-      container.append(component);
+      container.append(component.getElement());
       break;
   }
 };
