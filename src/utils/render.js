@@ -21,4 +21,9 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {renderComponent, createElement};
+const removeComponent = (component) => {
+  component.getElement().remove();
+  component.removeElement();
+};
+
+export {renderComponent, createElement, removeComponent};
