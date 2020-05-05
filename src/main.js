@@ -1,4 +1,5 @@
-import {renderComponent, onEscKeyDown} from './utils.js';
+import {onEscKeyDown} from './utils.js';
+import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {Navigation} from './components/navigation.js';
 import {Sort} from './components/sort.js';
