@@ -1,5 +1,5 @@
 import {PROFILES} from './../mock/constants.js';
-import {getRandomArrayItem} from './../utils.js';
+import {getRandomArrayItem} from './../utils/common.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
 const createProfileComponent = () => {

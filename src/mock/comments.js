@@ -1,4 +1,4 @@
-import {getRandomArrayItem, getRandomDate} from './../utils.js';
+import {getRandomArrayItem, getRandomDate} from './../utils/common.js';
 import {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS} from './constants.js';
 
 const generateComment = () => {

@@ -1,4 +1,4 @@
-import {setValueFormat} from './../utils.js';
+import {setValueFormat} from './../utils/common.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
 const createCommentComponent = (comment) => {

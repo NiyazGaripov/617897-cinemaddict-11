@@ -1,4 +1,5 @@
-import {getRandomArrayItem, getShortDescription} from './../utils.js';
+import {getRandomArrayItem} from './../utils/common.js';
+import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
 const createFilmCardComponent = (filmCard) => {

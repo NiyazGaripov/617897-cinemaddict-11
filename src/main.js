@@ -1,4 +1,4 @@
-import {onEscKeyDown} from './utils.js';
+import {onEscKeyDown} from './utils/common.js';
 import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {Navigation} from './components/navigation.js';
