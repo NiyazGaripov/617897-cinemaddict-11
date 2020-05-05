@@ -24,9 +24,6 @@ const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 const renderFilmCard = (filmsListContainer, filmCard) => {
   const body = document.body;
   const filmCardComponent = new FilmCard(filmCard);
-  const filmPoster = filmCardComponent.getElement().querySelector(`img`);
-  const filmTitle = filmCardComponent.getElement().querySelector(`.film-card__title`);
-  const filmComments = filmCardComponent.getElement().querySelector(`.film-card__comments`);
 
   const showFilmDetails = () => {
     body.classList.add(`hide-overflow`);
@@ -45,20 +42,11 @@ const renderFilmCard = (filmsListContainer, filmCard) => {
     document.removeEventListener(`keydown`, onDocumentEscKeyDown);
   };
 
-  const setEventListener = (element, evt, callback) => {
-    element.addEventListener(evt, () => {
-      callback();
-    });
-  };
-
-  setEventListener(filmPoster, `click`, showFilmDetails);
-  setEventListener(filmTitle, `click`, showFilmDetails);
-  setEventListener(filmComments, `click`, showFilmDetails);
+  filmCardComponent.setClickHandler(showFilmDetails);
 
   const filmInfoComponent = new FilmInfo(filmCard);
-  const filmInfoCloseButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
 
-  setEventListener(filmInfoCloseButton, `click`, hideFilmDetails);
+  filmInfoComponent.setClickHandler(hideFilmDetails);
 
   renderComponent(filmsListContainer, filmCardComponent);
 };
@@ -88,7 +76,7 @@ const renderFilmList = (filmListComponent, filmCards) => {
 
   renderComponent(filmsListSection, showMoreButtonComponent);
 
-  showMoreButtonComponent.getElement().addEventListener(`click`, () => {
+  showMoreButtonComponent.setClickHandler(() => {
     const prevFilmCards = showingFilmCards;
     showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
 
