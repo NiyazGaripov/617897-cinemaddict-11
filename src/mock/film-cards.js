@@ -1,4 +1,5 @@
-import {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, generateDescription} from './../utils.js';
+import {getRandomIntegerNumber, getRandomArrayItem, getRandomDate} from './../utils/common.js';
+import {generateDescription} from './../utils/text.js';
 import {POSTERS, FILM_TITLES, DURATIONS, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES} from './constants.js';
 import {generateComments} from './comments.js';
 import {generateGenres} from './genres.js';

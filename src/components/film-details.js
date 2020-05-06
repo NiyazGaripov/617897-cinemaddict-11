@@ -1,6 +1,6 @@
 import {MONTH_NAMES} from './../mock/constants.js';
 import {Comment} from './comments.js';
-import {createElement} from './../utils.js';
+import {AbstractComponent} from './../components/abstract-component.js';
 
 const createGenresMarkup = (genres) => {
   return genres.map((genre) => {
@@ -136,26 +136,18 @@ const createFilmDetailsComponent = (film) => {
   );
 };
 
-class FilmInfo {
+class FilmInfo extends AbstractComponent {
   constructor(film) {
+    super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmDetailsComponent(this._film);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, callback);
   }
 }
 

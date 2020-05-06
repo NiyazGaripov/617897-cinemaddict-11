@@ -1,4 +1,5 @@
-import {setValueFormat, createElement} from './../utils.js';
+import {setValueFormat} from './../utils/common.js';
+import {AbstractComponent} from './../components/abstract-component.js';
 
 const createCommentComponent = (comment) => {
   const MONTH_COEFFICIENT = 1;
@@ -26,6 +27,7 @@ const createCommentComponent = (comment) => {
     </li>`
   );
 };
+
 const createCommentsComponent = (comments) => {
   const commentsComponent = comments.map((comment) => createCommentComponent(comment)).join(`\n`);
 
@@ -36,26 +38,14 @@ const createCommentsComponent = (comments) => {
   );
 };
 
-class Comment {
+class Comment extends AbstractComponent {
   constructor(comments) {
+    super();
     this._comments = comments;
-    this._element = null;
   }
 
   getTemplate() {
     return createCommentsComponent(this._comments);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

@@ -1,4 +1,6 @@
-import {getRandomArrayItem, getShortDescription, createElement} from './../utils.js';
+import {getRandomArrayItem} from './../utils/common.js';
+import {getShortDescription} from './../utils/text.js';
+import {AbstractComponent} from './../components/abstract-component.js';
 
 const createFilmCardComponent = (filmCard) => {
   const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = filmCard;
@@ -31,26 +33,21 @@ const createFilmCardComponent = (filmCard) => {
   );
 };
 
-class FilmCard {
+class FilmCard extends AbstractComponent {
   constructor(filmCard) {
+    super();
     this._filmCard = filmCard;
-    this._element = null;
+
   }
 
   getTemplate() {
     return createFilmCardComponent(this._filmCard);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this.getElement().querySelector(`img`).addEventListener(`click`, callback);
+    this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, callback);
+    this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, callback);
   }
 }
 
