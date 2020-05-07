@@ -24,13 +24,8 @@ const createSortComponent = () => {
 };
 
 class Sort extends AbstractComponent {
-  constructor(list) {
-    super();
-    this._list = list;
-  }
-
   getTemplate() {
-    return createSortComponent(this._list);
+    return createSortComponent();
   }
 }
 
