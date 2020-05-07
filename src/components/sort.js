@@ -1,5 +1,5 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {SORT_ITEM_NAMES} from './../mock/constants.js';
+import {SORT_ITEM_NAMES, SortType} from './../mock/constants.js';
 
 const createSortItemComponent = (type, isActive) => {
   const activeClass = isActive ? `sort__button--active` : ``;
@@ -22,8 +22,17 @@ const createSortComponent = () => {
 };
 
 class Sort extends AbstractComponent {
+  constructor() {
+    super();
+    this._currenSortType = SortType.DEFAULT;
+  }
+
   getTemplate() {
     return createSortComponent();
+  }
+
+  getSortType() {
+    return this._currenSortType;
   }
 }
 
