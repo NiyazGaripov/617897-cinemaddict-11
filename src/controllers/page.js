@@ -60,6 +60,25 @@ class PageController {
     const parent = container.parentElement;
     let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
 
+    const renderShowMoreButton = () => {
+      if (showingFilmCards >= films.length) {
+        return;
+      }
+
+      renderComponent(filmsListSection, this._showMoreButton);
+
+      this._showMoreButton.setClickHandler(() => {
+        const prevFilmCards = showingFilmCards;
+        showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
+
+        renderFilmCards(films.slice(prevFilmCards, showingFilmCards), filmsListContainer);
+
+        if (showingFilmCards >= films.length) {
+          removeComponent(this._showMoreButton);
+        }
+      });
+    };
+
     parent.insertBefore(this._sortComponent.getElement(), container);
 
     if (!hasFilms) {
@@ -67,18 +86,7 @@ class PageController {
     }
 
     renderFilmCards(films.slice(BEGIN_INDEX, showingFilmCards), filmsListContainer);
-    renderComponent(filmsListSection, this._showMoreButton);
-
-    this._showMoreButton.setClickHandler(() => {
-      const prevFilmCards = showingFilmCards;
-      showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
-
-      renderFilmCards(films.slice(prevFilmCards, showingFilmCards), filmsListContainer);
-
-      if (showingFilmCards >= films.length) {
-        removeComponent(this._showMoreButton);
-      }
-    });
+    renderShowMoreButton();
   }
 
   renderFilmsExtra(films, className) {
