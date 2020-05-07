@@ -1,20 +1,18 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {generateSortList} from './../mock/sort-list.js';
+import {SORT_ITEM_NAMES} from './../mock/constants.js';
 
-const createSortItemComponent = (item, isActive) => {
-  const {title} = item;
+const createSortItemComponent = (type, isActive) => {
   const activeClass = isActive ? `sort__button--active` : ``;
 
   return (
     `<li>
-      <a href="#" class="sort__button ${activeClass}">Sort by ${title}</a>
+      <a href="#" data-sort-type="${type}" class="sort__button ${activeClass}">Sort by ${type}</a>
     </li>`
   );
 };
 
 const createSortComponent = () => {
-  const sortList = generateSortList();
-  const createSortList = sortList.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
+  const createSortList = SORT_ITEM_NAMES.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
 
   return (
     `<ul class="sort">
