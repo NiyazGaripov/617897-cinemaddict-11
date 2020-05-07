@@ -1,5 +1,6 @@
 import {onEscKeyDown} from './../utils/common.js';
 import {renderComponent, removeComponent} from './../utils/render.js';
+import {Sort} from './../components/sort.js';
 import {FilmCard} from './../components/film-card.js';
 import {ShowMoreButton} from './../components/show-more-button.js';
 import {FilmInfo} from './../components/film-details.js';
@@ -47,14 +48,19 @@ class PageController {
   constructor(container) {
     this._container = container;
     this._noData = new NoData();
+    this._sortComponent = new Sort();
     this._showMoreButton = new ShowMoreButton();
   }
 
   renderFilms(films) {
-    const filmsListSection = this._container.getElement().querySelector(`.films-list`);
-    const filmsListContainer = this._container.getElement().querySelector(`.films-list .films-list__container`);
+    const container = this._container.getElement();
+    const filmsListSection = container.querySelector(`.films-list`);
+    const filmsListContainer = container.querySelector(`.films-list .films-list__container`);
     const hasFilms = films.length > 0;
+    const parent = container.parentElement;
     let showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
+
+    parent.insertBefore(this._sortComponent.getElement(), container);
 
     if (!hasFilms) {
       renderComponent(filmsListSection, this._noData);

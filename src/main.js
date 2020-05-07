@@ -1,7 +1,6 @@
 import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {Navigation} from './components/navigation.js';
-import {Sort} from './components/sort.js';
 import {FilmList} from './components/film-list.js';
 import {FilmStatistics} from './components/film-statistics.js';
 import {generateNavigationList} from './mock/nav-list.js';
@@ -26,7 +25,6 @@ const filmCardsMostCommented = filmCards.slice().sort((a, b) => b.comments.lengt
 
 renderComponent(pageHeader, new Profile());
 renderComponent(pageMain, new Navigation(navList));
-renderComponent(pageMain, new Sort());
 
 const filmListComponent = new FilmList(FILM_SECTIONS);
 renderComponent(pageMain, filmListComponent);
