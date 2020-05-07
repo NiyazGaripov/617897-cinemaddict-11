@@ -1,4 +1,5 @@
 import {AbstractComponent} from './../components/abstract-component.js';
+import {generateSortList} from './../mock/sort-list.js';
 
 const createSortItemComponent = (item, isActive) => {
   const {title} = item;
@@ -11,8 +12,9 @@ const createSortItemComponent = (item, isActive) => {
   );
 };
 
-const createSortComponent = (list) => {
-  const createSortList = list.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
+const createSortComponent = () => {
+  const sortList = generateSortList();
+  const createSortList = sortList.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
 
   return (
     `<ul class="sort">
