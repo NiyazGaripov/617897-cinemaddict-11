@@ -1,18 +1,18 @@
 import {AbstractComponent} from './../components/abstract-component.js';
+import {SORT_ITEM_NAMES, SortType} from './../mock/constants.js';
 
-const createSortItemComponent = (item, isActive) => {
-  const {title} = item;
+const createSortItemComponent = (type, isActive) => {
   const activeClass = isActive ? `sort__button--active` : ``;
 
   return (
     `<li>
-      <a href="#" class="sort__button ${activeClass}">Sort by ${title}</a>
+      <a href="#" data-sort-type="${type}" class="sort__button ${activeClass}">Sort by ${type}</a>
     </li>`
   );
 };
 
-const createSortComponent = (list) => {
-  const createSortList = list.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
+const createSortComponent = () => {
+  const createSortList = SORT_ITEM_NAMES.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
 
   return (
     `<ul class="sort">
@@ -22,13 +22,43 @@ const createSortComponent = (list) => {
 };
 
 class Sort extends AbstractComponent {
-  constructor(list) {
+  constructor() {
     super();
-    this._list = list;
+    this._currenSortType = SortType.DEFAULT;
   }
 
   getTemplate() {
-    return createSortComponent(this._list);
+    return createSortComponent();
+  }
+
+  getSortType() {
+    return this._currenSortType;
+  }
+
+  setSortTypeChangeHandler(callback) {
+    this.getElement().addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+
+      const sortType = evt.target.dataset.sortType;
+      const sortContainer = evt.target.closest(`.sort`);
+      const activeClass = `sort__button--active`;
+      const activeElement = sortContainer.querySelector(`.${activeClass}`);
+
+      if (evt.target.tagName !== `A`) {
+        return;
+      }
+
+      activeElement.classList.remove(activeClass);
+      evt.target.classList.add(activeClass);
+
+      if (this._currenSortType === sortType) {
+        return;
+      }
+
+      this._currenSortType = sortType;
+
+      callback(this._currenSortType);
+    });
   }
 }
 
