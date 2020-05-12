@@ -7,7 +7,7 @@ const body = document.body;
 
 class FilmController {
   constructor(container) {
-    this.container = container;
+    this._container = container;
     this._filmCardComponent = null;
     this._filmInfoComponent = null;
   }
@@ -19,9 +19,8 @@ class FilmController {
     this._filmCardComponent.setClickHandler(this._showFilmDetails);
     this._filmInfoComponent.setClickHandler(this._hideFilmDetails);
 
-    renderComponent(this.container, this._filmCardComponent);
+    renderComponent(this._container, this._filmCardComponent);
   }
-
 }
 
 export {FilmController};
