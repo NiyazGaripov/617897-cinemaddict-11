@@ -1,43 +1,12 @@
-import {onEscKeyDown} from './../utils/common.js';
 import {renderComponent, removeComponent} from './../utils/render.js';
 import {Sort} from './../components/sort.js';
-import {FilmCard} from './../components/film-card.js';
 import {ShowMoreButton} from './../components/show-more-button.js';
-import {FilmInfo} from './../components/film-details.js';
 import {NoData} from './../components/no-data.js';
 import {SortType} from './../mock/constants.js';
 
 const FILM_CARDS_AMOUNT_ON_START = 5;
 const FILM_CARDS_AMOUNT_LOAD_MORE = 5;
 const BEGIN_INDEX = 0;
-
-const renderFilmCard = (filmsListContainer, filmCard) => {
-  const body = document.body;
-  const filmCardComponent = new FilmCard(filmCard);
-  const filmInfoComponent = new FilmInfo(filmCard);
-
-  const showFilmDetails = () => {
-    body.classList.add(`hide-overflow`);
-    body.appendChild(filmInfoComponent.getElement());
-    document.addEventListener(`keydown`, onDocumentEscKeyDown);
-  };
-
-  const hideFilmDetails = () => {
-    body.classList.remove(`hide-overflow`);
-    body.removeChild(filmInfoComponent.getElement());
-    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
-  };
-
-  const onDocumentEscKeyDown = (evt) => {
-    onEscKeyDown(evt, hideFilmDetails);
-    document.removeEventListener(`keydown`, onDocumentEscKeyDown);
-  };
-
-  filmCardComponent.setClickHandler(showFilmDetails);
-  filmInfoComponent.setClickHandler(hideFilmDetails);
-
-  renderComponent(filmsListContainer, filmCardComponent);
-};
 
 const renderFilmCards = (cards, container) => {
   cards.forEach((card) => {
@@ -80,6 +49,8 @@ class PageController {
     const parent = container.parentElement;
 
     const renderShowMoreButton = () => {
+      removeComponent(this._showMoreButton);
+
       if (showingFilmCards >= films.length) {
         return;
       }
