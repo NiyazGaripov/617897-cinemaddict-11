@@ -27,6 +27,12 @@ class FilmController {
     body.appendChild(this._filmInfoComponent.getElement());
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
+
+  _hideFilmDetails() {
+    body.classList.remove(`hide-overflow`);
+    body.removeChild(this._filmInfoComponent.getElement());
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
 }
 
 export {FilmController};
