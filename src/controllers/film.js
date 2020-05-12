@@ -13,8 +13,15 @@ class FilmController {
   }
 
   render(film) {
+    this._filmCardComponent = new FilmCard(film);
+    this._filmInfoComponent = new FilmInfo(film);
 
+    this._filmCardComponent.setClickHandler(this._showFilmDetails);
+    this._filmInfoComponent.setClickHandler(this._hideFilmDetails);
+
+    renderComponent(this.container, this._filmCardComponent);
   }
+
 }
 
 export {FilmController};
