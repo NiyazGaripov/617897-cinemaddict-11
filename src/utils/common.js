@@ -1,7 +1,6 @@
 const MIN_COEFFICIENT = 0;
 const MAX_COEFFICIENT = 30000;
 const MAX_VALUE = 10;
-const ESC_KEYCODE = 27;
 
 const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
@@ -26,10 +25,4 @@ const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
-const onEscKeyDown = (evt, calback) => {
-  if (evt.keyCode === ESC_KEYCODE) {
-    calback();
-  }
-};
-
-export {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, setValueFormat, onEscKeyDown};
+export {getRandomIntegerNumber, getRandomArrayItem, getRandomDate, setValueFormat};
