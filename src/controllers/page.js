@@ -47,6 +47,9 @@ class PageController {
     this._noData = new NoData();
     this._sortComponent = new Sort();
     this._showMoreButton = new ShowMoreButton();
+
+    this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
+    this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
   }
 
   render(films) {
