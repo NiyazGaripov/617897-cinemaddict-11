@@ -1,7 +1,7 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const createFilmSectionsComponent = (item) => {
-  const {section, title} = item;
+const createFilmListComponent = (list) => {
+  const {section, title} = list;
   const sectionClass = section === `extra` ? `films-list--extra` : `films-list`;
   const hiddenClass = section === `extra` ? `` : `visually-hidden`;
 
@@ -16,15 +16,6 @@ const createFilmSectionsComponent = (item) => {
   );
 };
 
-const createFilmListComponent = (sections) => {
-  const filmSections = sections.map((section) => createFilmSectionsComponent(section)).join(`\n`);
-
-  return (
-    `<section class="films">
-      ${filmSections}
-    </section>`
-  );
-};
 class FilmList extends AbstractComponent {
   constructor(sections) {
     super();
