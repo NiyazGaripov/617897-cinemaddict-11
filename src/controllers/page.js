@@ -1,6 +1,7 @@
 import {renderComponent, removeComponent} from './../utils/render.js';
 import {Sort} from './../components/sort.js';
 import {FilmList} from './../components/film-list.js';
+import {FilmController} from './../controllers/film.js';
 import {ShowMoreButton} from './../components/show-more-button.js';
 import {NoData} from './../components/no-data.js';
 import {FilmSection, SortType} from './../mock/constants.js';
@@ -11,9 +12,13 @@ const FILM_RATED_CARDS_AMOUNT = 2;
 const FILM_COMMENTED_CARDS_AMOUNT = 2;
 const BEGIN_INDEX = 0;
 
-const renderFilmCards = (cards, container) => {
-  cards.forEach((card) => {
-    renderFilmCard(container, card);
+const renderFilmCards = (filmCards, container) => {
+  return filmCards.map((filmCard) => {
+    const filmController = new FilmController(container);
+
+    filmController.render(filmCard);
+
+    return filmController;
   });
 };
 
