@@ -78,8 +78,12 @@ class PageController {
       renderComponent(container, this._noData);
     }
 
-    renderFilmsList(container, this._filmsListComponent, this._films.slice(BEGIN_INDEX, this._showingFilmCards));
+    const filmsForShowing = this._films.slice(BEGIN_INDEX, this._showingFilmCards);
+    const allFilms = renderFilmsList(container, this._filmsListComponent, filmsForShowing);
+    this._showedFilmControllers = this._showedFilmControllers.concat(allFilms);
+
     this._renderShowMoreButton();
+
     renderFilmsList(container, this._filmsListTopRatedComponent, this._films.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT));
     renderFilmsList(container, this._filmsListMostCommentedComponent, this._films.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT));
   }
