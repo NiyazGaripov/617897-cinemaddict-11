@@ -55,6 +55,8 @@ class PageController {
     this._container = container;
     this._films = [];
     this._showedFilmControllers = [];
+    this._topRatedFilmControllers = [];
+    this._mostCommentedFilmControllers = [];
     this._showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
     this._filmsListComponent = new FilmList(FilmSection.all);
     this._filmsListTopRatedComponent = new FilmList(FilmSection.rating);
