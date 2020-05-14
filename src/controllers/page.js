@@ -106,12 +106,12 @@ class PageController {
   _sortTypeChangeHandler(sortType) {
     this._showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
     const filmsListContainer = this._filmsListComponent.getListContainer();
-
     const sortedFilms = sortFilms(this._films, sortType, BEGIN_INDEX, this._showingFilmCards);
 
     filmsListContainer.innerHTML = ``;
 
-    renderFilmCards(sortedFilms, filmsListContainer);
+    const newFilms = renderFilmCards(sortedFilms, filmsListContainer);
+    this._showedFilmControllers = newFilms;
     this._renderShowMoreButton();
   }
 
