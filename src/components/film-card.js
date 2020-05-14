@@ -50,6 +50,10 @@ class FilmCard extends AbstractComponent {
     this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, callback);
   }
 
+  setWatchListButtonClickHandler(handler) {
+    this.getElement().querySelector(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, handler);
+  }
+
   setWatchedButtonClickHandler(handler) {
     this.getElement().querySelector(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, handler);
   }
