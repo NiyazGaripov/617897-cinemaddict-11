@@ -86,7 +86,13 @@ class PageController {
 
     this._renderShowMoreButton();
 
-    renderFilmsList(container, this._filmsListTopRatedComponent, this._films.slice().sort((a, b) => b.rating - a.rating).slice(BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT));
+    const isTopRatedFilms = this._films.every((it) => it.rating > 0);
+
+    if (isTopRatedFilms) {
+      const ratedFilms = sortFilms(this._films, SortType.RATING, BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
+      this._topRatedFilmControllers = renderFilmsList(container, this._filmsListTopRatedComponent, ratedFilms);
+    }
+
     renderFilmsList(container, this._filmsListMostCommentedComponent, this._films.slice().sort((a, b) => b.comments.length - a.comments.length).slice(BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT));
   }
 
