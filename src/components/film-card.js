@@ -49,6 +49,10 @@ class FilmCard extends AbstractComponent {
     this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, callback);
     this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, callback);
   }
+
+  setFavoriteButtonClickHandler(handler) {
+    this.getElement().querySelector(`.film-card__controls-item--favorite`).addEventListener(`click`, handler);
+  }
 }
 
 export {FilmCard};
