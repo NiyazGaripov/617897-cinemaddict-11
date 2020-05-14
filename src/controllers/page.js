@@ -23,9 +23,10 @@ const renderFilmCards = (filmCards, container) => {
 };
 
 const renderFilmsList = (container, component, films) => {
+  const listContainer = component.getListContainer();
+
   renderComponent(container, component);
 
-  const listContainer = component.getListContainer();
   listContainer.innerHTML = ``;
 
   return renderFilmCards(films, listContainer);
@@ -76,6 +77,10 @@ class PageController {
     this._films = films;
     const container = this._container.getElement();
     const parent = container.parentElement;
+    const filmsForShowing = this._films.slice(BEGIN_INDEX, this._showingFilmCards);
+    const allFilms = renderFilmsList(container, this._filmsListComponent, filmsForShowing);
+    const isTopRatedFilms = this._films.some((it) => it.rating > 0);
+    const isMostCommentedFilms = this._films.some((it) => it.comments.length > 0);
 
     parent.insertBefore(this._sortComponent.getElement(), container);
 
@@ -83,20 +88,14 @@ class PageController {
       renderComponent(container, this._noData);
     }
 
-    const filmsForShowing = this._films.slice(BEGIN_INDEX, this._showingFilmCards);
-    const allFilms = renderFilmsList(container, this._filmsListComponent, filmsForShowing);
     this._showedFilmControllers = this._showedFilmControllers.concat(allFilms);
 
     this._renderShowMoreButton();
-
-    const isTopRatedFilms = this._films.some((it) => it.rating > 0);
 
     if (isTopRatedFilms) {
       const ratedFilms = sortFilms(this._films, SortType.RATING, BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
       this._topRatedFilmControllers = renderFilmsList(container, this._filmsListTopRatedComponent, ratedFilms);
     }
-
-    const isMostCommentedFilms = this._films.some((it) => it.comments.length > 0);
 
     if (isMostCommentedFilms) {
       const commentedFilms = sortFilms(this._films, SortType.COMMENTS, BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
