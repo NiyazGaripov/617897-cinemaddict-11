@@ -161,6 +161,7 @@ const SortType = {
   DEFAULT: `default`,
   DATE: `date`,
   RATING: `rating`,
+  COMMENTS: `comments`,
 };
 
 const ESC_KEYCODE = 27;
