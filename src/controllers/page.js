@@ -116,22 +116,25 @@ class PageController {
   }
 
   _renderShowMoreButton() {
+    const filmsList = this._filmsListComponent.getElement();
+    const filmsListContainer = this._filmsListComponent.getListContainer();
+
     removeComponent(this._showMoreButton);
 
     if (this._showingFilmCards >= this._films.length) {
       return;
     }
 
-    renderComponent(this._filmsListComponent.getElement(), this._showMoreButton);
+    renderComponent(filmsList, this._showMoreButton);
 
     this._showMoreButton.setClickHandler(() => {
       const prevFilmCards = this._showingFilmCards;
-      const filmsListContainer = this._filmsListComponent.getListContainer();
       this._showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
 
       const sortedFilms = sortFilms(this._films, this._sortComponent.getSortType(), prevFilmCards, this._showingFilmCards);
+      const newFilms = renderFilmCards(sortedFilms, filmsListContainer);
 
-      renderFilmCards(sortedFilms, filmsListContainer);
+      this._showedFilmControllers = this._showedFilmControllers.concat(newFilms);
 
       if (this._showingFilmCards >= this._films.length) {
         removeComponent(this._showMoreButton);
