@@ -146,8 +146,20 @@ class FilmInfo extends AbstractComponent {
     return createFilmDetailsComponent(this._film);
   }
 
-  setClickHandler(callback) {
+  setCloseButtonClickHandler(callback) {
     this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, callback);
+  }
+
+  setWatchListInputChangeHandler(callback) {
+    this.getElement().querySelector(`#watchlist`).addEventListener(`change`, callback);
+  }
+
+  setWatchedInputChangeHandler(callback) {
+    this.getElement().querySelector(`#watched`).addEventListener(`change`, callback);
+  }
+
+  setFavoriteInputChangeHandler(callback) {
+    this.getElement().querySelector(`#favorite`).addEventListener(`change`, callback);
   }
 }
 
