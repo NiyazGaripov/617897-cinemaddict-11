@@ -37,7 +37,6 @@ class FilmCard extends AbstractComponent {
   constructor(filmCard) {
     super();
     this._filmCard = filmCard;
-
   }
 
   getTemplate() {
