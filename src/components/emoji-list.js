@@ -9,3 +9,16 @@ const createEmojiListComponent = (currentEmoji) => EMOJIS.map((emoji) => {
     </label>`
   );
 });
+
+class Emoji extends AbstractComponent {
+  constructor(currentEmoji) {
+    super();
+    this._currentEmoji = currentEmoji;
+  }
+
+  getTemplate() {
+    return createEmojiListComponent(this._currentEmoji);
+  }
+}
+
+export {Emoji};
