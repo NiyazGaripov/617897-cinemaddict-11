@@ -6,9 +6,10 @@ import {ESC_KEYCODE} from './../mock/constants.js';
 const body = document.body;
 
 class FilmController {
-  constructor(container, onDataChange) {
+  constructor(container, onDataChange, onViewChange) {
     this._container = container;
     this._onDataChange = onDataChange;
+    this._onViewChange = onViewChange;
     this._film = null;
     this._filmCardComponent = null;
     this._filmInfoComponent = null;
@@ -59,6 +60,7 @@ class FilmController {
   }
 
   _showFilmDetails() {
+    this._onViewChange();
     body.classList.add(`hide-overflow`);
     body.appendChild(this._filmInfoComponent.getElement());
     document.addEventListener(`keydown`, this._escKeyDownHandler);
