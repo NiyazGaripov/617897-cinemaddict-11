@@ -169,6 +169,13 @@ class FilmInfo extends AbstractSmartComponent {
     this.getElement().querySelector(`#favorite`).addEventListener(`change`, callback);
     this._favoriteInputChangeHandler = callback;
   }
+
+  recoveryListeners() {
+    this.setCloseButtonClickHandler(this._closeButtonClickHandler);
+    this.setWatchListInputChangeHandler(this._watchListInputChangeHandler);
+    this.setWatchedInputChangeHandler(this._watchedInputChangeHandler);
+    this.setFavoriteInputChangeHandler(this._favoriteInputChangeHandler);
+  }
 }
 
 export {FilmInfo};
