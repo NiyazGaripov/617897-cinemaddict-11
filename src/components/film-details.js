@@ -149,14 +149,16 @@ class FilmInfo extends AbstractSmartComponent {
   constructor(film) {
     super();
     this._film = film;
+    this._emoji = null;
     this._closeButtonClickHandler = null;
     this._watchListInputChangeHandler = null;
     this._watchedInputChangeHandler = null;
     this._favoriteInputChangeHandler = null;
+    this._subscribeOnChoiceEmoji();
   }
 
   getTemplate() {
-    return createFilmDetailsComponent(this._film);
+    return createFilmDetailsComponent(this._film, this._emoji);
   }
 
   setCloseButtonClickHandler(callback) {
@@ -184,6 +186,19 @@ class FilmInfo extends AbstractSmartComponent {
     this.setWatchListInputChangeHandler(this._watchListInputChangeHandler);
     this.setWatchedInputChangeHandler(this._watchedInputChangeHandler);
     this.setFavoriteInputChangeHandler(this._favoriteInputChangeHandler);
+    this._subscribeOnChoiceEmoji();
+  }
+
+  _subscribeOnChoiceEmoji() {
+    const section = this.getElement();
+    const emojiList = Array.from(section.querySelectorAll(`.film-details__emoji-item`));
+
+    emojiList.forEach((emojiItem) => {
+      emojiItem.addEventListener(`change`, (evt) => {
+        this._emoji = evt.target.value;
+        this.rerender();
+      });
+    });
   }
 }
 
