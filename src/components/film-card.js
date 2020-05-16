@@ -37,7 +37,6 @@ class FilmCard extends AbstractComponent {
   constructor(filmCard) {
     super();
     this._filmCard = filmCard;
-
   }
 
   getTemplate() {
@@ -48,6 +47,18 @@ class FilmCard extends AbstractComponent {
     this.getElement().querySelector(`img`).addEventListener(`click`, callback);
     this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, callback);
     this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, callback);
+  }
+
+  setWatchListButtonClickHandler(callback) {
+    this.getElement().querySelector(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, callback);
+  }
+
+  setWatchedButtonClickHandler(callback) {
+    this.getElement().querySelector(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, callback);
+  }
+
+  setFavoriteButtonClickHandler(callback) {
+    this.getElement().querySelector(`.film-card__controls-item--favorite`).addEventListener(`click`, callback);
   }
 }
 
