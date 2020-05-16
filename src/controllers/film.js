@@ -28,13 +28,25 @@ class FilmController {
       this._addFilmToWatchList();
     });
 
+    this._filmInfoComponent.setWatchListInputChangeHandler(() => {
+      this._addFilmToWatchList();
+    });
+
     this._filmCardComponent.setWatchedButtonClickHandler((evt) => {
       evt.preventDefault();
       this._addFilmToWatched();
     });
 
+    this._filmInfoComponent.setWatchedInputChangeHandler(() => {
+      this._addFilmToWatched();
+    });
+
     this._filmCardComponent.setFavoriteButtonClickHandler((evt) => {
       evt.preventDefault();
+      this._addFilmToFavorite();
+    });
+
+    this._filmInfoComponent.setFavoriteInputChangeHandler(() => {
       this._addFilmToFavorite();
     });
 
