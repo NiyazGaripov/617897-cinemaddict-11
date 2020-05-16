@@ -94,6 +94,10 @@ class FilmController {
       isFavorite: !this._film.isFavorite,
     }));
   }
+
+  setDefaultView() {
+    this._hideFilmDetails();
+  }
 }
 
 export {FilmController};
