@@ -4,15 +4,21 @@ import {FilmInfo} from './../components/film-details.js';
 import {ESC_KEYCODE} from './../mock/constants.js';
 
 const body = document.body;
+const Mode = {
+  DEFAULT: `default`,
+  MODAL: `modal`,
+};
 
 class FilmController {
   constructor(container, onDataChange, onViewChange) {
     this._container = container;
     this._onDataChange = onDataChange;
     this._onViewChange = onViewChange;
+    this._mode = Mode.DEFAULT;
     this._film = null;
     this._filmCardComponent = null;
     this._filmInfoComponent = null;
+
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
