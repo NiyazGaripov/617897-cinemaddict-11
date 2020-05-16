@@ -20,8 +20,13 @@ class FilmController {
     this._filmCardComponent = new FilmCard(film);
     this._filmInfoComponent = new FilmInfo(film);
 
-    this._filmCardComponent.setClickHandler(this._showFilmDetails);
-    this._filmInfoComponent.setCloseButtonClickHandler(this._hideFilmDetails);
+    this._filmCardComponent.setClickHandler(() => {
+      this._showFilmDetails();
+    });
+
+    this._filmInfoComponent.setCloseButtonClickHandler(() => {
+      this._hideFilmDetails();
+    });
 
     this._filmCardComponent.setWatchListButtonClickHandler((evt) => {
       evt.preventDefault();
