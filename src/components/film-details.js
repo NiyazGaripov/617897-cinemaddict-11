@@ -8,14 +8,21 @@ const createGenresMarkup = (genres) => {
       `<span class="film-details__genre">${genre.name}</span>`
     );
   }).join(`\n`);
-
 };
-const createFilmDetailsComponent = (film) => {
+
+const createImageMarkup = (emoji) => {
+  return (
+    `<img src="./images/emoji/${emoji}.png" width="55" height="55" alt="emoji-${emoji}">`
+  );
+};
+
+const createFilmDetailsComponent = (film, emoji) => {
   const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, comments, isWatchList, isWatched, isFavorite} = film;
   const releaseDate = `${release.getDate()} ${MONTH_NAMES[release.getMonth()]} ${release.getFullYear()}`;
   const createGenres = createGenresMarkup(genres);
   const commentsAmount = comments.length;
   const commentList = new Comment(comments).getTemplate();
+  const selectedImageEmoji = emoji ? createImageMarkup(emoji) : ``;
 
   return (
     `<section class="film-details">
@@ -101,7 +108,9 @@ const createFilmDetailsComponent = (film) => {
             ${commentList}
 
             <div class="film-details__new-comment">
-              <div for="add-emoji" class="film-details__add-emoji-label"></div>
+              <div for="add-emoji" class="film-details__add-emoji-label">
+                ${selectedImageEmoji}
+              </div>
 
               <label class="film-details__comment-label">
                 <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
