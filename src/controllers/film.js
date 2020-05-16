@@ -23,6 +23,9 @@ class FilmController {
   }
 
   render(film) {
+    const oldFilmCardComponent = this._filmCardComponent;
+    const oldFilmInfoComponent = this._filmInfoComponent;
+
     this._film = film;
     this._filmCardComponent = new FilmCard(film);
     this._filmInfoComponent = new FilmInfo(film);
