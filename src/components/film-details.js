@@ -140,6 +140,10 @@ class FilmInfo extends AbstractSmartComponent {
   constructor(film) {
     super();
     this._film = film;
+    this._closeButtonClickHandler = null;
+    this._watchListInputChangeHandler = null;
+    this._watchedInputChangeHandler = null;
+    this._favoriteInputChangeHandler = null;
   }
 
   getTemplate() {
@@ -148,18 +152,22 @@ class FilmInfo extends AbstractSmartComponent {
 
   setCloseButtonClickHandler(callback) {
     this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, callback);
+    this._closeButtonClickHandler = callback;
   }
 
   setWatchListInputChangeHandler(callback) {
     this.getElement().querySelector(`#watchlist`).addEventListener(`change`, callback);
+    this._watchListInputChangeHandler = callback;
   }
 
   setWatchedInputChangeHandler(callback) {
     this.getElement().querySelector(`#watched`).addEventListener(`change`, callback);
+    this._watchedInputChangeHandler = callback;
   }
 
   setFavoriteInputChangeHandler(callback) {
     this.getElement().querySelector(`#favorite`).addEventListener(`change`, callback);
+    this._favoriteInputChangeHandler = callback;
   }
 }
 
