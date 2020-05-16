@@ -1,6 +1,6 @@
 import {MONTH_NAMES} from './../mock/constants.js';
 import {Comment} from './comments.js';
-import {AbstractComponent} from './../components/abstract-component.js';
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
 const createGenresMarkup = (genres) => {
   return genres.map((genre) => {
@@ -136,7 +136,7 @@ const createFilmDetailsComponent = (film) => {
   );
 };
 
-class FilmInfo extends AbstractComponent {
+class FilmInfo extends AbstractSmartComponent {
   constructor(film) {
     super();
     this._film = film;
