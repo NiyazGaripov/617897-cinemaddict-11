@@ -1,4 +1,4 @@
-import {renderComponent} from './../utils/render.js';
+import {renderComponent, replaceComponent} from './../utils/render.js';
 import {FilmCard} from './../components/film-card.js';
 import {FilmInfo} from './../components/film-details.js';
 import {ESC_KEYCODE} from './../mock/constants.js';
@@ -65,7 +65,12 @@ class FilmController {
       this._addFilmToFavorite();
     });
 
-    renderComponent(this._container, this._filmCardComponent);
+    if (oldFilmCardComponent && oldFilmInfoComponent) {
+      replaceComponent(this._filmCardComponent, oldFilmCardComponent);
+      replaceComponent(this._filmInfoComponent, oldFilmInfoComponent);
+    } else {
+      renderComponent(this._container, this._filmCardComponent);
+    }
   }
 
   _showFilmDetails() {
