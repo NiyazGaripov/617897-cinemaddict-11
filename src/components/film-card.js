@@ -1,10 +1,10 @@
-import {getRandomArrayItem} from './../utils/common.js';
+import {getRandomArrayItem, getFullYear} from './../utils/common.js';
 import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
 const createFilmCardComponent = (filmCard) => {
   const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = filmCard;
-  const releaseYear = release.getFullYear();
+  const releaseYear = getFullYear(release);
   const genre = getRandomArrayItem(genres);
   const shortDescription = getShortDescription(description, 140);
   const commentsAmount = comments.length;
