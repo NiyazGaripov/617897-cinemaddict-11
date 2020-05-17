@@ -17,4 +17,8 @@ const getFullYear = (date) => {
   return moment(date).format(`YYYY`);
 };
 
-export {getRandomDate, getFullYear};
+const formatDate = (date) => {
+  return moment(date).format(`DD MMMM YYYY`);
+};
+
+export {getRandomDate, getFullYear, formatDate};
