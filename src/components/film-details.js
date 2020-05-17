@@ -1,4 +1,4 @@
-import {formatDate} from './../utils/date.js';
+import {formatReleaseDate} from './../utils/date.js';
 import {Comment} from './comments.js';
 import {Emoji} from './emoji-list';
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
@@ -19,7 +19,7 @@ const createImageMarkup = (emoji) => {
 
 const createFilmDetailsComponent = (film, emoji) => {
   const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, comments, isWatchList, isWatched, isFavorite} = film;
-  const releaseDate = formatDate(release);
+  const releaseDate = formatReleaseDate(release);
   const createGenres = createGenresMarkup(genres);
   const commentsAmount = comments.length;
   const commentList = new Comment(comments).getTemplate();
