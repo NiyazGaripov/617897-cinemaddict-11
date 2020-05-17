@@ -25,4 +25,19 @@ const formatCommentDate = (date) => {
   return moment(date).format(`YYYY/MM/DD HH:mm`);
 };
 
-export {getRandomDate, getFullYear, formatReleaseDate, formatCommentDate};
+const getFilmDuration = (duration) => {
+  const filmDuration = moment.duration(duration, `minutes`);
+  let hours = filmDuration.hours();
+  let minutes = filmDuration.minutes();
+
+  hours = hours > 0 ? `${hours}h` : ``;
+  minutes = minutes > 0 ? `${minutes}m` : ``;
+
+  if (hours && minutes) {
+    hours += ` `;
+  }
+
+  return hours + minutes;
+};
+
+export {getRandomDate, getFullYear, formatReleaseDate, formatCommentDate, getFilmDuration};
