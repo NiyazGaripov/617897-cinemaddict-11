@@ -100,21 +100,6 @@ const ACTORS = [
   `Dan Duryea`,
 ];
 
-const MONTH_NAMES = [
-  `January`,
-  `February`,
-  `March`,
-  `April`,
-  `May`,
-  `June`,
-  `July`,
-  `August`,
-  `September`,
-  `October`,
-  `November`,
-  `December`,
-];
-
 const COUNTRIES = [
   `USA`,
   `Russia`,
@@ -166,4 +151,4 @@ const SortType = {
 
 const ESC_KEYCODE = 27;
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, MONTH_NAMES, COUNTRIES, FilmSection, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, DURATIONS, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE};
