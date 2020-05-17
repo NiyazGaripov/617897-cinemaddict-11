@@ -26,6 +26,11 @@ class Comments {
 
     return true;
   }
+
+  addComment(comment) {
+    this._comments = [].concat(this._comments, comment);
+    this._callHandlers(this._dataChangeHandlers);
+  }
 }
 
 export {Comments};
