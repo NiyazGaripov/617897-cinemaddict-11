@@ -1,15 +1,10 @@
-import {setValueFormat} from './../utils/common.js';
 import {AbstractComponent} from './../components/abstract-component.js';
+import {formatCommentDate} from './../utils/date.js';
 
 const createCommentComponent = (comment) => {
-  const MONTH_COEFFICIENT = 1;
   const {text, emoji, author, date} = comment;
-  const year = date.getFullYear();
-  const month = setValueFormat(date.getMonth() + MONTH_COEFFICIENT);
-  const day = date.getDate();
-  const hours = setValueFormat(date.getHours());
-  const minutes = setValueFormat(date.getMinutes());
-  const commentDate = `${year}/${month}/${day} ${hours}:${minutes}`;
+
+  const commentDate = formatCommentDate(date);
 
   return (
     `<li class="film-details__comment">
