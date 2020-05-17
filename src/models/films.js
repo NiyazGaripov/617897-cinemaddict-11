@@ -3,6 +3,10 @@ class Films {
     this._films = [];
     this._dataChangeHandlers = [];
   }
+
+  getFilms() {
+    return this._films;
+  }
 }
 
 export {Films};
