@@ -37,6 +37,7 @@ const generateFilmCard = () => {
   const isFavorite = Math.random() > 0.5;
 
   return {
+    id: String(new Date() + Math.random()),
     poster,
     title,
     rating,
