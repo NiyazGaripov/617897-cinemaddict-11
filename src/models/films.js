@@ -10,6 +10,7 @@ class Films {
 
   setFilms(films) {
     this._films = Array.from(films);
+    this._callHandlers(this._dataChangeHandlers);
   }
 
   updateFilm(id, film) {
@@ -21,11 +22,17 @@ class Films {
 
     this._films = [].concat(this._films.slice(0, index), film, this._films.slice(index + 1));
 
+    this._callHandlers(this._dataChangeHandlers);
+
     return true;
   }
 
   setDataChangeHandler(handler) {
     this._dataChangeHandlers.push(handler);
+  }
+
+  _callHandlers(handlers) {
+    handlers.forEach((handler) => handler());
   }
 }
 
