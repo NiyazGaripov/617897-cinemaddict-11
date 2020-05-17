@@ -1,4 +1,5 @@
-import {getRandomArrayItem, getFullYear} from './../utils/common.js';
+import {getRandomArrayItem} from './../utils/common.js';
+import {getFullYear} from './../utils/date.js';
 import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
