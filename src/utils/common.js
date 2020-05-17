@@ -23,6 +23,10 @@ const getRandomDate = () => {
   return targetDate;
 };
 
+const getFullYear = (date) => {
+  return moment(date).format(`YYYY`);
+};
+
 const setValueFormat = (value) => {
   return value < MAX_VALUE ? `0${value}` : String(value);
 };
