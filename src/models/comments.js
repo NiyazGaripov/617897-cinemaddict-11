@@ -31,6 +31,10 @@ class Comments {
     this._comments = [].concat(this._comments, comment);
     this._callHandlers(this._dataChangeHandlers);
   }
+
+  setDataChangeHandler(handler) {
+    this._dataChangeHandlers.push(handler);
+  }
 }
 
 export {Comments};
