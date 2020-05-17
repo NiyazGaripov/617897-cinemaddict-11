@@ -23,6 +23,10 @@ class Films {
 
     return true;
   }
+
+  setDataChangeHandler(handler) {
+    this._dataChangeHandlers.push(handler);
+  }
 }
 
 export {Films};
