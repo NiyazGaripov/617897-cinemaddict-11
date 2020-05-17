@@ -21,4 +21,8 @@ const formatReleaseDate = (date) => {
   return moment(date).format(`DD MMMM YYYY`);
 };
 
-export {getRandomDate, getFullYear, formatReleaseDate};
+const formatCommentDate = (date) => {
+  return moment(date).format(`YYYY/MM/DD HH:mm`);
+};
+
+export {getRandomDate, getFullYear, formatReleaseDate, formatCommentDate};
