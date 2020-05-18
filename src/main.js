@@ -6,6 +6,7 @@ import {FilmStatistics} from './components/film-statistics.js';
 import {generateNavigationList} from './mock/nav-list.js';
 import {generateFilmsCards} from './mock/film-cards.js';
 import {PageController} from './controllers/page.js';
+import {Films} from './models/films.js';
 
 const FILM_CARDS_AMOUNT = 20;
 
@@ -22,7 +23,10 @@ renderComponent(pageMain, new Navigation(navList));
 const filmSectionComponent = new FilmsSection();
 renderComponent(pageMain, filmSectionComponent);
 
-const page = new PageController(filmSectionComponent);
-page.render(filmCards);
+const filmsModel = new Films();
+filmsModel.setFilms(filmCards);
+
+const page = new PageController(filmSectionComponent, filmsModel);
+page.render();
 
 renderComponent(pageFooter, new FilmStatistics());
