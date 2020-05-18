@@ -22,16 +22,6 @@ const renderFilmCards = (filmCards, container, onDataChange, onViewChange) => {
   });
 };
 
-const renderFilmsList = (container, component, films, onDataChange, onViewChange) => {
-  const listContainer = component.getListContainer();
-
-  renderComponent(container, component);
-
-  listContainer.innerHTML = ``;
-
-  return renderFilmCards(films, listContainer, onDataChange, onViewChange);
-};
-
 const sortFilms = (films, sortType, from, to) => {
   let sortedFilms = [];
   const showingFilms = films.slice();
@@ -55,9 +45,9 @@ const sortFilms = (films, sortType, from, to) => {
 };
 
 class PageController {
-  constructor(container) {
-    this._container = container;
-    this._films = [];
+  constructor(container, filmsModel) {
+    this._container = container.getElement();
+    this._filmsModel = filmsModel;
     this._showedFilmControllers = [];
     this._topRatedFilmControllers = [];
     this._mostCommentedFilmControllers = [];
@@ -75,18 +65,18 @@ class PageController {
     this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
   }
 
-  render(films) {
-    this._films = films;
-    const container = this._container.getElement();
+  render() {
+    const container = this._container;
+    const films = this._filmsModel.getFilms();
+    const filmsForShowing = films.slice(BEGIN_INDEX, this._showingFilmCards);
+    const allFilms = this._renderFilmsList(this._filmsListComponent, filmsForShowing);
+    const isTopRatedFilms = films.some((it) => it.rating > 0);
+    const isMostCommentedFilms = films.some((it) => it.comments.length > 0);
     const parent = container.parentElement;
-    const filmsForShowing = this._films.slice(BEGIN_INDEX, this._showingFilmCards);
-    const allFilms = renderFilmsList(container, this._filmsListComponent, filmsForShowing, this._onDataChange, this._onViewChange);
-    const isTopRatedFilms = this._films.some((it) => it.rating > 0);
-    const isMostCommentedFilms = this._films.some((it) => it.comments.length > 0);
 
     parent.insertBefore(this._sortComponent.getElement(), container);
 
-    if (this._films.length === 0) {
+    if (films.length === 0) {
       renderComponent(container, this._noData);
     }
 
@@ -95,20 +85,28 @@ class PageController {
     this._renderShowMoreButton();
 
     if (isTopRatedFilms) {
-      const ratedFilms = sortFilms(this._films, SortType.RATING, BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
-      this._topRatedFilmControllers = renderFilmsList(container, this._filmsListTopRatedComponent, ratedFilms, this._onDataChange, this._onViewChange);
+      const ratedFilms = sortFilms(films, SortType.RATING, BEGIN_INDEX, FILM_RATED_CARDS_AMOUNT);
+      this._topRatedFilmControllers = this._renderFilmsList(this._filmsListTopRatedComponent, ratedFilms);
     }
 
     if (isMostCommentedFilms) {
-      const commentedFilms = sortFilms(this._films, SortType.COMMENTS, BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
-      this._mostCommentedFilmControllers = renderFilmsList(container, this._filmsListMostCommentedComponent, commentedFilms, this._onDataChange, this._onViewChange);
+      const commentedFilms = sortFilms(films, SortType.COMMENTS, BEGIN_INDEX, FILM_COMMENTED_CARDS_AMOUNT);
+      this._mostCommentedFilmControllers = this._renderFilmsList(this._filmsListMostCommentedComponent, commentedFilms);
     }
+  }
+
+  _renderFilmsList(component, films) {
+    const listContainer = component.getListContainer();
+
+    renderComponent(this._container, component);
+
+    return renderFilmCards(films, listContainer, this._onDataChange, this._onViewChange);
   }
 
   _sortTypeChangeHandler(sortType) {
     this._showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
     const filmsListContainer = this._filmsListComponent.getListContainer();
-    const sortedFilms = sortFilms(this._films, sortType, BEGIN_INDEX, this._showingFilmCards);
+    const sortedFilms = sortFilms(this._filmsModel.getFilms(), sortType, BEGIN_INDEX, this._showingFilmCards);
 
     filmsListContainer.innerHTML = ``;
 
@@ -120,10 +118,11 @@ class PageController {
   _renderShowMoreButton() {
     const filmsList = this._filmsListComponent.getElement();
     const filmsListContainer = this._filmsListComponent.getListContainer();
+    const films = this._filmsModel.getFilms();
 
     removeComponent(this._showMoreButton);
 
-    if (this._showingFilmCards >= this._films.length) {
+    if (this._showingFilmCards >= films.length) {
       return;
     }
 
@@ -133,34 +132,31 @@ class PageController {
       const prevFilmCards = this._showingFilmCards;
       this._showingFilmCards += FILM_CARDS_AMOUNT_LOAD_MORE;
 
-      const sortedFilms = sortFilms(this._films, this._sortComponent.getSortType(), prevFilmCards, this._showingFilmCards);
+      const sortedFilms = sortFilms(films, this._sortComponent.getSortType(), prevFilmCards, this._showingFilmCards);
       const newFilms = renderFilmCards(sortedFilms, filmsListContainer, this._onDataChange, this._onViewChange);
 
       this._showedFilmControllers = this._showedFilmControllers.concat(newFilms);
 
-      if (this._showingFilmCards >= this._films.length) {
+      if (this._showingFilmCards >= films.length) {
         removeComponent(this._showMoreButton);
       }
     });
   }
 
   _onDataChange(oldData, newData) {
-    const index = this._films.findIndex((it) => it === oldData);
+    const isSuccess = this._filmsModel.updateFilm(oldData.id, newData);
     const allFilms = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
 
-    if (index === -1) {
-      return;
+    if (isSuccess) {
+      // TODO: redo V
+      allFilms.forEach((film) => {
+        const currentFilm = film._filmCardComponent._filmCard;
+
+        if (currentFilm === oldData) {
+          film.render(newData);
+        }
+      });
     }
-
-    this._films = [].concat(this._films.slice(0, index), newData, this._films.slice(index + 1));
-
-    allFilms.forEach((film) => {
-      const currentFilm = film._filmCardComponent._filmCard;
-
-      if (currentFilm === oldData) {
-        film.render(newData);
-      }
-    });
   }
 
   _onViewChange() {
