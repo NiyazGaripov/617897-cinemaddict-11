@@ -20,7 +20,7 @@ const createFilterItemComponent = (filter) => {
 };
 
 const createFilterListComponent = (filters) => {
-  const createFilterList = filters.map((filter, i) => createFilterItemComponent(filter)).join(`\n`);
+  const createFilterList = filters.map((filter) => createFilterItemComponent(filter)).join(`\n`);
 
   return (
     `<nav class="main-navigation">
@@ -40,6 +40,21 @@ class Filter extends AbstractComponent {
 
   getTemplate() {
     return createFilterListComponent(this._filters);
+  }
+
+  setFilterClickHandler(handler) {
+
+    const filterList = Array.from(this.getElement().querySelectorAll(`.main-navigation__item`));
+
+    filterList.forEach((item) => {
+      item.addEventListener(`click`, (evt) => {
+        evt.preventDefault();
+
+        const filterTitle = getFilterTitleByHref(evt.target.href);
+
+        handler(filterTitle);
+      });
+    });
   }
 }
 
