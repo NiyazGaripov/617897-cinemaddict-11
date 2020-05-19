@@ -1,19 +1,20 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const createFilterItemComponent = (item, isActive, hasCount) => {
-  const {path, title, amount} = item;
+const createFilterItemComponent = (filter) => {
+  const {path, title, amount, isActive} = filter;
   const activeClass = isActive ? `main-navigation__item--active` : ``;
+  const filmsAmount = amount !== 0;
 
   return (
     `<a href="#${path}" class="main-navigation__item ${activeClass}">
       ${title}
-      ${hasCount ? `<span class="main-navigation__item-count">${amount}</span>` : ``}
+      ${filmsAmount ? `<span class="main-navigation__item-count">${amount}</span>` : ``}
     </a>`
   );
 };
 
-const createFilterListComponent = (list) => {
-  const createFilterList = list.map((it, i) => createFilterItemComponent(it, i === 0, i !== 0)).join(`\n`);
+const createFilterListComponent = (filters) => {
+  const createFilterList = filters.map((filter, i) => createFilterItemComponent(filter)).join(`\n`);
 
   return (
     `<nav class="main-navigation">
