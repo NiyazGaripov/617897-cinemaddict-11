@@ -38,4 +38,4 @@ const replaceComponent = (newComponent, oldComponent) => {
   }
 };
 
-export {renderComponent, createElement, removeComponent, replaceComponent};
+export {RenderPosition, renderComponent, createElement, removeComponent, replaceComponent};
