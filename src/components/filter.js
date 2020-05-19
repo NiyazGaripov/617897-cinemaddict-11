@@ -1,5 +1,11 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 
+const BEGIN_SLICE = 1;
+
+const getFilterTitleByHref = (href) => {
+  return href.slice(BEGIN_SLICE);
+};
+
 const createFilterItemComponent = (filter) => {
   const {path, title, amount, isActive} = filter;
   const activeClass = isActive ? `main-navigation__item--active` : ``;
@@ -27,13 +33,13 @@ const createFilterListComponent = (filters) => {
 };
 
 class Filter extends AbstractComponent {
-  constructor(list) {
+  constructor(filters) {
     super();
-    this._list = list;
+    this._filters = filters;
   }
 
   getTemplate() {
-    return createFilterListComponent(this._list);
+    return createFilterListComponent(this._filters);
   }
 }
 
