@@ -3,7 +3,9 @@ import {FilterType} from './../mock/constants.js';
 class Films {
   constructor() {
     this._films = [];
+    this._activeFilterType = FilterType.ALL;
     this._dataChangeHandlers = [];
+    this._filterChangeHandlers = [];
   }
 
   getFilms() {
