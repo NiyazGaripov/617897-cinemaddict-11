@@ -1,7 +1,7 @@
-import {Filter} from '../components/filter.js';
-import {FilterType, FILTER_NAMES} from "../mock/constants.js";
-import {RenderPosition, renderComponent, replaceComponent} from "../utils/render.js";
-import {getFilmsByFilter} from "../utils/filter.js";
+import {Filter} from './../components/filter.js';
+import {FilterType, FILTER_NAMES} from './../mock/constants.js';
+import {RenderPosition, renderComponent, replaceComponent} from './../utils/render.js';
+import {getFilmsByFilter} from './../utils/filter.js';
 
 class FilterController {
   constructor(container, filmsModel) {
