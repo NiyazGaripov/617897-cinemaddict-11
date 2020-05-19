@@ -1,6 +1,6 @@
 import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
-import {Navigation} from './components/navigation.js';
+import {Filter} from './components/filter.js';
 import {FilmsSection} from './components/films-section.js';
 import {FilmStatistics} from './components/film-statistics.js';
 import {generateNavigationList} from './mock/nav-list.js';
@@ -18,7 +18,7 @@ const navList = generateNavigationList();
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 
 renderComponent(pageHeader, new Profile());
-renderComponent(pageMain, new Navigation(navList));
+renderComponent(pageMain, new Filter(navList));
 
 const filmSectionComponent = new FilmsSection();
 renderComponent(pageMain, filmSectionComponent);
