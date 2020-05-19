@@ -41,6 +41,11 @@ class FilterController {
       renderComponent(container, this._filterComponent, RenderPosition.AFTERBEGIN);
     }
   }
+
+  _onFilterChange(filterType) {
+    this._filmsModel.setFilter(filterType);
+    this._activeFilterType = filterType;
+  }
 }
 
 export {FilterController};
