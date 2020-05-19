@@ -21,6 +21,11 @@ class Films {
     this._callHandlers(this._dataChangeHandlers);
   }
 
+  setFilter(filterType) {
+    this._activeFilterType = filterType;
+    this._callHandlers(this._filterChangeHandlers);
+  }
+
   updateFilm(id, film) {
     const index = this._films.findIndex((it) => it.id === id);
 
