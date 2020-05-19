@@ -12,6 +12,10 @@ class Films {
     return this._films;
   }
 
+  getFilteredFilms() {
+    return getFilmsByFilter(this._films, this._activeFilterType);
+  }
+
   setFilms(films) {
     this._films = Array.from(films);
     this._callHandlers(this._dataChangeHandlers);
