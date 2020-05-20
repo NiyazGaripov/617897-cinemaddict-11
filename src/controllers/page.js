@@ -61,8 +61,10 @@ class PageController {
 
     this._onDataChange = this._onDataChange.bind(this);
     this._onViewChange = this._onViewChange.bind(this);
+    this._onFilterChange = this._onFilterChange.bind(this);
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
     this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
+    this._filmsModel.setFilterClickHandler(this._onFilterChange);
   }
 
   render() {
