@@ -9,7 +9,7 @@ const getFilterTitleByHref = (href) => {
 const createFilterItemComponent = (filter) => {
   const {path, title, amount, isActive} = filter;
   const activeClass = isActive ? `main-navigation__item--active` : ``;
-  const filmsAmount = amount !== 0;
+  const filmsAmount = amount !== null;
 
   return (
     `<a href="#${path}" class="main-navigation__item ${activeClass}">
