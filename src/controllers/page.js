@@ -150,6 +150,12 @@ class PageController {
     this._showedFilmControllers = [];
   }
 
+  _updateFilms(amount) {
+    this._removeFilms();
+    this._renderFilms(this._filmsModel.getFilms().slice(0, amount));
+    this._renderShowMoreButton();
+  }
+
   _onDataChange(oldData, newData) {
     const isSuccess = this._filmsModel.updateFilm(oldData.id, newData);
     const allFilms = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
