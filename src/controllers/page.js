@@ -184,6 +184,10 @@ class PageController {
 
     allInstances.forEach((instances) => instances.setDefaultView());
   }
+
+  _onFilterChange() {
+    this._updateFilms(this._showingFilmCards);
+  }
 }
 
 export {PageController};
