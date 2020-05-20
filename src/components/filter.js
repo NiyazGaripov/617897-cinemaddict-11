@@ -42,7 +42,7 @@ class Filter extends AbstractComponent {
     return createFilterListComponent(this._filters);
   }
 
-  setFilterClickHandler(handler) {
+  setFilterChangeHandler(handler) {
 
     const filterList = Array.from(this.getElement().querySelectorAll(`.main-navigation__item`));
 
