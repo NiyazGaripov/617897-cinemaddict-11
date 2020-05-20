@@ -145,6 +145,11 @@ class PageController {
     });
   }
 
+  _removeFilms() {
+    this._showedFilmControllers.forEach((filmController) => filmController.destroy());
+    this._showedFilmControllers = [];
+  }
+
   _onDataChange(oldData, newData) {
     const isSuccess = this._filmsModel.updateFilm(oldData.id, newData);
     const allFilms = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
