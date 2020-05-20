@@ -1,4 +1,4 @@
-import {renderComponent, replaceComponent} from './../utils/render.js';
+import {renderComponent, replaceComponent, removeComponent} from './../utils/render.js';
 import {FilmCard} from './../components/film-card.js';
 import {FilmInfo} from './../components/film-details.js';
 import {ESC_KEYCODE} from './../mock/constants.js';
@@ -115,6 +115,12 @@ class FilmController {
     if (this._mode !== Mode.DEFAULT) {
       this._hideFilmDetails();
     }
+  }
+
+  destroy() {
+    removeComponent(this._filmCardComponent);
+    removeComponent(this._filmInfoComponent);
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 }
 
