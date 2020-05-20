@@ -105,6 +105,13 @@ class PageController {
     return renderFilmCards(films, listContainer, this._onDataChange, this._onViewChange);
   }
 
+  _renderFilms(films) {
+    const newFilms = renderFilmCards(films, this._filmsListComponent, this._onDataChange, this._onViewChange);
+    this._showedFilmsControllers = this._showedFilmsControllers.concat(newFilms);
+
+    this._showingFilmsCount = this._showedFilmsControllers.length;
+  }
+
   _sortTypeChangeHandler(sortType) {
     this._showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
     const filmsListContainer = this._filmsListComponent.getListContainer();
