@@ -1,9 +1,10 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const BEGIN_SLICE = 1;
+const BEGIN_INDEX = 1;
 
 const getFilterTitleByHref = (href) => {
-  return href.slice(BEGIN_SLICE);
+  const index = href.indexOf(`#`) + BEGIN_INDEX;
+  return href.slice(index);
 };
 
 const createFilterItemComponent = (filter) => {
@@ -51,6 +52,15 @@ class Filter extends AbstractComponent {
         evt.preventDefault();
 
         const filterTitle = getFilterTitleByHref(evt.target.href);
+        const container = this.getElement();
+        const activeClass = `main-navigation__item--active`;
+
+        const activeElement = container.querySelector(`.${activeClass}`);
+
+        if (!evt.target.classList.contains(`${activeClass}`)) {
+          activeElement.classList.remove(activeClass);
+          evt.target.classList.add(activeClass);
+        }
 
         handler(filterTitle);
       });
