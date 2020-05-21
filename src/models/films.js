@@ -40,6 +40,10 @@ class Films {
     return true;
   }
 
+  resetFilter() {
+    this._activeFilterType = FilterType.ALL;
+  }
+
   setDataChangeHandler(handler) {
     this._dataChangeHandlers.push(handler);
   }
