@@ -2,6 +2,8 @@ import {renderComponent, replaceComponent, removeComponent} from './../utils/ren
 import {FilmCard} from './../components/film-card.js';
 import {FilmInfo} from './../components/film-details.js';
 import {ESC_KEYCODE} from './../mock/constants.js';
+import {Comments} from './../models/comments.js';
+import {CommentController} from './../controllers/comment.js';
 
 const body = document.body;
 const Mode = {
@@ -18,8 +20,10 @@ class FilmController {
     this._film = null;
     this._filmCardComponent = null;
     this._filmInfoComponent = null;
-
+    this._commentsController = null;
+    this._commentsModel = new Comments();
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
+    this._onCommentDataChange = this._onCommentDataChange.bind(this);
   }
 
   render(film) {
@@ -29,6 +33,11 @@ class FilmController {
     this._film = film;
     this._filmCardComponent = new FilmCard(film);
     this._filmInfoComponent = new FilmInfo(film);
+
+    this._commentsModel.setComments(film.comments);
+
+    this._commentsController = new CommentController(this._filmInfoComponent.getCommentsWrap(), this._commentsModel, this._onCommentDataChange);
+    this._commentsController.render();
 
     this._filmCardComponent.setClickHandler(() => {
       this._showFilmDetails();
@@ -121,6 +130,16 @@ class FilmController {
     removeComponent(this._filmCardComponent);
     removeComponent(this._filmInfoComponent);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
+
+  _onCommentDataChange(oldData, newData) {
+    if (oldData === null) {
+      this._commentsModel.addComment(newData);
+    }
+
+    if (newData === null) {
+      this._commentsModel.removeComment(oldData.id);
+    }
   }
 }
 
