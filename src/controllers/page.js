@@ -170,8 +170,8 @@ class PageController {
     const allFilms = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
 
     if (isSuccess) {
-      // TODO: redo V
       allFilms.forEach((film) => {
+      // TODO: отрефакторить нахождение текущей карточки с фильмом
         const currentFilm = film._filmCardComponent._filmCard;
 
         if (currentFilm === oldData) {
