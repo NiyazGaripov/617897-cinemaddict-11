@@ -29,4 +29,4 @@ renderComponent(pageMain, filmSectionComponent);
 const page = new PageController(filmSectionComponent, filmsModel);
 page.render();
 
-renderComponent(pageFooter, new FilmStatistics());
+renderComponent(pageFooter, new FilmStatistics(filmCards));
