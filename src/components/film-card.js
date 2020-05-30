@@ -3,8 +3,8 @@ import {getFullYear} from './../utils/date.js';
 import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const createFilmCardComponent = (filmCard) => {
-  const {poster, title, rating, release, duration, genres, description, comments, isWatchList, isWatched, isFavorite} = filmCard;
+const createFilmCardComponent = (filmCard, comments) => {
+  const {poster, title, rating, release, duration, genres, description, isWatchList, isWatched, isFavorite} = filmCard;
   const releaseYear = getFullYear(release);
   const genre = getRandomArrayItem(genres);
   const shortDescription = getShortDescription(description, 140);
@@ -35,31 +35,46 @@ const createFilmCardComponent = (filmCard) => {
 };
 
 class FilmCard extends AbstractComponent {
-  constructor(filmCard) {
+  constructor(filmCard, comments) {
     super();
     this._filmCard = filmCard;
+    this._comments = comments;
   }
 
   getTemplate() {
-    return createFilmCardComponent(this._filmCard);
+    return createFilmCardComponent(this._filmCard, this._comments);
   }
 
   setClickHandler(callback) {
-    this.getElement().querySelector(`img`).addEventListener(`click`, callback);
-    this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, callback);
-    this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, callback);
+    this.getElement()
+      .querySelector(`img`)
+      .addEventListener(`click`, callback);
+
+    this.getElement()
+      .querySelector(`.film-card__title`)
+      .addEventListener(`click`, callback);
+
+    this.getElement()
+      .querySelector(`.film-card__comments`)
+      .addEventListener(`click`, callback);
   }
 
   setWatchListButtonClickHandler(callback) {
-    this.getElement().querySelector(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, callback);
+    this.getElement()
+      .querySelector(`.film-card__controls-item--add-to-watchlist`)
+      .addEventListener(`click`, callback);
   }
 
   setWatchedButtonClickHandler(callback) {
-    this.getElement().querySelector(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, callback);
+    this.getElement()
+      .querySelector(`.film-card__controls-item--mark-as-watched`)
+      .addEventListener(`click`, callback);
   }
 
   setFavoriteButtonClickHandler(callback) {
-    this.getElement().querySelector(`.film-card__controls-item--favorite`).addEventListener(`click`, callback);
+    this.getElement()
+      .querySelector(`.film-card__controls-item--favorite`)
+      .addEventListener(`click`, callback);
   }
 }
 
