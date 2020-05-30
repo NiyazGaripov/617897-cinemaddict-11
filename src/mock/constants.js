@@ -113,11 +113,11 @@ const FilmSection = {
   }
 };
 
-const PROFILES = [
-  `Novice`,
-  `Fan`,
-  `Movie Buff`,
-];
+const UserRank = {
+  NOVICE: `Novice`,
+  FAN: `Fan`,
+  MOVIE_BUFF: `Movie Buff`,
+};
 
 const FILTER_NAMES = [
   `All movies`,
@@ -150,4 +150,4 @@ const ESC_KEYCODE = 27;
 
 const HIDDEN_CLASS = `visually-hidden`;
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, FilterType, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, PROFILES, FILTER_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE, HIDDEN_CLASS};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, FilterType, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, UserRank, FILTER_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE, HIDDEN_CLASS};
