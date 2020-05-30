@@ -119,12 +119,19 @@ const PROFILES = [
   `Movie Buff`,
 ];
 
-const NAVIGATION_ITEM_NAMES = [
+const FILTER_NAMES = [
   `All movies`,
   `Watchlist`,
   `History`,
   `Favorites`,
 ];
+
+const FilterType = {
+  ALL: `all`,
+  WATCHLIST: `watchlist`,
+  HISTORY: `history`,
+  FAVORITES: `favorites`,
+};
 
 const SORT_ITEM_NAMES = [
   `default`,
@@ -141,4 +148,4 @@ const SortType = {
 
 const ESC_KEYCODE = 27;
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, PROFILES, NAVIGATION_ITEM_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE};
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, FilterType, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, PROFILES, FILTER_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE};

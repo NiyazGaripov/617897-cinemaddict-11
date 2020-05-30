@@ -1,6 +1,4 @@
 import {formatReleaseDate} from './../utils/date.js';
-import {Comment} from './comments.js';
-import {Emoji} from './emoji-list';
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
 const createGenresMarkup = (genres) => {
@@ -11,20 +9,10 @@ const createGenresMarkup = (genres) => {
   }).join(`\n`);
 };
 
-const createImageMarkup = (emoji) => {
-  return (
-    `<img src="./images/emoji/${emoji}.png" width="55" height="55" alt="emoji-${emoji}">`
-  );
-};
-
-const createFilmDetailsComponent = (film, emoji) => {
-  const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, comments, isWatchList, isWatched, isFavorite} = film;
+const createFilmDetailsComponent = (film) => {
+  const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, isWatchList, isWatched, isFavorite} = film;
   const releaseDate = formatReleaseDate(release);
   const createGenres = createGenresMarkup(genres);
-  const commentsAmount = comments.length;
-  const commentList = new Comment(comments).getTemplate();
-  const emojiList = new Emoji(emoji).getTemplate();
-  const selectedImageEmoji = emoji ? createImageMarkup(emoji) : ``;
 
   return (
     `<section class="film-details">
@@ -103,27 +91,8 @@ const createFilmDetailsComponent = (film, emoji) => {
           </section>
         </div>
 
-        <div class="form-details__bottom-container">
-          <section class="film-details__comments-wrap">
-            <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${commentsAmount}</span></h3>
+        <div class="form-details__bottom-container"></div>
 
-            ${commentList}
-
-            <div class="film-details__new-comment">
-              <div for="add-emoji" class="film-details__add-emoji-label">
-                ${selectedImageEmoji}
-              </div>
-
-              <label class="film-details__comment-label">
-                <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
-              </label>
-
-              <div class="film-details__emoji-list">
-                ${emojiList}
-              </div>
-            </div>
-          </section>
-        </div>
       </form>
     </section>`
   );
@@ -133,16 +102,14 @@ class FilmInfo extends AbstractSmartComponent {
   constructor(film) {
     super();
     this._film = film;
-    this._emoji = null;
     this._closeButtonClickHandler = null;
     this._watchListInputChangeHandler = null;
     this._watchedInputChangeHandler = null;
     this._favoriteInputChangeHandler = null;
-    this._subscribeOnChoiceEmoji();
   }
 
   getTemplate() {
-    return createFilmDetailsComponent(this._film, this._emoji);
+    return createFilmDetailsComponent(this._film);
   }
 
   setCloseButtonClickHandler(callback) {
@@ -170,19 +137,18 @@ class FilmInfo extends AbstractSmartComponent {
     this.setWatchListInputChangeHandler(this._watchListInputChangeHandler);
     this.setWatchedInputChangeHandler(this._watchedInputChangeHandler);
     this.setFavoriteInputChangeHandler(this._favoriteInputChangeHandler);
-    this._subscribeOnChoiceEmoji();
   }
 
-  _subscribeOnChoiceEmoji() {
-    const section = this.getElement();
-    const emojiList = Array.from(section.querySelectorAll(`.film-details__emoji-item`));
+  rerender() {
+    super.rerender();
+  }
 
-    emojiList.forEach((emojiItem) => {
-      emojiItem.addEventListener(`change`, (evt) => {
-        this._emoji = evt.target.value;
-        this.rerender();
-      });
-    });
+  reset() {
+    this.rerender();
+  }
+
+  getCommentsWrap() {
+    return this.getElement().querySelector(`.film-details__inner`);
   }
 }
 

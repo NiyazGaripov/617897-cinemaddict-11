@@ -1,5 +1,6 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 import {SORT_ITEM_NAMES, SortType} from './../mock/constants.js';
+import {setActiveClass} from './../utils/common.js';
 
 const createSortItemComponent = (type, isActive) => {
   const activeClass = isActive ? `sort__button--active` : ``;
@@ -24,7 +25,7 @@ const createSortComponent = () => {
 class Sort extends AbstractComponent {
   constructor() {
     super();
-    this._currenSortType = SortType.DEFAULT;
+    this._currentSortType = SortType.DEFAULT;
   }
 
   getTemplate() {
@@ -32,32 +33,39 @@ class Sort extends AbstractComponent {
   }
 
   getSortType() {
-    return this._currenSortType;
+    return this._currentSortType;
+  }
+
+  resetSortType() {
+    this._currentSortType = SortType.DEFAULT;
+    this._setActiveElement(this._currentSortType);
+  }
+
+  _setActiveElement(type) {
+    const container = this.getElement();
+    const item = container.querySelector(`[data-sort-type = ${type}]`);
+    const activeClass = `sort__button--active`;
+
+    setActiveClass(container, item, activeClass);
   }
 
   setSortTypeChangeHandler(callback) {
     this.getElement().addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
-      const sortType = evt.target.dataset.sortType;
-      const sortContainer = evt.target.closest(`.sort`);
-      const activeClass = `sort__button--active`;
-      const activeElement = sortContainer.querySelector(`.${activeClass}`);
-
       if (evt.target.tagName !== `A`) {
         return;
       }
 
-      activeElement.classList.remove(activeClass);
-      evt.target.classList.add(activeClass);
+      const sortType = evt.target.dataset.sortType;
 
-      if (this._currenSortType === sortType) {
+      if (this._currentSortType === sortType) {
         return;
       }
 
-      this._currenSortType = sortType;
-
-      callback(this._currenSortType);
+      this._currentSortType = sortType;
+      this._setActiveElement(this._currentSortType);
+      callback(this._currentSortType);
     });
   }
 }
