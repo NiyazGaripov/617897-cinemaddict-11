@@ -7,6 +7,7 @@ import {generateFilmsCards} from './mock/film-cards.js';
 import {PageController} from './controllers/page.js';
 import {Films} from './models/films.js';
 import {Statistic} from './components/films-statistics.js';
+import {MenuNavigation} from './components/menu-navigation.js';
 
 const FILM_CARDS_AMOUNT = 20;
 
@@ -21,16 +22,35 @@ renderComponent(pageHeader, new Profile());
 const filmsModel = new Films();
 filmsModel.setFilms(filmCards);
 
-const filterController = new FilterController(pageMain, filmsModel);
+const menuNavigation = new MenuNavigation();
+renderComponent(pageMain, menuNavigation);
+
+const filterController = new FilterController(menuNavigation.getElement(), filmsModel);
 filterController.render();
 
 const filmSectionComponent = new FilmsSection();
 renderComponent(pageMain, filmSectionComponent);
 
-const page = new PageController(filmSectionComponent, filmsModel);
-page.render();
+const pageController = new PageController(filmSectionComponent, filmsModel);
+pageController.render();
 
 const statisticComponent = new Statistic();
 renderComponent(pageMain, statisticComponent);
+
+statisticComponent.hide();
+
+menuNavigation.setStatsClickHandler((evt) => {
+  evt.preventDefault();
+
+  pageController.hide();
+  statisticComponent.show();
+});
+
+filterController.setFilterClickHandler(() => {
+  statisticComponent.hide();
+
+  pageController.show();
+  statisticComponent.hide();
+});
 
 renderComponent(pageFooter, new FooterStatistics(filmCards));
