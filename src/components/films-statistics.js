@@ -1,4 +1,9 @@
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
+import Chart from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {getUserRank} from './../utils/common.js';
+import {getFilmDuration} from './../utils/date.js';
+import {getWatchedFilms} from './../utils/filter.js';
 
 const createStatisticComponent = () => {
   return (
