@@ -2,7 +2,7 @@ import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {FilterController} from './controllers/filter.js';
 import {FilmsSection} from './components/films-section.js';
-import {FilmStatistics} from './components/film-statistics.js';
+import {FooterStatistics} from './components/footer-statistics.js';
 import {generateFilmsCards} from './mock/film-cards.js';
 import {PageController} from './controllers/page.js';
 import {Films} from './models/films.js';
@@ -29,4 +29,4 @@ renderComponent(pageMain, filmSectionComponent);
 const page = new PageController(filmSectionComponent, filmsModel);
 page.render();
 
-renderComponent(pageFooter, new FilmStatistics(filmCards));
+renderComponent(pageFooter, new FooterStatistics(filmCards));
