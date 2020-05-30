@@ -42,6 +42,7 @@ class Films {
 
   resetFilter() {
     this._activeFilterType = FilterType.ALL;
+    this._callHandlers(this._filterChangeHandlers);
   }
 
   setDataChangeHandler(handler) {
