@@ -25,12 +25,9 @@ const createFilterListComponent = (filters) => {
   const createFilterList = filters.map((filter) => createFilterItemComponent(filter)).join(`\n`);
 
   return (
-    `<nav class="main-navigation">
-      <div class="main-navigation__items">
-        ${createFilterList}
-      </div>
-      <a href="#stats" class="main-navigation__additional">Stats</a>
-    </nav>`
+    `<div class="main-navigation__items">
+      ${createFilterList}
+    </div>`
   );
 };
 
@@ -44,7 +41,7 @@ class Filter extends AbstractComponent {
     return createFilterListComponent(this._filters);
   }
 
-  setFilterChangeHandler(handler) {
+  setFilterChangeHandler(callback) {
 
     const filterList = Array.from(this.getElement().querySelectorAll(`.main-navigation__item`));
 
@@ -58,9 +55,14 @@ class Filter extends AbstractComponent {
 
         setActiveClass(container, evt.target, activeClass);
 
-        handler(filterTitle);
+        callback(filterTitle);
       });
     });
+  }
+
+  setFilterClickHandler(callback) {
+    this.getElement().addEventListener(`click`, callback);
+    this._filterClickHandler = callback;
   }
 }
 
