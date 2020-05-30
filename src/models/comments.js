@@ -20,7 +20,21 @@ class Comments {
       return false;
     }
 
-    this._comments = this._comments.filter((item) => item.id !== id);
+    this._comments = [].concat(this._comments.slice(0, index), this._comments.slice(index + 1));
+
+    this._callHandlers(this._dataChangeHandlers);
+
+    return true;
+  }
+
+  updateComments(id, newData) {
+    const index = this._comments.findIndex((it) => it.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    this._comments = [].concat(this._comments.slice(0, index), newData, this._comments.slice(index + 1));
 
     this._callHandlers(this._dataChangeHandlers);
 
