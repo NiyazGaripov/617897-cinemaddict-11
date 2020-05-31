@@ -8,11 +8,11 @@ class Films {
     this._filterChangeHandlers = [];
   }
 
-  getFilms() {
+  getFilmsAll() {
     return this._films;
   }
 
-  getFilteredFilms() {
+  getFilms() {
     return getFilmsByFilter(this._films, this._activeFilterType);
   }
 
