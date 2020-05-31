@@ -229,6 +229,32 @@ class Statistic extends AbstractSmartComponent {
     this.periodChangeHandler = callback;
   }
 
+  _onPeriodChangeHandler(period) {
+    this._activePeriod = period;
+    let dateBegin = null;
+
+    switch (period) {
+      case PeriodFilterType.TODAY:
+        dateBegin = moment().startOf(`day`).toDate();
+        break;
+      case PeriodFilterType.WEEK:
+        dateBegin = moment().startOf(`isoWeek`).toDate();
+        break;
+      case PeriodFilterType.MONTH:
+        dateBegin = moment().startOf(`month`).toDate();
+        break;
+      case PeriodFilterType.YEAR:
+        dateBegin = moment().startOf(`year`).toDate();
+        break;
+      default:
+        dateBegin = null;
+        break;
+    }
+
+    this._filteredFilms = getWatchedFilmsByPeriod(this._watchedFilms, dateBegin);
+    this.rerender();
+  }
+
 }
 
 export {Statistic};
