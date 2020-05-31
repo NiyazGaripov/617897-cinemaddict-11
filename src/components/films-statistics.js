@@ -255,6 +255,14 @@ class Statistic extends AbstractSmartComponent {
     this.rerender();
   }
 
+  _renderCharts(films) {
+    const element = this.getElement();
+    const statisticCtx = element.querySelector(`.statistic__chart`);
+
+    this._resetCharts();
+    this._charts = renderChart(statisticCtx, films);
+  }
+
 }
 
 export {Statistic};
