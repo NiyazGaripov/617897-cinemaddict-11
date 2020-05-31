@@ -1,12 +1,12 @@
-import {getRandomArrayItem} from './../utils/common.js';
-import {getFullYear} from './../utils/date.js';
+import {getFullYear, getFilmDuration} from './../utils/date.js';
 import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
 const createFilmCardComponent = (filmCard, comments) => {
   const {poster, title, rating, release, duration, genres, description, isWatchList, isWatched, isFavorite} = filmCard;
   const releaseYear = getFullYear(release);
-  const genre = getRandomArrayItem(genres);
+  const filmDuration = getFilmDuration(duration);
+  const genre = genres.length === 0 ? `` : genres[0];
   const shortDescription = getShortDescription(description, 140);
   const commentsAmount = comments.length;
   const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
@@ -19,8 +19,8 @@ const createFilmCardComponent = (filmCard, comments) => {
       <p class="film-card__rating">${rating}</p>
       <p class="film-card__info">
         <span class="film-card__year">${releaseYear}</span>
-        <span class="film-card__duration">${duration}</span>
-        <span class="film-card__genre">${genre.name}</span>
+        <span class="film-card__duration">${filmDuration}</span>
+        <span class="film-card__genre">${genre}</span>
       </p>
       <img src="./images/posters/${poster}" alt="${title}" class="film-card__poster">
       <p class="film-card__description">${shortDescription}</p>
