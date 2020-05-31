@@ -143,14 +143,6 @@ class FilmInfo extends AbstractSmartComponent {
   rerender() {
     super.rerender();
   }
-
-  reset() {
-    this.rerender();
-  }
-
-  getCommentsWrap() {
-    return this.getElement().querySelector(`.film-details__inner`);
-  }
 }
 
 export {FilmInfo};
