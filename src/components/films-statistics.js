@@ -212,6 +212,10 @@ class Statistic extends AbstractSmartComponent {
     this.setPeriodChangeHandler(this.periodChangeHandler);
   }
 
+  rerender() {
+    super.rerender();
+    this._renderCharts(this._filteredFilms);
+  }
 }
 
 export {Statistic};
