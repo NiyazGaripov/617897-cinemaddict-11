@@ -4,7 +4,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
-import {BAR_HEIGHT} from './../mock/constants.js';
+import {BAR_HEIGHT, PeriodFilterType} from './../mock/constants.js';
+import moment from "moment";
 
 const getWatchedFilmsDuration = (watchedFilms) => {
   const watchedFilmsDurations = watchedFilms.map((film) => {
@@ -46,8 +47,18 @@ const getTopGenre = (watchedFilms) => {
   return topGenre;
 };
 
-const renderChart = () => {
-  const statisticCtx = document.querySelector(`.statistic__chart`);
+const getWatchedFilmsByPeriod = (watchedFilms, dateBegin) => {
+  if (!dateBegin) {
+    return watchedFilms;
+  }
+
+  return watchedFilms.filter((film) => film.watchedDate >= dateBegin);
+};
+
+const renderChart = (statisticCtx, watchedFilms) => {
+  const genresAmount = getGenresAmount(watchedFilms);
+  const genres = Object.keys(genresAmount);
+  const filmsAmounts = Object.values(genresAmount);
 
   statisticCtx.height = BAR_HEIGHT * 5;
 
@@ -55,9 +66,9 @@ const renderChart = () => {
     plugins: [ChartDataLabels],
     type: `horizontalBar`,
     data: {
-      labels: [`Sci-Fi`, `Animation`, `Fantasy`, `Comedy`, `TV Series`],
+      labels: genres,
       datasets: [{
-        data: [11, 8, 7, 4, 3],
+        data: filmsAmounts,
         backgroundColor: `#ffe800`,
         hoverBackgroundColor: `#ffe800`,
         anchor: `start`
@@ -119,10 +130,8 @@ const createStatisticRankComponent = (userRank) => {
   );
 };
 
-const createStatisticComponent = ({films}) => {
-  const watchedFilms = getWatchedFilms(films);
+const createStatisticComponent = ({watchedFilms, period, userRank}) => {
   const watchedFilmsAmount = watchedFilms.length;
-  const userRank = getUserRank(watchedFilmsAmount);
   const watchedFilmsDuration = getWatchedFilmsDuration(watchedFilms);
   const totalDuration = getFilmDuration(watchedFilmsDuration, true);
   const topGenre = getTopGenre(watchedFilms);
@@ -134,19 +143,19 @@ const createStatisticComponent = ({films}) => {
       <form action="https://echo.htmlacademy.ru/" method="get" class="statistic__filters">
         <p class="statistic__filters-description">Show stats:</p>
 
-        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-all-time" value="all-time" checked>
+        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-all-time" value="all-time" ${period === PeriodFilterType.ALL_TIME ? `checked` : ``}>
         <label for="statistic-all-time" class="statistic__filters-label">All time</label>
 
-        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-today" value="today">
+        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-today" value="today" ${period === PeriodFilterType.TODAY ? `checked` : ``}>
         <label for="statistic-today" class="statistic__filters-label">Today</label>
 
-        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-week" value="week">
+        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-week" value="week" ${period === PeriodFilterType.WEEK ? `checked` : ``}>
         <label for="statistic-week" class="statistic__filters-label">Week</label>
 
-        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-month" value="month">
+        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-month" value="month" ${period === PeriodFilterType.MONTH ? `checked` : ``}>
         <label for="statistic-month" class="statistic__filters-label">Month</label>
 
-        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-year" value="year">
+        <input type="radio" class="statistic__filters-input visually-hidden" name="statistic-filter" id="statistic-year" value="year" ${period === PeriodFilterType.YEAR ? `checked` : ``}>
         <label for="statistic-year" class="statistic__filters-label">Year</label>
       </form>
 
@@ -176,12 +185,22 @@ const createStatisticComponent = ({films}) => {
 class Statistic extends AbstractSmartComponent {
   constructor({films}) {
     super();
+    this._allFilms = films.getFilteredFilms();
+    this._watchedFilms = getWatchedFilms(this._allFilms);
+    this._filteredFilms = this._watchedFilms;
+    this._userRank = getUserRank(this._watchedFilms.length);
+    this._activePeriod = PeriodFilterType.ALL_TIME;
+    this._charts = null;
 
-    this._films = films;
+    this._renderCharts(this._filteredFilms);
+
+    this.periodChangeHandler = null;
+    this._onPeriodChangeHandler = this._onPeriodChangeHandler.bind(this);
+    this.setPeriodChangeHandler(this._onPeriodChangeHandler);
   }
 
   getTemplate() {
-    return createStatisticComponent({films: this._films.getFilteredFilms()});
+    return createStatisticComponent({watchedFilms: this._filteredFilms, period: this._activePeriod, userRank: this._userRank});
   }
 }
 
