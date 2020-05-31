@@ -263,6 +263,13 @@ class Statistic extends AbstractSmartComponent {
     this._charts = renderChart(statisticCtx, films);
   }
 
+  _resetCharts() {
+    if (this._charts) {
+      this._charts.destroy();
+      this._charts = null;
+      this._activePeriod = PeriodFilterType.ALL_TIME;
+    }
+  }
 }
 
 export {Statistic};
