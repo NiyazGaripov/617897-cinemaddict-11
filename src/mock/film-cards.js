@@ -35,6 +35,7 @@ const generateFilmCard = () => {
   const isWatchList = Math.random() > 0.5;
   const isWatched = Math.random() > 0.5;
   const isFavorite = Math.random() > 0.5;
+  const watchedDate = getRandomDate();
 
   return {
     id: String(new Date() + Math.random()),
@@ -54,6 +55,7 @@ const generateFilmCard = () => {
     isWatchList,
     isWatched,
     isFavorite,
+    watchedDate,
   };
 };
 
