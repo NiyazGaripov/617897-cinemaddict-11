@@ -1,14 +1,12 @@
 import moment from 'moment';
 import {getRandomIntegerNumber} from './common.js';
 
-const MIN_COEFFICIENT = 0;
-const MAX_COEFFICIENT = 30000;
-
 const getRandomDate = () => {
   const targetDate = new Date();
-  const diffValue = getRandomIntegerNumber(MIN_COEFFICIENT, MAX_COEFFICIENT);
+  const sign = Math.random() > 0.5 ? 1 : -1;
+  const diffValue = sign * getRandomIntegerNumber(0, 365);
 
-  targetDate.setDate(targetDate.getDate() - diffValue);
+  targetDate.setDate(targetDate.getDate() + diffValue);
 
   return targetDate;
 };
