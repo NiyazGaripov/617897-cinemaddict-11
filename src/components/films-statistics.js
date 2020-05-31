@@ -4,6 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
+import {BAR_HEIGHT} from './../mock/constants.js';
 
 const getWatchedFilmsDuration = (watchedFilms) => {
   const watchedFilmsDurations = watchedFilms.map((film) => {
@@ -13,25 +14,31 @@ const getWatchedFilmsDuration = (watchedFilms) => {
   return watchedFilmsDurations.reduce((acc, it) => acc + parseFloat(it));
 };
 
-const getTopGenre = (watchedFilms) => {
-  let genresCount = {};
+const getGenresAmount = (watchedFilms) => {
+  let genresAmount = {};
 
   watchedFilms.map((film) => {
     film.genres.map((genre) => {
-      if (genre in genresCount) {
-        genresCount[genre]++;
+      if (genre in genresAmount) {
+        genresAmount[genre]++;
       } else {
-        genresCount[genre] = 1;
+        genresAmount[genre] = 1;
       }
     });
   });
 
-  let maxGenreCount = 1;
+  return genresAmount;
+};
+
+const getTopGenre = (watchedFilms) => {
+  const genresAmount = getGenresAmount(watchedFilms);
+
+  let maxGenreAmount = 1;
   let topGenre = ``;
 
-  Object.keys(genresCount).map((genre) => {
-    if (maxGenreCount === 1 || genresCount[genre] > maxGenreCount) {
-      maxGenreCount = genresCount[genre];
+  Object.keys(genresAmount).map((genre) => {
+    if (maxGenreAmount === 1 || genresAmount[genre] > maxGenreAmount) {
+      maxGenreAmount = genresAmount[genre];
       topGenre = genre;
     }
   });
@@ -39,14 +46,90 @@ const getTopGenre = (watchedFilms) => {
   return topGenre;
 };
 
-const createStatisticComponent = () => {
+const renderChart = () => {
+  const statisticCtx = document.querySelector(`.statistic__chart`);
+
+  statisticCtx.height = BAR_HEIGHT * 5;
+
+  return new Chart(statisticCtx, {
+    plugins: [ChartDataLabels],
+    type: `horizontalBar`,
+    data: {
+      labels: [`Sci-Fi`, `Animation`, `Fantasy`, `Comedy`, `TV Series`],
+      datasets: [{
+        data: [11, 8, 7, 4, 3],
+        backgroundColor: `#ffe800`,
+        hoverBackgroundColor: `#ffe800`,
+        anchor: `start`
+      }]
+    },
+    options: {
+      plugins: {
+        datalabels: {
+          font: {
+            size: 20
+          },
+          color: `#ffffff`,
+          anchor: `start`,
+          align: `start`,
+          offset: 40,
+        }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor: `#ffffff`,
+            padding: 100,
+            fontSize: 20
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          barThickness: 24
+        }],
+        xAxes: [{
+          ticks: {
+            display: false,
+            beginAtZero: true
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        enabled: false
+      }
+    }
+  });
+};
+
+const createStatisticRankComponent = (userRank) => {
+  return (
+    `<p class="statistic__rank">
+      Your rank
+      <img class="statistic__img" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
+      <span class="statistic__rank-label">${userRank}</span>
+    </p>`
+  );
+};
+
+const createStatisticComponent = ({films}) => {
+  const watchedFilms = getWatchedFilms(films);
+  const watchedFilmsAmount = watchedFilms.length;
+  const userRank = getUserRank(watchedFilmsAmount);
+  const watchedFilmsDuration = getWatchedFilmsDuration(watchedFilms);
+  const totalDuration = getFilmDuration(watchedFilmsDuration, true);
+  const topGenre = getTopGenre(watchedFilms);
+
   return (
     `<section class="statistic">
-      <p class="statistic__rank">
-        Your rank
-        <img class="statistic__img" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-        <span class="statistic__rank-label">Sci-Fighter</span>
-      </p>
+      ${userRank === null ? `` : createStatisticRankComponent(userRank)}
 
       <form action="https://echo.htmlacademy.ru/" method="get" class="statistic__filters">
         <p class="statistic__filters-description">Show stats:</p>
@@ -70,15 +153,15 @@ const createStatisticComponent = () => {
       <ul class="statistic__text-list">
         <li class="statistic__text-item">
           <h4 class="statistic__item-title">You watched</h4>
-          <p class="statistic__item-text">22 <span class="statistic__item-description">movies</span></p>
+          <p class="statistic__item-text">${watchedFilmsAmount} <span class="statistic__item-description">movies</span></p>
         </li>
         <li class="statistic__text-item">
           <h4 class="statistic__item-title">Total duration</h4>
-          <p class="statistic__item-text">130 <span class="statistic__item-description">h</span> 22 <span class="statistic__item-description">m</span></p>
+          <p class="statistic__item-text">${totalDuration}</p>
         </li>
         <li class="statistic__text-item">
           <h4 class="statistic__item-title">Top genre</h4>
-          <p class="statistic__item-text">Sci-Fi</p>
+          <p class="statistic__item-text">${topGenre}</p>
         </li>
       </ul>
 
@@ -91,8 +174,14 @@ const createStatisticComponent = () => {
 };
 
 class Statistic extends AbstractSmartComponent {
+  constructor({films}) {
+    super();
+
+    this._films = films;
+  }
+
   getTemplate() {
-    return createStatisticComponent();
+    return createStatisticComponent({films: this._films.getFilteredFilms()});
   }
 }
 
