@@ -17,10 +17,10 @@ const pageFooter = document.querySelector(`.footer`);
 
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 
-renderComponent(pageHeader, new Profile());
-
 const filmsModel = new Films();
 filmsModel.setFilms(filmCards);
+
+renderComponent(pageHeader, new Profile(filmsModel.getFilteredFilms()));
 
 const menuNavigation = new MenuNavigation();
 renderComponent(pageMain, menuNavigation);
