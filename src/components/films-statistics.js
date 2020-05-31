@@ -208,6 +208,10 @@ class Statistic extends AbstractSmartComponent {
     this.rerender();
   }
 
+  recoveryListeners() {
+    this.setPeriodChangeHandler(this.periodChangeHandler);
+  }
+
 }
 
 export {Statistic};
