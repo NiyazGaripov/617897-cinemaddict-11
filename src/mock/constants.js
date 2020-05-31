@@ -152,4 +152,20 @@ const HIDDEN_CLASS = `visually-hidden`;
 
 const BAR_HEIGHT = 50;
 
-export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, FilterType, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, UserRank, FILTER_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE, HIDDEN_CLASS, BAR_HEIGHT};
+const PERIOD_NAMES = [
+  `All time`,
+  `Today`,
+  `Week`,
+  `Month`,
+  `Year`,
+];
+
+const PeriodFilterType = {
+  ALL_TIME: `all-time`,
+  TODAY: `today`,
+  WEEK: `week`,
+  MONTH: `month`,
+  YEAR: `year`,
+};
+
+export {TEXT_COMMENTS, EMOJIS, COMMENT_AUTHORS, POSTERS, FILM_TITLES, FilterType, GENRES, DESCRIPTION_FILMS, AGES, DIRECTORS, WRITERS, ACTORS, COUNTRIES, FilmSection, UserRank, FILTER_NAMES, SORT_ITEM_NAMES, SortType, ESC_KEYCODE, HIDDEN_CLASS, BAR_HEIGHT, PERIOD_NAMES, PeriodFilterType};
