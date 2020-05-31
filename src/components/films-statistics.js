@@ -13,6 +13,32 @@ const getWatchedFilmsDuration = (watchedFilms) => {
   return watchedFilmsDurations.reduce((acc, it) => acc + parseFloat(it));
 };
 
+const getTopGenre = (watchedFilms) => {
+  let genresCount = {};
+
+  watchedFilms.map((film) => {
+    film.genres.map((genre) => {
+      if (genre in genresCount) {
+        genresCount[genre]++;
+      } else {
+        genresCount[genre] = 1;
+      }
+    });
+  });
+
+  let maxGenreCount = 1;
+  let topGenre = ``;
+
+  Object.keys(genresCount).map((genre) => {
+    if (maxGenreCount === 1 || genresCount[genre] > maxGenreCount) {
+      maxGenreCount = genresCount[genre];
+      topGenre = genre;
+    }
+  });
+
+  return topGenre;
+};
+
 const createStatisticComponent = () => {
   return (
     `<section class="statistic">
