@@ -1,5 +1,5 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {SORT_ITEM_NAMES, SortType} from './../mock/constants.js';
+import {SORT_ITEM_NAMES, SortType} from './../constants.js';
 import {setActiveClass} from './../utils/common.js';
 
 const createSortItemComponent = (type, isActive) => {

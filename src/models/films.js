@@ -1,5 +1,5 @@
 import {getFilmsByFilter} from './../utils/filter.js';
-import {FilterType} from './../mock/constants.js';
+import {FilterType} from './../constants.js';
 class Films {
   constructor() {
     this._films = [];

@@ -1,4 +1,4 @@
-import {UserRank} from './../mock/constants.js';
+import {UserRank} from './../constants.js';
 
 const MAX_VALUE = 10;
 

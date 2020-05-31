@@ -1,4 +1,4 @@
-import {FilterType} from './../mock/constants.js';
+import {FilterType} from './../constants.js';
 
 const getWatchListFilms = (films) => {
   return films.filter((film) => film.isWatchList);
