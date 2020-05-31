@@ -1,6 +1,6 @@
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const createFilmStatisticsComponent = (films) => {
+const createFooterStatisticsComponent = (films) => {
   const filmsAmount = films.length;
   return (
     `<section class="footer__statistics">
@@ -9,15 +9,15 @@ const createFilmStatisticsComponent = (films) => {
   );
 };
 
-class FilmStatistics extends AbstractComponent {
+class FooterStatistics extends AbstractComponent {
   constructor(films) {
     super();
     this._films = films;
   }
 
   getTemplate() {
-    return createFilmStatisticsComponent(this._films);
+    return createFooterStatisticsComponent(this._films);
   }
 }
 
-export {FilmStatistics};
+export {FooterStatistics};

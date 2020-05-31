@@ -2,10 +2,12 @@ import {renderComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {FilterController} from './controllers/filter.js';
 import {FilmsSection} from './components/films-section.js';
-import {FilmStatistics} from './components/film-statistics.js';
+import {FooterStatistics} from './components/footer-statistics.js';
 import {generateFilmsCards} from './mock/film-cards.js';
 import {PageController} from './controllers/page.js';
 import {Films} from './models/films.js';
+import {Statistic} from './components/films-statistics.js';
+import {MenuNavigation} from './components/menu-navigation.js';
 
 const FILM_CARDS_AMOUNT = 20;
 
@@ -15,18 +17,40 @@ const pageFooter = document.querySelector(`.footer`);
 
 const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
 
-renderComponent(pageHeader, new Profile());
-
 const filmsModel = new Films();
 filmsModel.setFilms(filmCards);
 
-const filterController = new FilterController(pageMain, filmsModel);
+renderComponent(pageHeader, new Profile(filmsModel.getFilteredFilms()));
+
+const menuNavigation = new MenuNavigation();
+renderComponent(pageMain, menuNavigation);
+
+const filterController = new FilterController(menuNavigation.getElement(), filmsModel);
 filterController.render();
 
 const filmSectionComponent = new FilmsSection();
 renderComponent(pageMain, filmSectionComponent);
 
-const page = new PageController(filmSectionComponent, filmsModel);
-page.render();
+const pageController = new PageController(filmSectionComponent, filmsModel);
+pageController.render();
 
-renderComponent(pageFooter, new FilmStatistics(filmCards));
+const statisticComponent = new Statistic({films: filmsModel});
+renderComponent(pageMain, statisticComponent);
+
+statisticComponent.hide();
+
+menuNavigation.setStatsClickHandler((evt) => {
+  evt.preventDefault();
+
+  pageController.hide();
+  statisticComponent.show();
+});
+
+filterController.setFilterClickHandler(() => {
+  statisticComponent.hide();
+
+  pageController.show();
+  statisticComponent.hide();
+});
+
+renderComponent(pageFooter, new FooterStatistics(filmCards));

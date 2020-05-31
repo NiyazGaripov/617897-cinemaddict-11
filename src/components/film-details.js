@@ -1,10 +1,10 @@
-import {formatReleaseDate} from './../utils/date.js';
+import {formatReleaseDate, getFilmDuration} from './../utils/date.js';
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
 const createGenresMarkup = (genres) => {
   return genres.map((genre) => {
     return (
-      `<span class="film-details__genre">${genre.name}</span>`
+      `<span class="film-details__genre">${genre}</span>`
     );
   }).join(`\n`);
 };
@@ -12,6 +12,7 @@ const createGenresMarkup = (genres) => {
 const createFilmDetailsComponent = (film) => {
   const {poster, title, rating, release, duration, genres, description, age, director, writers, actors, country, isWatchList, isWatched, isFavorite} = film;
   const releaseDate = formatReleaseDate(release);
+  const filmDuration = getFilmDuration(duration);
   const createGenres = createGenresMarkup(genres);
 
   return (
@@ -59,7 +60,7 @@ const createFilmDetailsComponent = (film) => {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Runtime</td>
-                  <td class="film-details__cell">${duration}</td>
+                  <td class="film-details__cell">${filmDuration}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>
@@ -141,14 +142,6 @@ class FilmInfo extends AbstractSmartComponent {
 
   rerender() {
     super.rerender();
-  }
-
-  reset() {
-    this.rerender();
-  }
-
-  getCommentsWrap() {
-    return this.getElement().querySelector(`.film-details__inner`);
   }
 }
 

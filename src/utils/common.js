@@ -1,3 +1,5 @@
+import {UserRank} from './../mock/constants.js';
+
 const MAX_VALUE = 10;
 
 const getRandomIntegerNumber = (min, max) => {
@@ -23,4 +25,20 @@ const setActiveClass = (container, element, activeClass) => {
   }
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, setValueFormat, setActiveClass};
+const getUserRank = (amount) => {
+  let userRank;
+
+  if (amount === 0) {
+    return null;
+  } else if (amount >= 1 && amount <= 10) {
+    userRank = UserRank.NOVICE;
+  } else if (amount >= 11 && amount <= 20) {
+    userRank = UserRank.FAN;
+  } else if (amount >= 21) {
+    userRank = UserRank.MOVIE_BUFF;
+  }
+
+  return userRank;
+};
+
+export {getRandomIntegerNumber, getRandomArrayItem, setValueFormat, setActiveClass, getUserRank};

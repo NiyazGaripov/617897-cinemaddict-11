@@ -46,7 +46,7 @@ const sortFilms = (films, sortType, from, to) => {
 
 class PageController {
   constructor(container, filmsModel) {
-    this._container = container.getElement();
+    this._container = container;
     this._filmsModel = filmsModel;
     this._showedFilmControllers = [];
     this._topRatedFilmControllers = [];
@@ -70,7 +70,7 @@ class PageController {
   }
 
   render() {
-    const container = this._container;
+    const container = this._container.getElement();
     const films = this._filmsModel.getFilteredFilms();
     const filmsForShowing = films.slice(BEGIN_INDEX, this._showingFilmCards);
     const allFilms = this._renderFilmsList(this._filmsListComponent, filmsForShowing);
@@ -102,7 +102,7 @@ class PageController {
   _renderFilmsList(component, films) {
     const filmsListContainer = component.getListContainer();
 
-    renderComponent(this._container, component);
+    renderComponent(this._container.getElement(), component);
 
     return renderFilmCards(films, filmsListContainer, this._onDataChange, this._onViewChange);
   }
@@ -171,7 +171,6 @@ class PageController {
 
     if (isSuccess) {
       allFilms.forEach((film) => {
-      // TODO: отрефакторить нахождение текущей карточки с фильмом
         const currentFilm = film._filmCardComponent._filmCard;
 
         if (currentFilm === oldData) {
@@ -191,6 +190,16 @@ class PageController {
     this._showingFilmCards = FILM_CARDS_AMOUNT_ON_START;
     this._sortComponent.resetSortType();
     this._updateFilms(this._showingFilmCards);
+  }
+
+  show() {
+    this._container.show();
+    this._sortComponent.show();
+  }
+
+  hide() {
+    this._container.hide();
+    this._sortComponent.hide();
   }
 }
 

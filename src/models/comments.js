@@ -46,8 +46,8 @@ class Comments {
     this._callHandlers(this._dataChangeHandlers);
   }
 
-  setCommentsDataChangeHandlers(handler) {
-    this._dataChangeHandlers.push(handler);
+  setCommentsDataChangeHandlers(callback) {
+    this._dataChangeHandlers.push(callback);
   }
 
   _callHandlers(handlers) {

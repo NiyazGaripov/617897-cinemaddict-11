@@ -50,6 +50,15 @@ class FilterController {
   _onDataChange() {
     this.render();
   }
+
+  setFilterClickHandler(callback) {
+    this._filterComponent.setFilterClickHandler(callback);
+    this._filterClickHandler = callback;
+  }
+
+  _recoveryListeners() {
+    this.setFilterClickHandler(this._filterClickHandler);
+  }
 }
 
 export {FilterController};

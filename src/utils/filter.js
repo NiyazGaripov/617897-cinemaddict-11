@@ -25,6 +25,6 @@ const getFilmsByFilter = (films, filterType) => {
   return films;
 };
 
-export {getFilmsByFilter};
+export {getWatchedFilms, getFilmsByFilter};
 
 

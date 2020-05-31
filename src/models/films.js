@@ -45,12 +45,12 @@ class Films {
     this._callHandlers(this._filterChangeHandlers);
   }
 
-  setDataChangeHandler(handler) {
-    this._dataChangeHandlers.push(handler);
+  setDataChangeHandler(callback) {
+    this._dataChangeHandlers.push(callback);
   }
 
-  setFilterChangeHandler(handler) {
-    this._filterChangeHandlers.push(handler);
+  setFilterChangeHandler(callback) {
+    this._filterChangeHandlers.push(callback);
   }
 
   _callHandlers(handlers) {
