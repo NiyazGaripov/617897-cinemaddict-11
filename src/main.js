@@ -34,7 +34,7 @@ renderComponent(pageMain, filmSectionComponent);
 const pageController = new PageController(filmSectionComponent, filmsModel);
 pageController.render();
 
-const statisticComponent = new Statistic();
+const statisticComponent = new Statistic({films: filmsModel});
 renderComponent(pageMain, statisticComponent);
 
 statisticComponent.hide();
