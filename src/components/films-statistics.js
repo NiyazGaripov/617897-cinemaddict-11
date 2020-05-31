@@ -5,6 +5,14 @@ import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
 
+const getWatchedFilmsDuration = (watchedFilms) => {
+  const watchedFilmsDurations = watchedFilms.map((film) => {
+    return film.duration;
+  });
+
+  return watchedFilmsDurations.reduce((acc, it) => acc + parseFloat(it));
+};
+
 const createStatisticComponent = () => {
   return (
     `<section class="statistic">
