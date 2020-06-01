@@ -27,6 +27,17 @@ const API = class {
       .then(Comment.parseComments);
   }
 
+  updateFilm(id, data) {
+    return this._load({
+      url: `movies/${id}`,
+      method: Method.PUT,
+      body: JSON.stringify(data.toRaw()),
+      headers: new Headers({"Content-Type": `application/json`}),
+    })
+      .then((response) => response.json())
+      .then(Film.parseFilm);
+  }
+
 };
 
 export {API};
