@@ -64,6 +64,10 @@ class Films {
     this._filterChangeHandlers.push(callback);
   }
 
+  setSortChangeHandler(callback) {
+    this._sortingChangeHandlers.push(callback);
+  }
+
   _callHandlers(handlers) {
     handlers.forEach((handler) => handler());
   }
