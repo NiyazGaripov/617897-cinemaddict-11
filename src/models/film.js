@@ -51,6 +51,17 @@ class Film {
     };
   }
 
+  static parseFilm(data) {
+    return new Film(data);
+  }
+
+  static parseFilms(data) {
+    return data.map(Film.parseFilm);
+  }
+
+  static clone(data) {
+    return new Film(data.toRaw());
+  }
 }
 
 export {Film};
