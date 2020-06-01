@@ -1,7 +1,4 @@
-import {UserRank} from './../constants.js';
-import {SortType} from "./../constants";
-
-const MAX_VALUE = 10;
+import {UserRank, SortType} from './../constants.js';
 
 const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
