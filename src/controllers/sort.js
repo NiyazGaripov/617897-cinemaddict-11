@@ -17,6 +17,28 @@ class SortController {
     this._filmsModel.setDataChangeHandler(this._onDataChange);
     this._filmsModel.setFilterChangeHandler(this._onFilterChange);
   }
+
+  render() {
+    const container = this._container;
+    const sortTypes = Object.values(SortType).map((type) => {
+      return {
+        type,
+        isActive: type === this._activeSortType,
+      };
+    });
+
+    const oldComponent = this._sortingComponent;
+
+    this._sortingComponent = new Sort(sortTypes);
+    this._sortingComponent.setSortTypeChangeHandler(this._onSortChange);
+
+    if (oldComponent) {
+      replaceComponent(this._sortingComponent, oldComponent);
+    } else {
+      renderComponent(container, this._sortingComponent, RenderPosition.AFTEREND);
+    }
+  }
+
 }
 
 export {SortController};
