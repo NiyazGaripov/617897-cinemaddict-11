@@ -39,6 +39,10 @@ class SortController {
     }
   }
 
+  show() {
+    this._sortingComponent.show();
+  }
+
 }
 
 export {SortController};
