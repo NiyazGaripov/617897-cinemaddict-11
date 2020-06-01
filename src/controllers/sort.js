@@ -63,6 +63,9 @@ class SortController {
     this.render();
   }
 
+  _onDataChange() {
+    this.render();
+  }
 }
 
 export {SortController};
