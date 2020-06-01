@@ -1,29 +1,35 @@
 import {getUserRank} from './../utils/common.js';
 import {getWatchedFilms} from './../utils/filter.js';
-import {AbstractComponent} from './../components/abstract-component.js';
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
-const createProfileComponent = (films) => {
-  const watchedFilms = getWatchedFilms(films);
-  const watchedFilmsAmount = watchedFilms.length;
-  const userRank = getUserRank(watchedFilmsAmount);
-
+const createProfileComponent = (userRank) => {
   return (
     userRank !== null ? `<section class="header__profile profile">
       <p class="profile__rating">${userRank}</p>
       <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-    </section>` : ``
+    </section>` : ` `
   );
 };
 
-class Profile extends AbstractComponent {
-  constructor(films) {
+class Profile extends AbstractSmartComponent {
+  constructor() {
     super();
-    this._films = films;
+    this._userRank = null;
   }
 
   getTemplate() {
-    return createProfileComponent(this._films);
+    return createProfileComponent(this._userRank);
   }
+
+  setUserRank(films) {
+    const watchedFilms = getWatchedFilms(films);
+    const watchedFilmsAmount = watchedFilms.length;
+
+    this._userRank = getUserRank(watchedFilmsAmount);
+    this.rerender();
+  }
+
+  recoveryListeners() {}
 }
 
 export {Profile};
