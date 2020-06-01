@@ -1,6 +1,4 @@
-import {UserRank} from './../mock/constants.js';
-
-const MAX_VALUE = 10;
+import {UserRank, SortType} from './../constants.js';
 
 const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
@@ -10,10 +8,6 @@ const getRandomArrayItem = (array) => {
   const randomItem = getRandomIntegerNumber(0, array.length);
 
   return array[randomItem];
-};
-
-const setValueFormat = (value) => {
-  return value < MAX_VALUE ? `0${value}` : String(value);
 };
 
 const setActiveClass = (container, element, activeClass) => {
@@ -41,4 +35,26 @@ const getUserRank = (amount) => {
   return userRank;
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, setValueFormat, setActiveClass, getUserRank};
+const sortFilms = (films, sortType, from, to) => {
+  let sortedFilms = [];
+  const showingFilms = films.slice();
+
+  switch (sortType) {
+    case SortType.RATING:
+      sortedFilms = showingFilms.sort((a, b) => b.rating - a.rating);
+      break;
+    case SortType.DATE:
+      sortedFilms = showingFilms.sort((a, b) => b.release - a.release);
+      break;
+    case SortType.COMMENTS:
+      sortedFilms = showingFilms.sort((a, b) => b.comments.length - a.comments.length);
+      break;
+    case SortType.DEFAULT:
+      sortedFilms = showingFilms;
+      break;
+  }
+
+  return sortedFilms.slice(from, to);
+};
+
+export {getRandomIntegerNumber, getRandomArrayItem, setActiveClass, getUserRank, sortFilms};

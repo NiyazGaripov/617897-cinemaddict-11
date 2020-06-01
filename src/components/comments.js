@@ -1,5 +1,5 @@
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
-import {EMOJIS} from './../mock/constants.js';
+import {EMOJIS} from './../constants.js';
 import {formatCommentDate} from './../utils/date.js';
 import {encode} from "he";
 

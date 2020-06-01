@@ -1,9 +1,10 @@
 import {renderComponent, replaceComponent, removeComponent} from './../utils/render.js';
 import {FilmCard} from './../components/film-card.js';
 import {FilmInfo} from './../components/film-details.js';
-import {ESC_KEYCODE} from './../mock/constants.js';
+import {ESC_KEYCODE} from './../constants.js';
 import {Comments} from './../models/comments.js';
 import {CommentsController} from './../controllers/comments.js';
+import {Film} from './../models/film.js';
 
 const body = document.body;
 const Mode = {
@@ -20,10 +21,11 @@ const renderComments = (commentsContainer, comments, onCommentsDataChange) => {
 };
 
 class FilmController {
-  constructor(container, onDataChange, onViewChange) {
+  constructor(container, onDataChange, onViewChange, api) {
     this._container = container;
     this._onDataChange = onDataChange;
     this._onViewChange = onViewChange;
+    this._api = api;
     this._mode = Mode.DEFAULT;
     this._film = null;
     this._filmCardComponent = null;
@@ -36,19 +38,16 @@ class FilmController {
   }
 
   render(film) {
-    this._commentsModel.setComments(film.comments);
-    const comments = this._commentsModel.getComments();
-
+    this._film = film;
     const oldFilmCardComponent = this._filmCardComponent;
     const oldFilmInfoComponent = this._filmInfoComponent;
 
-    this._film = film;
-    this._filmCardComponent = new FilmCard(film, comments);
+    this._filmCardComponent = new FilmCard(film);
     this._filmInfoComponent = new FilmInfo(film);
 
     this._filmCardComponent.setClickHandler(() => {
       this._showFilmDetails();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmInfoComponent.setCloseButtonClickHandler(() => {
@@ -59,34 +58,34 @@ class FilmController {
     this._filmCardComponent.setWatchListButtonClickHandler((evt) => {
       evt.preventDefault();
       this._addFilmToWatchList();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmInfoComponent.setWatchListInputChangeHandler(() => {
       this._addFilmToWatchList();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmCardComponent.setWatchedButtonClickHandler((evt) => {
       evt.preventDefault();
       this._addFilmToWatched();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmInfoComponent.setWatchedInputChangeHandler(() => {
       this._addFilmToWatched();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmCardComponent.setFavoriteButtonClickHandler((evt) => {
       evt.preventDefault();
       this._addFilmToFavorite();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     this._filmInfoComponent.setFavoriteInputChangeHandler(() => {
       this._addFilmToFavorite();
-      this._updateComments(comments);
+      this._updateComments(film.id);
     });
 
     if (oldFilmCardComponent && oldFilmInfoComponent) {
@@ -119,21 +118,24 @@ class FilmController {
   }
 
   _addFilmToWatchList() {
-    this._onDataChange(this._film, Object.assign({}, this._film, {
-      isWatchList: !this._film.isWatchList,
-    }));
+    const newFilm = Film.clone(this._film);
+
+    newFilm.isWatchList = !newFilm.isWatchList;
+    this._onDataChange(this._film, newFilm);
   }
 
   _addFilmToWatched() {
-    this._onDataChange(this._film, Object.assign({}, this._film, {
-      isWatched: !this._film.isWatched,
-    }));
+    const newFilm = Film.clone(this._film);
+
+    newFilm.isWatched = !newFilm.isWatched;
+    this._onDataChange(this._film, newFilm);
   }
 
   _addFilmToFavorite() {
-    this._onDataChange(this._film, Object.assign({}, this._film, {
-      isFavorite: !this._film.isFavorite,
-    }));
+    const newFilm = Film.clone(this._film);
+
+    newFilm.isFavorite = !newFilm.isFavorite;
+    this._onDataChange(this._film, newFilm);
   }
 
   setDefaultView() {
@@ -164,9 +166,12 @@ class FilmController {
     this._commentsController = null;
   }
 
-  _updateComments(comments) {
+  _updateComments(id) {
     this._removeComments();
-    this._renderComments(comments);
+    this._api.getComments(id)
+      .then((comments) => {
+        this._renderComments(comments);
+      });
   }
 
   _onCommentsDataChange(oldData, newData) {

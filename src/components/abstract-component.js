@@ -1,5 +1,5 @@
 import {createElement} from './../utils/render.js';
-import {HIDDEN_CLASS} from './../mock/constants.js';
+import {HIDDEN_CLASS} from './../constants.js';
 
 class AbstractComponent {
   constructor() {

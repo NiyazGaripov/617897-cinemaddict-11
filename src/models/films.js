@@ -1,23 +1,30 @@
 import {getFilmsByFilter} from './../utils/filter.js';
-import {FilterType} from './../mock/constants.js';
+import {sortFilms} from './../utils/common.js';
+import {FilterType, SortType} from './../constants.js';
+
 class Films {
   constructor() {
     this._films = [];
     this._activeFilterType = FilterType.ALL;
+    this._activeSortType = SortType.DEFAULT;
     this._dataChangeHandlers = [];
     this._filterChangeHandlers = [];
+    this._sortingChangeHandlers = [];
+    this._dataLoadHandlers = [];
   }
 
-  getFilms() {
+  getFilmsAll() {
     return this._films;
   }
 
-  getFilteredFilms() {
-    return getFilmsByFilter(this._films, this._activeFilterType);
+  getFilms() {
+    const filteredFilms = getFilmsByFilter(this._films, this._activeFilterType);
+    return sortFilms(filteredFilms, this._activeSortType);
   }
 
   setFilms(films) {
-    this._films = Array.from(films);
+    this._films = films;
+    this._callHandlers(this._dataLoadHandlers);
     this._callHandlers(this._dataChangeHandlers);
   }
 
@@ -45,12 +52,25 @@ class Films {
     this._callHandlers(this._filterChangeHandlers);
   }
 
+  setDataLoadHandler(handler) {
+    this._dataLoadHandlers.push(handler);
+  }
+
   setDataChangeHandler(callback) {
     this._dataChangeHandlers.push(callback);
   }
 
   setFilterChangeHandler(callback) {
     this._filterChangeHandlers.push(callback);
+  }
+
+  setSortChangeHandler(callback) {
+    this._sortingChangeHandlers.push(callback);
+  }
+
+  setSortType(sortType) {
+    this._activeSortType = sortType;
+    this._callHandlers(this._sortingChangeHandlers);
   }
 
   _callHandlers(handlers) {

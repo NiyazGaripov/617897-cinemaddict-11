@@ -13,6 +13,10 @@ class Comments {
     this._callHandlers(this._dataChangeHandlers);
   }
 
+  setCommentsDataChangeHandlers(callback) {
+    this._dataChangeHandlers.push(callback);
+  }
+
   removeComment(id) {
     const index = this._comments.findIndex((it) => it.id === id);
 
@@ -44,10 +48,6 @@ class Comments {
   addComment(comment) {
     this._comments = [].concat(this._comments, comment);
     this._callHandlers(this._dataChangeHandlers);
-  }
-
-  setCommentsDataChangeHandlers(callback) {
-    this._dataChangeHandlers.push(callback);
   }
 
   _callHandlers(handlers) {

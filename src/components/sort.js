@@ -1,19 +1,19 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {SORT_ITEM_NAMES, SortType} from './../mock/constants.js';
 import {setActiveClass} from './../utils/common.js';
 
-const createSortItemComponent = (type, isActive) => {
+const createSortItemComponent = (SortType) => {
+  const {type, isActive} = SortType;
   const activeClass = isActive ? `sort__button--active` : ``;
 
   return (
-    `<li>
+    type !== `comments` ? `<li>
       <a href="#" data-sort-type="${type}" class="sort__button ${activeClass}">Sort by ${type}</a>
-    </li>`
+    </li>` : ``
   );
 };
 
-const createSortComponent = () => {
-  const createSortList = SORT_ITEM_NAMES.map((it, i) => createSortItemComponent(it, i === 0)).join(`\n`);
+const createSortComponent = (sortingTypes) => {
+  const createSortList = sortingTypes.map((type) => createSortItemComponent(type)).join(`\n`);
 
   return (
     `<ul class="sort">
@@ -23,22 +23,13 @@ const createSortComponent = () => {
 };
 
 class Sort extends AbstractComponent {
-  constructor() {
+  constructor(sortingTypes) {
     super();
-    this._currentSortType = SortType.DEFAULT;
+    this._sortingTypes = sortingTypes;
   }
 
   getTemplate() {
-    return createSortComponent();
-  }
-
-  getSortType() {
-    return this._currentSortType;
-  }
-
-  resetSortType() {
-    this._currentSortType = SortType.DEFAULT;
-    this._setActiveElement(this._currentSortType);
+    return createSortComponent(this._sortingTypes);
   }
 
   _setActiveElement(type) {

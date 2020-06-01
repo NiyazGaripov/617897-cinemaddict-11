@@ -4,7 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
-import {BAR_HEIGHT, PeriodFilterType} from './../mock/constants.js';
+import {BAR_HEIGHT, PeriodFilterType} from './../constants.js';
 import moment from "moment";
 
 const getWatchedFilmsDuration = (watchedFilms) => {
@@ -132,7 +132,7 @@ const createStatisticRankComponent = (userRank) => {
   );
 };
 
-const createStatisticComponent = ({watchedFilms, period, userRank}) => {
+const createStatisticComponent = (watchedFilms, period, userRank) => {
   const watchedFilmsAmount = watchedFilms.length;
   const watchedFilmsDuration = getWatchedFilmsDuration(watchedFilms);
   const totalDuration = getFilmDuration(watchedFilmsDuration, true);
@@ -184,25 +184,28 @@ const createStatisticComponent = ({watchedFilms, period, userRank}) => {
   );
 };
 
+const getWatchedFilmsFromModel = (filmsModel) => {
+  const allFilms = filmsModel.getFilmsAll();
+
+  return getWatchedFilms(allFilms);
+};
+
 class Statistic extends AbstractSmartComponent {
-  constructor({films}) {
+  constructor(filmsModel) {
     super();
-    this._allFilms = films.getFilteredFilms();
-    this._watchedFilms = getWatchedFilms(this._allFilms);
-    this._filteredFilms = this._watchedFilms;
-    this._userRank = getUserRank(this._watchedFilms.length);
+    this._filmsModel = filmsModel;
     this._activePeriod = PeriodFilterType.ALL_TIME;
+    this._userRank = null;
     this._charts = null;
+    this._filteredFilms = [];
 
-    this._renderCharts(this._filteredFilms);
+    this._renderCharts(getWatchedFilmsFromModel(this._filmsModel));
 
-    this.periodChangeHandler = null;
-    this._onPeriodChangeHandler = this._onPeriodChangeHandler.bind(this);
-    this.setPeriodChangeHandler(this._onPeriodChangeHandler);
+    this._subscribeOnEvents();
   }
 
   getTemplate() {
-    return createStatisticComponent({watchedFilms: this._filteredFilms, period: this._activePeriod, userRank: this._userRank});
+    return createStatisticComponent(this._filteredFilms, this._activePeriod, this._userRank);
   }
 
   show() {
@@ -210,28 +213,41 @@ class Statistic extends AbstractSmartComponent {
     this.rerender();
   }
 
+  hide() {
+    super.hide();
+  }
+
   recoveryListeners() {
-    this.setPeriodChangeHandler(this.periodChangeHandler);
+    this._subscribeOnEvents();
   }
 
   rerender() {
+    const films = getWatchedFilmsFromModel(this._filmsModel);
+    const dateBegin = this._getDateBegin(this._activePeriod);
+
+    this._filteredFilms = getWatchedFilmsByPeriod(films, dateBegin);
+
     super.rerender();
-    this._renderCharts(this._filteredFilms);
+    this._renderCharts();
   }
 
-  setPeriodChangeHandler(callback) {
-    const periodInputs = this.getElement().querySelectorAll(`.statistic__filters-input`);
+  setUserRank(films) {
+    const watchedFilms = getWatchedFilms(films);
+    const watchedFilmsAmount = watchedFilms.length;
 
-    periodInputs.forEach((input) => {
-      input.addEventListener(`change`, (evt) => {
-        callback(evt.target.value);
+    this._userRank = getUserRank(watchedFilmsAmount);
+  }
+
+  _subscribeOnEvents() {
+    this.getElement().querySelector(`.statistic__filters`)
+      .addEventListener(`change`, (evt) => {
+        this._activePeriod = evt.target.value;
+        this.rerender();
       });
-    });
 
-    this.periodChangeHandler = callback;
   }
 
-  _onPeriodChangeHandler(period) {
+  _getDateBegin(period) {
     this._activePeriod = period;
     let dateBegin = null;
 
@@ -253,16 +269,15 @@ class Statistic extends AbstractSmartComponent {
         break;
     }
 
-    this._filteredFilms = getWatchedFilmsByPeriod(this._watchedFilms, dateBegin);
-    this.rerender();
+    return dateBegin;
   }
 
-  _renderCharts(films) {
-    const element = this.getElement();
-    const statisticCtx = element.querySelector(`.statistic__chart`);
+  _renderCharts() {
+    const container = this.getElement();
+    const statisticCtx = container.querySelector(`.statistic__chart`);
 
     this._resetCharts();
-    this._charts = renderChart(statisticCtx, films);
+    this._charts = renderChart(statisticCtx, this._filteredFilms);
   }
 
   _resetCharts() {

@@ -1,12 +1,5 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {setActiveClass} from './../utils/common.js';
-
-const BEGIN_INDEX = 1;
-
-const getFilterTitleByHref = (href) => {
-  const index = href.indexOf(`#`) + BEGIN_INDEX;
-  return href.slice(index);
-};
+import {getFilterTitleByHref} from './../utils/filter.js';
 
 const createFilterItemComponent = (filter) => {
   const {path, title, amount, isActive} = filter;
@@ -42,22 +35,29 @@ class Filter extends AbstractComponent {
   }
 
   setFilterChangeHandler(callback) {
-
     const filterList = Array.from(this.getElement().querySelectorAll(`.main-navigation__item`));
 
     filterList.forEach((item) => {
       item.addEventListener(`click`, (evt) => {
         evt.preventDefault();
 
-        const filterTitle = getFilterTitleByHref(evt.target.href);
-        const container = this.getElement();
-        const activeClass = `main-navigation__item--active`;
+        const activeFilter = evt.target.closest(`a`);
 
-        setActiveClass(container, evt.target, activeClass);
+        if (activeFilter) {
+          const filterTitle = getFilterTitleByHref(activeFilter.href);
 
-        callback(filterTitle);
+          this._toggleActiveClass(activeFilter);
+          callback(filterTitle);
+        }
       });
     });
+  }
+
+  _toggleActiveClass(element) {
+    const activeFilter = this.getElement().querySelector(`.main-navigation__item--active`);
+
+    activeFilter.classList.remove(`main-navigation__item--active`);
+    element.classList.add(`main-navigation__item--active`);
   }
 
   setFilterClickHandler(callback) {

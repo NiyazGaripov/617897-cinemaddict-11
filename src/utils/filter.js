@@ -1,4 +1,6 @@
-import {FilterType} from './../mock/constants.js';
+import {FilterType} from './../constants.js';
+
+const BEGIN_INDEX = 1;
 
 const getWatchListFilms = (films) => {
   return films.filter((film) => film.isWatchList);
@@ -25,6 +27,11 @@ const getFilmsByFilter = (films, filterType) => {
   return films;
 };
 
-export {getWatchedFilms, getFilmsByFilter};
+const getFilterTitleByHref = (href) => {
+  const index = href.indexOf(`#`) + BEGIN_INDEX;
+  return href.slice(index);
+};
+
+export {getWatchedFilms, getFilmsByFilter, getFilterTitleByHref};
 
 

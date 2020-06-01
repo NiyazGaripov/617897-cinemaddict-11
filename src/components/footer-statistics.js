@@ -1,7 +1,6 @@
-import {AbstractComponent} from './../components/abstract-component.js';
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
-const createFooterStatisticsComponent = (films) => {
-  const filmsAmount = films.length;
+const createFooterStatisticsComponent = (filmsAmount) => {
   return (
     `<section class="footer__statistics">
       <p>${filmsAmount} movies inside</p>
@@ -9,15 +8,22 @@ const createFooterStatisticsComponent = (films) => {
   );
 };
 
-class FooterStatistics extends AbstractComponent {
-  constructor(films) {
+class FooterStatistics extends AbstractSmartComponent {
+  constructor() {
     super();
-    this._films = films;
+    this._filmsAmount = 0;
   }
 
   getTemplate() {
-    return createFooterStatisticsComponent(this._films);
+    return createFooterStatisticsComponent(this._filmsAmount);
   }
+
+  setFilmsAmount(films) {
+    this._filmsAmount = films.length;
+    this.rerender();
+  }
+
+  recoveryListeners() {}
 }
 
 export {FooterStatistics};
