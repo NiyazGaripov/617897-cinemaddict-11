@@ -47,6 +47,12 @@ class SortController {
     this._sortingComponent.hide();
   }
 
+  _onFilterChange() {
+    this._filmsModel.setSortType(SortType.DEFAULT);
+    this._activeSortType = SortType.DEFAULT;
+    this.render();
+  }
+
 }
 
 export {SortController};
