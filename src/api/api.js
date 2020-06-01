@@ -15,6 +15,12 @@ const API = class {
     this._authorization = authorization;
   }
 
+  getFilms() {
+    return this._load({url: `movies`})
+      .then((response) => response.json())
+      .then(Film.parseFilms);
+  }
+
 };
 
 export {API};
