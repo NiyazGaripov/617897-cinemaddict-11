@@ -45,6 +45,12 @@ class MenuNavigation extends AbstractComponent {
     statsElement.classList.add(`main-navigation__additional--active`);
   }
 
+  _removeActiveClass() {
+    const container = this.getElement();
+    const statsElement = container.querySelector(`.main-navigation__additional`);
+
+    statsElement.classList.remove(`main-navigation__additional--active`);
+  }
 }
 
 export {MenuNavigation};
