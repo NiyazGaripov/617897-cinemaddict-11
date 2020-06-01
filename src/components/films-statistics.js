@@ -4,7 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
-import {BAR_HEIGHT, PeriodFilterType} from './../mock/constants.js';
+import {BAR_HEIGHT, PeriodFilterType} from './../constants.js';
 import moment from "moment";
 
 const getWatchedFilmsDuration = (watchedFilms) => {
@@ -132,7 +132,7 @@ const createStatisticRankComponent = (userRank) => {
   );
 };
 
-const createStatisticComponent = ({watchedFilms, period, userRank}) => {
+const createStatisticComponent = (watchedFilms, period, userRank) => {
   const watchedFilmsAmount = watchedFilms.length;
   const watchedFilmsDuration = getWatchedFilmsDuration(watchedFilms);
   const totalDuration = getFilmDuration(watchedFilmsDuration, true);
@@ -185,9 +185,9 @@ const createStatisticComponent = ({watchedFilms, period, userRank}) => {
 };
 
 class Statistic extends AbstractSmartComponent {
-  constructor({films}) {
+  constructor(films) {
     super();
-    this._allFilms = films.getFilteredFilms();
+    this._allFilms = films;
     this._watchedFilms = getWatchedFilms(this._allFilms);
     this._filteredFilms = this._watchedFilms;
     this._userRank = getUserRank(this._watchedFilms.length);
@@ -202,7 +202,7 @@ class Statistic extends AbstractSmartComponent {
   }
 
   getTemplate() {
-    return createStatisticComponent({watchedFilms: this._filteredFilms, period: this._activePeriod, userRank: this._userRank});
+    return createStatisticComponent(this._filteredFilms, this._activePeriod, this._userRank);
   }
 
   show() {
