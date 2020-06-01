@@ -1,26 +1,27 @@
-import {renderComponent} from './utils/render.js';
+import {renderComponent, removeComponent} from './utils/render.js';
 import {Profile} from './components/profile.js';
 import {FilterController} from './controllers/filter.js';
 import {FilmsSection} from './components/films-section.js';
 import {FooterStatistics} from './components/footer-statistics.js';
-import {generateFilmsCards} from './mock/film-cards.js';
 import {PageController} from './controllers/page.js';
 import {Films} from './models/films.js';
 import {Statistic} from './components/films-statistics.js';
 import {MenuNavigation} from './components/menu-navigation.js';
-
-const FILM_CARDS_AMOUNT = 20;
+import {Loading} from './components/loading.js';
+import {SortController} from './controllers/sort.js';
+import {AUTHORIZATION, ENTRY_POINT, NavigationType} from './constants.js';
+import {API} from './api/api.js';
 
 const pageHeader = document.querySelector(`.header`);
 const pageMain = document.querySelector(`.main`);
 const pageFooter = document.querySelector(`.footer`);
 
-const filmCards = generateFilmsCards(FILM_CARDS_AMOUNT);
+const api = new API(ENTRY_POINT, AUTHORIZATION);
 
 const filmsModel = new Films();
-filmsModel.setFilms(filmCards);
 
-renderComponent(pageHeader, new Profile(filmsModel.getFilteredFilms()));
+const profileComponent = new Profile();
+renderComponent(pageHeader, profileComponent);
 
 const menuNavigation = new MenuNavigation();
 renderComponent(pageMain, menuNavigation);
@@ -31,26 +32,53 @@ filterController.render();
 const filmSectionComponent = new FilmsSection();
 renderComponent(pageMain, filmSectionComponent);
 
-const pageController = new PageController(filmSectionComponent, filmsModel);
-pageController.render();
+const sortingController = new SortController(menuNavigation.getElement(), filmsModel);
+sortingController.render();
 
-const statisticComponent = new Statistic({films: filmsModel});
+const loadingComponent = new Loading();
+renderComponent(filmSectionComponent.getElement(), loadingComponent);
+
+const pageController = new PageController(filmSectionComponent, filmsModel, api);
+
+const footerStatisticsComponent = new FooterStatistics();
+renderComponent(pageFooter, footerStatisticsComponent);
+
+const statisticComponent = new Statistic(filmsModel);
 renderComponent(pageMain, statisticComponent);
-
 statisticComponent.hide();
 
-menuNavigation.setStatsClickHandler((evt) => {
-  evt.preventDefault();
-
-  pageController.hide();
-  statisticComponent.show();
+menuNavigation.setNavigationClickHandler((type) => {
+  switch (type) {
+    case NavigationType.FILTER:
+      statisticComponent.hide();
+      sortingController.show();
+      pageController.show();
+      break;
+    case NavigationType.STATS:
+      sortingController.hide();
+      pageController.hide();
+      statisticComponent.show();
+      break;
+  }
 });
 
-filterController.setFilterClickHandler(() => {
-  statisticComponent.hide();
-
-  pageController.show();
-  statisticComponent.hide();
+filmsModel.setDataLoadHandler(() => {
+  footerStatisticsComponent.setFilmsAmount(filmsModel.getFilmsAll());
 });
 
-renderComponent(pageFooter, new FooterStatistics(filmCards));
+filmsModel.setDataChangeHandler(() => {
+  profileComponent.setUserRank(filmsModel.getFilmsAll());
+  statisticComponent.setUserRank(filmsModel.getFilmsAll());
+});
+
+api.getFilms()
+  .then((films) => {
+    filmsModel.setFilms(films);
+  })
+  .catch(() => {
+    filmsModel.setFilms([]);
+  })
+  .finally(() => {
+    removeComponent(loadingComponent);
+    pageController.render();
+  });
