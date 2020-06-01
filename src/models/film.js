@@ -21,6 +21,36 @@ class Film {
     this.watchedDate = new Date(data[`user_details`][`watching_date`]);
   }
 
+  toRaw() {
+    return {
+      "id": this.id,
+      "film_info": {
+        "poster": this.poster,
+        "title": this.title,
+        "alternative_title": this.originalitle,
+        "total_rating": this.rating,
+        "release": {
+          "date": this.release.toISOString(),
+          "release_country": this.country
+        },
+        "runtime": this.duration,
+        "genre": this.genres,
+        "description": this.description,
+        "age_rating": this.age,
+        "director": this.director,
+        "writers": this.writers,
+        "actors": this.actors,
+      },
+      "comments": this.comments,
+      "user_details": {
+        "watchlist": this.isWatchList,
+        "already_watched": this.isWatched,
+        "favorite": this.isFavorite,
+        "watching_date": this.watchedDate.toISOString(),
+      }
+    };
+  }
+
 }
 
 export {Film};
