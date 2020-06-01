@@ -7,6 +7,13 @@ class Comment {
     this.date = new Date(data[`date`]);
   }
 
+  static parseComment(data) {
+    return new Comment(data);
+  }
+
+  static parseComments(data) {
+    return data.map(Comment.parseComment);
+  }
 }
 
 export {Comment};
