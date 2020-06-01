@@ -38,6 +38,13 @@ class MenuNavigation extends AbstractComponent {
       });
   }
 
+  _addActiveClass() {
+    const container = this.getElement();
+    const statsElement = container.querySelector(`.main-navigation__additional`);
+
+    statsElement.classList.add(`main-navigation__additional--active`);
+  }
+
 }
 
 export {MenuNavigation};
