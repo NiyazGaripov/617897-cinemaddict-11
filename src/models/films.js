@@ -68,6 +68,11 @@ class Films {
     this._sortingChangeHandlers.push(callback);
   }
 
+  setSortType(sortType) {
+    this._activeSortType = sortType;
+    this._callHandlers(this._sortingChangeHandlers);
+  }
+
   _callHandlers(handlers) {
     handlers.forEach((handler) => handler());
   }
