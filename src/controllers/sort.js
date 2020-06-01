@@ -53,6 +53,16 @@ class SortController {
     this.render();
   }
 
+  _onSortChange(sortType) {
+    if (this._activeSortType === sortType) {
+      return;
+    }
+
+    this._filmsModel.setSortType(sortType);
+    this._activeSortType = sortType;
+    this.render();
+  }
+
 }
 
 export {SortController};
