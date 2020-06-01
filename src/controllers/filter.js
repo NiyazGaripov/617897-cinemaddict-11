@@ -1,5 +1,5 @@
 import {Filter} from './../components/filter.js';
-import {FilterType, FILTER_NAMES} from './../mock/constants.js';
+import {FilterType, FILTER_NAMES} from './../constants.js';
 import {RenderPosition, renderComponent, replaceComponent} from './../utils/render.js';
 import {getFilmsByFilter} from './../utils/filter.js';
 
@@ -43,21 +43,17 @@ class FilterController {
   }
 
   _onFilterChange(filterType) {
+    if (this._activeFilterType === filterType) {
+      return;
+    }
+
     this._filmsModel.setFilter(filterType);
     this._activeFilterType = filterType;
+    this.render();
   }
 
   _onDataChange() {
     this.render();
-  }
-
-  setFilterClickHandler(callback) {
-    this._filterComponent.setFilterClickHandler(callback);
-    this._filterClickHandler = callback;
-  }
-
-  _recoveryListeners() {
-    this.setFilterClickHandler(this._filterClickHandler);
   }
 }
 
