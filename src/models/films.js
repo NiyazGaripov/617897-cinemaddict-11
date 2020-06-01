@@ -56,6 +56,10 @@ class Films {
     this._dataLoadHandlers.push(handler);
   }
 
+  setDataChangeHandler(callback) {
+    this._dataChangeHandlers.push(callback);
+  }
+
   setFilterChangeHandler(callback) {
     this._filterChangeHandlers.push(callback);
   }
