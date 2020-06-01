@@ -21,6 +21,12 @@ const API = class {
       .then(Film.parseFilms);
   }
 
+  getComments(id) {
+    return this._load({url: `comments/${id}`})
+      .then((response) => response.json())
+      .then(Comment.parseComments);
+  }
+
 };
 
 export {API};
