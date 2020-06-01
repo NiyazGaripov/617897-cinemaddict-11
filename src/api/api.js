@@ -38,6 +38,15 @@ const API = class {
       .then(Film.parseFilm);
   }
 
+  _load({url, method = Method.GET, body = null, headers = new Headers()}) {
+    headers.append(`Authorization`, this._authorization);
+
+    return fetch(`${this._entryPoint}/${url}`, {method, body, headers})
+      .then(checkStatus)
+      .catch((error) => {
+        throw error;
+      });
+  }
 };
 
 export {API};
