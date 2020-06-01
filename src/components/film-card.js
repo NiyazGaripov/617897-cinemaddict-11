@@ -2,13 +2,13 @@ import {getFullYear, getFilmDuration} from './../utils/date.js';
 import {getShortDescription} from './../utils/text.js';
 import {AbstractComponent} from './../components/abstract-component.js';
 
-const createFilmCardComponent = (filmCard, comments) => {
+const createFilmCardComponent = (filmCard) => {
   const {poster, title, rating, release, duration, genres, description, isWatchList, isWatched, isFavorite} = filmCard;
   const releaseYear = getFullYear(release);
   const filmDuration = getFilmDuration(duration);
   const genre = genres.length === 0 ? `` : genres[0];
   const shortDescription = getShortDescription(description, 140);
-  const commentsAmount = comments.length;
+  const commentsAmount = filmCard.comments.length;
   const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
   const watchedActiveClass = isWatched ? `film-card__controls-item--active` : ``;
   const favoriteActiveClass = isFavorite ? `film-card__controls-item--active` : ``;
@@ -35,14 +35,13 @@ const createFilmCardComponent = (filmCard, comments) => {
 };
 
 class FilmCard extends AbstractComponent {
-  constructor(filmCard, comments) {
+  constructor(filmCard) {
     super();
     this._filmCard = filmCard;
-    this._comments = comments;
   }
 
   getTemplate() {
-    return createFilmCardComponent(this._filmCard, this._comments);
+    return createFilmCardComponent(this._filmCard);
   }
 
   setClickHandler(callback) {
