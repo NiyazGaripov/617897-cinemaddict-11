@@ -10,6 +10,10 @@ const checkStatus = (response) => {
 };
 
 const API = class {
+  constructor(entryPoint, authorization) {
+    this._entryPoint = entryPoint;
+    this._authorization = authorization;
+  }
 
 };
 
