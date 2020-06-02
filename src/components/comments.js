@@ -222,6 +222,14 @@ class Comments extends AbstractSmartComponent {
     });
   }
 
+  addErrorClass() {
+    const textarea = this.getElement().querySelector(`.film-details__comment-input`);
+    const emojiContainer = this.getElement().querySelector(`.film-details__add-emoji-label`);
+
+    textarea.classList.add(`error`);
+    emojiContainer.classList.add(`error`);
+  }
+
 }
 
 export {Comments};
