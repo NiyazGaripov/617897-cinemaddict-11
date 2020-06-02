@@ -51,12 +51,20 @@ class Film {
     };
   }
 
-  static parseFilm(data) {
+  addComment(id) {
+    this.comments = [].concat(id, this.comments);
+  }
+
+  removeComment(id) {
+    this.comments = this.comments.filter((it) => it !== id);
+  }
+
+  static parseItem(data) {
     return new Film(data);
   }
 
-  static parseFilms(data) {
-    return data.map(Film.parseFilm);
+  static parseList(data) {
+    return data.map(Film.parseItem);
   }
 
   static clone(data) {
