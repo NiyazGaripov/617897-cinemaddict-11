@@ -1,6 +1,6 @@
-import {getFilmsByFilter} from './../utils/filter.js';
-import {sortFilms} from './../utils/common.js';
 import {FilterType, SortType} from './../constants.js';
+import {sortFilms} from './../utils/common.js';
+import {getFilmsByFilter} from './../utils/filter.js';
 
 class Films {
   constructor() {
@@ -13,27 +13,23 @@ class Films {
     this._dataLoadHandlers = [];
   }
 
-  getFilmsAll() {
-    return this._films;
-  }
-
-  getFilms() {
+  get() {
     const filteredFilms = getFilmsByFilter(this._films, this._activeFilterType);
+
     return sortFilms(filteredFilms, this._activeSortType);
   }
 
-  setFilms(films) {
+  getAll() {
+    return this._films;
+  }
+
+  set(films) {
     this._films = films;
     this._callHandlers(this._dataLoadHandlers);
     this._callHandlers(this._dataChangeHandlers);
   }
 
-  setFilter(filterType) {
-    this._activeFilterType = filterType;
-    this._callHandlers(this._filterChangeHandlers);
-  }
-
-  updateFilm(id, film) {
+  update(id, film) {
     const index = this._films.findIndex((it) => it.id === id);
 
     if (index === -1) {
@@ -41,36 +37,35 @@ class Films {
     }
 
     this._films = [].concat(this._films.slice(0, index), film, this._films.slice(index + 1));
-
     this._callHandlers(this._dataChangeHandlers);
 
     return true;
   }
 
-  resetFilter() {
-    this._activeFilterType = FilterType.ALL;
+  setFilter(filterType) {
+    this._activeFilterType = filterType;
     this._callHandlers(this._filterChangeHandlers);
+  }
+
+  setFilterChangeHandler(handler) {
+    this._filterChangeHandlers.push(handler);
+  }
+
+  setSortChangeHandler(handler) {
+    this._sortingChangeHandlers.push(handler);
+  }
+
+  setSortType(sortType) {
+    this._activeSortType = sortType;
+    this._callHandlers(this._sortingChangeHandlers);
   }
 
   setDataLoadHandler(handler) {
     this._dataLoadHandlers.push(handler);
   }
 
-  setDataChangeHandler(callback) {
-    this._dataChangeHandlers.push(callback);
-  }
-
-  setFilterChangeHandler(callback) {
-    this._filterChangeHandlers.push(callback);
-  }
-
-  setSortChangeHandler(callback) {
-    this._sortingChangeHandlers.push(callback);
-  }
-
-  setSortType(sortType) {
-    this._activeSortType = sortType;
-    this._callHandlers(this._sortingChangeHandlers);
+  setDataChangeHandler(handler) {
+    this._dataChangeHandlers.push(handler);
   }
 
   _callHandlers(handlers) {
