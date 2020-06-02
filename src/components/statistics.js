@@ -1,24 +1,22 @@
-import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import moment from "moment";
+import {BAR_HEIGHT, PeriodFilterType} from './../constants.js';
 import {getUserRank} from './../utils/common.js';
 import {getFilmDuration} from './../utils/date.js';
 import {getWatchedFilms} from './../utils/filter.js';
-import {BAR_HEIGHT, PeriodFilterType} from './../constants.js';
-import moment from "moment";
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
 const getWatchedFilmsDuration = (watchedFilms) => {
   const watchedFilmsDurations = watchedFilms.map((film) => {
     return film.duration;
   });
 
-  const duration = watchedFilmsDurations.length === 0 ? 0 : watchedFilmsDurations.reduce((acc, it) => acc + parseFloat(it));
-
-  return duration;
+  return watchedFilmsDurations.length === 0 ? 0 : watchedFilmsDurations.reduce((acc, it) => acc + parseFloat(it));
 };
 
 const getGenresAmount = (watchedFilms) => {
-  let genresAmount = {};
+  const genresAmount = {};
 
   watchedFilms.map((film) => {
     film.genres.map((genre) => {
@@ -185,7 +183,7 @@ const createStatisticComponent = (watchedFilms, period, userRank) => {
 };
 
 const getWatchedFilmsFromModel = (filmsModel) => {
-  const allFilms = filmsModel.getFilmsAll();
+  const allFilms = filmsModel.getAll();
 
   return getWatchedFilms(allFilms);
 };
@@ -198,9 +196,7 @@ class Statistic extends AbstractSmartComponent {
     this._userRank = null;
     this._charts = null;
     this._filteredFilms = [];
-
     this._renderCharts(getWatchedFilmsFromModel(this._filmsModel));
-
     this._subscribeOnEvents();
   }
 
@@ -226,7 +222,6 @@ class Statistic extends AbstractSmartComponent {
     const dateBegin = this._getDateBegin(this._activePeriod);
 
     this._filteredFilms = getWatchedFilmsByPeriod(films, dateBegin);
-
     super.rerender();
     this._renderCharts();
   }
@@ -244,12 +239,11 @@ class Statistic extends AbstractSmartComponent {
         this._activePeriod = evt.target.value;
         this.rerender();
       });
-
   }
 
   _getDateBegin(period) {
-    this._activePeriod = period;
     let dateBegin = null;
+    this._activePeriod = period;
 
     switch (period) {
       case PeriodFilterType.TODAY:
