@@ -1,7 +1,11 @@
 import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 import {EMOJIS} from './../constants.js';
 import {formatCommentDate} from './../utils/date.js';
-import {encode} from "he";
+
+const TextButtonDelete = {
+  DEFAULT: `Delete`,
+  SEND: `Deleting...`,
+};
 
 const createCommentComponent = (comment) => {
   const {id, text, emoji, author, date} = comment;
@@ -41,7 +45,7 @@ const createImageMarkup = (emoji) => {
   );
 };
 
-const createNewCommentComponent = (emoji) => {
+const createNewCommentComponent = (emoji, commentText) => {
   const selectedImageEmoji = emoji ? createImageMarkup(emoji) : ``;
 
   return (
@@ -51,7 +55,7 @@ const createNewCommentComponent = (emoji) => {
       </div>
 
       <label class="film-details__comment-label">
-        <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
+        <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${commentText}</textarea>
       </label>
 
       <div class="film-details__emoji-list">${createEmojiListComponent(emoji)}</div>
@@ -60,9 +64,9 @@ const createNewCommentComponent = (emoji) => {
 };
 
 const createCommentsComponent = (comments, options = {}) => {
-  const {selectedEmoji} = options;
-  const commentsComponent = comments.map((comment) => createCommentComponent(comment)).join(`\n`);
-  const newCommentComponent = createNewCommentComponent(selectedEmoji);
+  const {selectedEmoji, commentText, externalData} = options;
+  const commentsComponent = comments.map((comment) => createCommentComponent(comment, externalData)).join(`\n`);
+  const newCommentComponent = createNewCommentComponent(selectedEmoji, commentText);
   const commentsAmount = comments.length;
 
   return (
@@ -79,16 +83,6 @@ const createCommentsComponent = (comments, options = {}) => {
   );
 };
 
-const parseFormData = (formData) => {
-  return {
-    id: String(new Date() + Math.random()),
-    text: encode(formData.get(`comment`)),
-    emoji: formData.get(`comment-emoji`),
-    author: `Keks`,
-    date: new Date(),
-  };
-};
-
 class Comments extends AbstractSmartComponent {
   constructor(comments) {
     super();
@@ -97,6 +91,7 @@ class Comments extends AbstractSmartComponent {
     this._selectedEmoji = null;
     this._deleteButtonCLickHandler = null;
     this._submitHandler = null;
+    this._commentText = ``;
 
     this._pressedButton = {};
 
@@ -105,16 +100,19 @@ class Comments extends AbstractSmartComponent {
     };
 
     this._setEmojiChangeHandler();
+    this._setTextareaChangeHandler();
   }
 
   getTemplate() {
     return createCommentsComponent(this._comments, {
       selectedEmoji: this._selectedEmoji,
+      commentText: this._commentText,
     });
   }
 
   recoveryListeners() {
     this._setEmojiChangeHandler();
+    this._setTextareaChangeHandler();
     this.setDeleteButtonClickHandler(this._deleteButtonCLickHandler);
     this.setSubmitHandler(this._submitInitialHandler);
   }
@@ -129,9 +127,8 @@ class Comments extends AbstractSmartComponent {
 
   getData() {
     const form = document.querySelector(`.film-details__inner`);
-    const formData = new FormData(form);
 
-    return parseFormData(formData);
+    return new FormData(form);
   }
 
   setDeleteButtonClickHandler(callback) {
@@ -182,8 +179,9 @@ class Comments extends AbstractSmartComponent {
       emoji.addEventListener(`change`, (evt) => {
         this._selectedEmoji = evt.target.value;
 
+        this._removeErrorClass();
         this.removeEvents();
-        this.rerender();
+        this._setCommentAfterUpdate();
       });
     });
   }
