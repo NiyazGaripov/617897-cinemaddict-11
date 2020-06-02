@@ -185,6 +185,13 @@ class Comments extends AbstractSmartComponent {
       });
     });
   }
+
+  _setCommentAfterUpdate() {
+    const textarea = this.getElement().querySelector(`.film-details__comment-input`);
+    textarea.value = this._commentText;
+    this.rerender();
+  }
+
 }
 
 export {Comments};
