@@ -202,6 +202,17 @@ class Comments extends AbstractSmartComponent {
     });
   }
 
+  disabledDeleteButton(evt) {
+    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+
+    deleteButtons.forEach((button) => {
+      if (button === evt.target) {
+        evt.target.disabled = true;
+        evt.target.textContent = TextButtonDelete.SEND;
+      }
+    });
+  }
+
 }
 
 export {Comments};
