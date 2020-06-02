@@ -8,6 +8,16 @@ class Comment {
     this.date = new Date(data[`date`]);
   }
 
+  toRaw() {
+    return {
+      "id": this.id,
+      "comment": this.text,
+      "emotion": this.emoji,
+      "author": this.author,
+      "date": this.date.toISOString(),
+    };
+  }
+
   static parseItem(data, filmId) {
     return new Comment(data, filmId);
   }
