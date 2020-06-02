@@ -192,6 +192,16 @@ class Comments extends AbstractSmartComponent {
     this.rerender();
   }
 
+  _setTextareaChangeHandler() {
+    const textarea = this.getElement().querySelector(`.film-details__comment-input`);
+
+    textarea.addEventListener(`input`, (evt) => {
+      this._commentText = evt.target.value;
+
+      this._removeErrorClass();
+    });
+  }
+
 }
 
 export {Comments};
