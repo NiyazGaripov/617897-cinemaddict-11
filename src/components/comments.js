@@ -213,6 +213,15 @@ class Comments extends AbstractSmartComponent {
     });
   }
 
+  enabledDeleteButton() {
+    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+
+    deleteButtons.forEach((button) => {
+      button.disabled = false;
+      button.textContent = TextButtonDelete.DEFAULT;
+    });
+  }
+
 }
 
 export {Comments};
