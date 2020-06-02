@@ -230,6 +230,14 @@ class Comments extends AbstractSmartComponent {
     emojiContainer.classList.add(`error`);
   }
 
+  _removeErrorClass() {
+    const textarea = this.getElement().querySelector(`.film-details__comment-input`);
+    const emojiContainer = this.getElement().querySelector(`.film-details__add-emoji-label`);
+
+    textarea.classList.remove(`error`);
+    emojiContainer.classList.remove(`error`);
+  }
+
 }
 
 export {Comments};
