@@ -1,38 +1,16 @@
-import {UserRank, SortType} from './../constants.js';
-
-const getRandomIntegerNumber = (min, max) => {
-  return min + Math.floor(Math.random() * (max - min));
-};
-
-const getRandomArrayItem = (array) => {
-  const randomItem = getRandomIntegerNumber(0, array.length);
-
-  return array[randomItem];
-};
-
-const setActiveClass = (container, element, activeClass) => {
-  const activeElement = container.querySelector(`.${activeClass}`);
-
-  if (!element.classList.contains(`${activeClass}`)) {
-    activeElement.classList.remove(activeClass);
-    element.classList.add(activeClass);
-  }
-};
+import {UserRank, RangValue, SortType} from './../constants.js';
 
 const getUserRank = (amount) => {
-  let userRank;
-
-  if (amount === 0) {
-    return null;
-  } else if (amount >= 1 && amount <= 10) {
-    userRank = UserRank.NOVICE;
-  } else if (amount >= 11 && amount <= 20) {
-    userRank = UserRank.FAN;
-  } else if (amount >= 21) {
-    userRank = UserRank.MOVIE_BUFF;
+  switch (true) {
+    case (amount >= RangValue.MIN && amount <= RangValue.MEDIUM):
+      return UserRank.NOVICE;
+    case (amount > RangValue.MEDIUM && amount <= RangValue.MAX):
+      return UserRank.FAN;
+    case (amount > RangValue.MAX):
+      return UserRank.MOVIE_BUFF;
+    default:
+      return ``;
   }
-
-  return userRank;
 };
 
 const sortFilms = (films, sortType, from, to) => {
@@ -57,4 +35,4 @@ const sortFilms = (films, sortType, from, to) => {
   return sortedFilms.slice(from, to);
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, setActiveClass, getUserRank, sortFilms};
+export {getUserRank, sortFilms};
