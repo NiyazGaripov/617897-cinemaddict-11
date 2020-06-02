@@ -4,21 +4,17 @@ class Comments {
     this._dataChangeHandlers = [];
   }
 
-  getComments() {
-    return this._comments;
+  setDataChangeHandlers(handler) {
+    this._dataChangeHandlers.push(handler);
   }
 
-  setComments(comments) {
-    this._comments = Array.from(comments);
+  add(comment) {
+    this._comments = [].concat(this._comments, comment);
     this._callHandlers(this._dataChangeHandlers);
   }
 
-  setCommentsDataChangeHandlers(callback) {
-    this._dataChangeHandlers.push(callback);
-  }
-
-  removeComment(id) {
-    const index = this._comments.findIndex((it) => it.id === id);
+  remove(comment) {
+    const index = this._comments.findIndex((it) => it.id === comment.id);
 
     if (index === -1) {
       return false;
@@ -29,25 +25,6 @@ class Comments {
     this._callHandlers(this._dataChangeHandlers);
 
     return true;
-  }
-
-  updateComments(id, newData) {
-    const index = this._comments.findIndex((it) => it.id === id);
-
-    if (index === -1) {
-      return false;
-    }
-
-    this._comments = [].concat(this._comments.slice(0, index), newData, this._comments.slice(index + 1));
-
-    this._callHandlers(this._dataChangeHandlers);
-
-    return true;
-  }
-
-  addComment(comment) {
-    this._comments = [].concat(this._comments, comment);
-    this._callHandlers(this._dataChangeHandlers);
   }
 
   _callHandlers(handlers) {
