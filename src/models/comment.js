@@ -1,5 +1,6 @@
 class Comment {
-  constructor(data) {
+  constructor(data, filmId) {
+    this.filmId = filmId;
     this.id = data[`id`];
     this.text = data[`comment`];
     this.emoji = data[`emotion`];
@@ -7,12 +8,14 @@ class Comment {
     this.date = new Date(data[`date`]);
   }
 
-  static parseComment(data) {
-    return new Comment(data);
+  static parseItem(data, filmId) {
+    return new Comment(data, filmId);
   }
 
-  static parseComments(data) {
-    return data.map(Comment.parseComment);
+  static parseList(data, filmId) {
+    return data.map((rawComment) => {
+      return Comment.parseItem(rawComment, filmId);
+    });
   }
 }
 
