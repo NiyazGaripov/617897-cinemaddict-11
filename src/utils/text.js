@@ -1,21 +1,7 @@
-import {getRandomIntegerNumber, getRandomArrayItem} from './common.js';
-
-const BEGIN_ELEMENT = 0;
-
-const generateDescription = (desc, minAmount, maxAmount) => {
-  const sentencesAmount = getRandomIntegerNumber(minAmount, maxAmount);
-
-  return new Array(sentencesAmount)
-    .fill(``)
-    .map(() => `${getRandomArrayItem(desc)}`)
-    .join(` `);
-};
+import {BEGIN_INDEX} from './../constants.js';
 
 const getShortDescription = (desc, limit) => {
-  if (desc.length >= limit) {
-    return desc.slice(BEGIN_ELEMENT, limit).trim() + `…`;
-  }
-  return desc;
+  return desc.length >= limit ? desc.slice(BEGIN_INDEX, limit).trim() + `…` : desc;
 };
 
-export {generateDescription, getShortDescription};
+export {getShortDescription};
