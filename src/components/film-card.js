@@ -61,6 +61,18 @@ class FilmCard extends AbstractSmartComponent {
     this.openModalClickHandler = handler;
   }
 
+  updateCommentsAmount(newCommentsAmount) {
+    this._commentsAmount = newCommentsAmount;
+    this.rerender();
+  }
+
+  recoveryListeners() {
+    this.setClickHandler(this.openModalClickHandler);
+    this.setWatchListButtonClickHandler(this.watchlistButtonCLickHandler);
+    this.setWatchedButtonClickHandler(this.watchedButtonClickHandler);
+    this.setFavoriteButtonClickHandler(this.favoriteButtonClickHandler);
+  }
+
   setWatchListButtonClickHandler(handler) {
     this.getElement()
       .querySelector(`.film-card__controls-item--add-to-watchlist`)
@@ -83,18 +95,6 @@ class FilmCard extends AbstractSmartComponent {
       .addEventListener(`click`, handler);
 
     this.favoriteButtonClickHandler = handler;
-  }
-
-  updateCommentsAmount(newCommentsAmount) {
-    this._commentsAmount = newCommentsAmount;
-    this.rerender();
-  }
-
-  recoveryListeners() {
-    this.setClickHandler(this.openModalClickHandler);
-    this.setWatchListButtonClickHandler(this.watchlistButtonCLickHandler);
-    this.setWatchedButtonClickHandler(this.watchedButtonClickHandler);
-    this.setFavoriteButtonClickHandler(this.favoriteButtonClickHandler);
   }
 }
 
