@@ -90,6 +90,18 @@ class FilmController {
     }
   }
 
+  destroy() {
+    removeComponent(this._filmCardComponent);
+    removeComponent(this._filmDetailsComponent);
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
+
+  setDefaultView() {
+    if (this._mode !== Mode.DEFAULT) {
+      this._hideFilmDetails();
+    }
+  }
+
   _showFilmDetails() {
     this._onViewChange();
     body.classList.add(`hide-overflow`);
@@ -101,14 +113,6 @@ class FilmController {
     body.classList.remove(`hide-overflow`);
     body.removeChild(this._filmDetailsComponent.getElement());
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
-  }
-
-  _escKeyDownHandler(evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      this._hideFilmDetails();
-      this._removeComments();
-      document.removeEventListener(`keydown`, this._escKeyDownHandler);
-    }
   }
 
   _addFilmToWatchList() {
@@ -130,18 +134,6 @@ class FilmController {
 
     newFilm.isFavorite = !newFilm.isFavorite;
     this._onDataChange(this._film, newFilm);
-  }
-
-  setDefaultView() {
-    if (this._mode !== Mode.DEFAULT) {
-      this._hideFilmDetails();
-    }
-  }
-
-  destroy() {
-    removeComponent(this._filmCardComponent);
-    removeComponent(this._filmDetailsComponent);
-    document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _renderComments(comments) {
@@ -178,6 +170,14 @@ class FilmController {
     film.addComment(id);
 
     this._filmCardComponent.updateCommentsAmount(film.comments.length);
+  }
+
+  _escKeyDownHandler(evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      this._hideFilmDetails();
+      this._removeComments();
+      document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    }
   }
 
   _onCommentsDataChange(commentsContainer, film, oldData, newData) {
