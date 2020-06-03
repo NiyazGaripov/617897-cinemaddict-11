@@ -120,6 +120,7 @@ class FilmController {
 
     newFilm.isWatchList = !newFilm.isWatchList;
     this._onDataChange(this._film, newFilm);
+    this._updateComments(this._film);
   }
 
   _addFilmToWatched() {
@@ -127,6 +128,7 @@ class FilmController {
 
     newFilm.isWatched = !newFilm.isWatched;
     this._onDataChange(this._film, newFilm);
+    this._updateComments(this._film);
   }
 
   _addFilmToFavorite() {
@@ -134,6 +136,7 @@ class FilmController {
 
     newFilm.isFavorite = !newFilm.isFavorite;
     this._onDataChange(this._film, newFilm);
+    this._updateComments(this._film);
   }
 
   _renderComments(comments) {
