@@ -18,7 +18,7 @@ class FooterStatistics extends AbstractSmartComponent {
     return createFooterStatisticsComponent(this._filmsAmount);
   }
 
-  setFilmsAmount(films) {
+  setAmount(films) {
     this._filmsAmount = films.length;
     this.rerender();
   }

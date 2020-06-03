@@ -1,23 +1,22 @@
+import {API} from './api/api.js';
+import {AUTHORIZATION, ENTRY_POINT, NavigationType} from './constants.js';
 import {renderComponent, removeComponent} from './utils/render.js';
-import {Profile} from './components/profile.js';
-import {FilterController} from './controllers/filter.js';
 import {FilmsSection} from './components/films-section.js';
 import {FooterStatistics} from './components/footer-statistics.js';
-import {PageController} from './controllers/page.js';
-import {Films} from './models/films.js';
-import {Statistic} from './components/films-statistics.js';
-import {MenuNavigation} from './components/menu-navigation.js';
 import {Loading} from './components/loading.js';
-import {SortController} from './controllers/sort.js';
-import {AUTHORIZATION, ENTRY_POINT, NavigationType} from './constants.js';
-import {API} from './api/api.js';
+import {MenuNavigation} from './components/menu-navigation.js';
+import {Profile} from './components/profile.js';
+import {Statistic} from './components/statistics.js';
+import {FilterController} from './controllers/filter-controller.js';
+import {PageController} from './controllers/page-controller.js';
+import {SortController} from './controllers/sort-controller.js';
+import {Films} from './models/films.js';
 
 const pageHeader = document.querySelector(`.header`);
 const pageMain = document.querySelector(`.main`);
 const pageFooter = document.querySelector(`.footer`);
 
 const api = new API(ENTRY_POINT, AUTHORIZATION);
-
 const filmsModel = new Films();
 
 const profileComponent = new Profile();
@@ -47,7 +46,7 @@ const statisticComponent = new Statistic(filmsModel);
 renderComponent(pageMain, statisticComponent);
 statisticComponent.hide();
 
-menuNavigation.setNavigationClickHandler((type) => {
+menuNavigation.setClickHandler((type) => {
   switch (type) {
     case NavigationType.FILTER:
       statisticComponent.hide();
@@ -63,20 +62,20 @@ menuNavigation.setNavigationClickHandler((type) => {
 });
 
 filmsModel.setDataLoadHandler(() => {
-  footerStatisticsComponent.setFilmsAmount(filmsModel.getFilmsAll());
+  footerStatisticsComponent.setAmount(filmsModel.getAll());
 });
 
 filmsModel.setDataChangeHandler(() => {
-  profileComponent.setUserRank(filmsModel.getFilmsAll());
-  statisticComponent.setUserRank(filmsModel.getFilmsAll());
+  profileComponent.setUserRank(filmsModel.getAll());
+  statisticComponent.setUserRank(filmsModel.getAll());
 });
 
 api.getFilms()
   .then((films) => {
-    filmsModel.setFilms(films);
+    filmsModel.set(films);
   })
   .catch(() => {
-    filmsModel.setFilms([]);
+    filmsModel.set([]);
   })
   .finally(() => {
     removeComponent(loadingComponent);

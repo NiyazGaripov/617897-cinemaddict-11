@@ -1,5 +1,5 @@
-import {AbstractComponent} from './../components/abstract-component.js';
 import {getFilterTitleByHref} from './../utils/filter.js';
+import {AbstractComponent} from './../components/abstract-component.js';
 
 const createFilterItemComponent = (filter) => {
   const {path, title, amount, isActive} = filter;
@@ -34,22 +34,16 @@ class Filter extends AbstractComponent {
     return createFilterListComponent(this._filters);
   }
 
-  setFilterChangeHandler(callback) {
-    const filterList = Array.from(this.getElement().querySelectorAll(`.main-navigation__item`));
+  setChangeHandler(handler) {
+    this.getElement().addEventListener(`click`, (evt) => {
+      const activeFilter = evt.target.closest(`a`);
 
-    filterList.forEach((item) => {
-      item.addEventListener(`click`, (evt) => {
-        evt.preventDefault();
+      if (activeFilter) {
+        const filterValue = getFilterTitleByHref(activeFilter.href);
 
-        const activeFilter = evt.target.closest(`a`);
-
-        if (activeFilter) {
-          const filterTitle = getFilterTitleByHref(activeFilter.href);
-
-          this._toggleActiveClass(activeFilter);
-          callback(filterTitle);
-        }
-      });
+        this._toggleActiveClass(activeFilter);
+        handler(filterValue);
+      }
     });
   }
 
@@ -58,11 +52,6 @@ class Filter extends AbstractComponent {
 
     activeFilter.classList.remove(`main-navigation__item--active`);
     element.classList.add(`main-navigation__item--active`);
-  }
-
-  setFilterClickHandler(callback) {
-    this.getElement().addEventListener(`click`, callback);
-    this._filterClickHandler = callback;
   }
 }
 

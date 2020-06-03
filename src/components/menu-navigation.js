@@ -1,6 +1,6 @@
-import {AbstractComponent} from './../components/abstract-component.js';
 import {NavigationType} from './../constants.js';
 import {getFilterTitleByHref} from './../utils/filter.js';
+import {AbstractComponent} from './../components/abstract-component.js';
 
 const createMenuNavigationComponent = () => {
   return (
@@ -15,7 +15,7 @@ class MenuNavigation extends AbstractComponent {
     return createMenuNavigationComponent();
   }
 
-  setNavigationClickHandler(callback) {
+  setClickHandler(handler) {
     this.getElement()
       .addEventListener(`click`, (evt) => {
         evt.preventDefault();
@@ -34,22 +34,22 @@ class MenuNavigation extends AbstractComponent {
           this._removeActiveClass();
         }
 
-        callback(navigationType);
+        handler(navigationType);
       });
   }
 
   _addActiveClass() {
     const container = this.getElement();
-    const statsElement = container.querySelector(`.main-navigation__additional`);
+    const statistic = container.querySelector(`.main-navigation__additional`);
 
-    statsElement.classList.add(`main-navigation__additional--active`);
+    statistic.classList.add(`main-navigation__additional--active`);
   }
 
   _removeActiveClass() {
     const container = this.getElement();
-    const statsElement = container.querySelector(`.main-navigation__additional`);
+    const statistic = container.querySelector(`.main-navigation__additional`);
 
-    statsElement.classList.remove(`main-navigation__additional--active`);
+    statistic.classList.remove(`main-navigation__additional--active`);
   }
 }
 

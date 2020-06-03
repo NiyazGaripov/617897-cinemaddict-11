@@ -1,14 +1,13 @@
 import {getFullYear, getFilmDuration} from './../utils/date.js';
 import {getShortDescription} from './../utils/text.js';
-import {AbstractComponent} from './../components/abstract-component.js';
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
-const createFilmCardComponent = (filmCard) => {
+const createFilmCardComponent = (filmCard, commentsAmount) => {
   const {poster, title, rating, release, duration, genres, description, isWatchList, isWatched, isFavorite} = filmCard;
   const releaseYear = getFullYear(release);
   const filmDuration = getFilmDuration(duration);
   const genre = genres.length === 0 ? `` : genres[0];
   const shortDescription = getShortDescription(description, 140);
-  const commentsAmount = filmCard.comments.length;
   const watchListActiveClass = isWatchList ? `film-card__controls-item--active` : ``;
   const watchedActiveClass = isWatched ? `film-card__controls-item--active` : ``;
   const favoriteActiveClass = isFavorite ? `film-card__controls-item--active` : ``;
@@ -34,46 +33,68 @@ const createFilmCardComponent = (filmCard) => {
   );
 };
 
-class FilmCard extends AbstractComponent {
+class FilmCard extends AbstractSmartComponent {
   constructor(filmCard) {
     super();
     this._filmCard = filmCard;
+    this._commentsAmount = filmCard.comments.length;
+    this.openModalClickHandler = null;
+    this.watchlistButtonCLickHandler = null;
+    this.watchedButtonClickHandler = null;
+    this.favoriteButtonClickHandler = null;
   }
 
   getTemplate() {
-    return createFilmCardComponent(this._filmCard);
+    return createFilmCardComponent(this._filmCard, this._commentsAmount);
   }
 
-  setClickHandler(callback) {
-    this.getElement()
-      .querySelector(`img`)
-      .addEventListener(`click`, callback);
+  setClickHandler(handler) {
+    const poster = this.getElement().querySelector(`.film-card__poster`);
+    const title = this.getElement().querySelector(`.film-card__title`);
+    const comments = this.getElement().querySelector(`.film-card__comments`);
+    const filmInteractiveNodes = Array.of(poster, title, comments);
 
-    this.getElement()
-      .querySelector(`.film-card__title`)
-      .addEventListener(`click`, callback);
+    filmInteractiveNodes.forEach((element) => {
+      element.addEventListener(`click`, handler);
+    });
 
-    this.getElement()
-      .querySelector(`.film-card__comments`)
-      .addEventListener(`click`, callback);
+    this.openModalClickHandler = handler;
   }
 
-  setWatchListButtonClickHandler(callback) {
+  updateCommentsAmount(newCommentsAmount) {
+    this._commentsAmount = newCommentsAmount;
+    this.rerender();
+  }
+
+  recoveryListeners() {
+    this.setClickHandler(this.openModalClickHandler);
+    this.setWatchListButtonClickHandler(this.watchlistButtonCLickHandler);
+    this.setWatchedButtonClickHandler(this.watchedButtonClickHandler);
+    this.setFavoriteButtonClickHandler(this.favoriteButtonClickHandler);
+  }
+
+  setWatchListButtonClickHandler(handler) {
     this.getElement()
       .querySelector(`.film-card__controls-item--add-to-watchlist`)
-      .addEventListener(`click`, callback);
+      .addEventListener(`click`, handler);
+
+    this.watchlistButtonCLickHandler = handler;
   }
 
-  setWatchedButtonClickHandler(callback) {
+  setWatchedButtonClickHandler(handler) {
     this.getElement()
       .querySelector(`.film-card__controls-item--mark-as-watched`)
-      .addEventListener(`click`, callback);
+      .addEventListener(`click`, handler);
+
+    this.watchedButtonClickHandler = handler;
   }
 
-  setFavoriteButtonClickHandler(callback) {
+  setFavoriteButtonClickHandler(handler) {
     this.getElement()
       .querySelector(`.film-card__controls-item--favorite`)
-      .addEventListener(`click`, callback);
+      .addEventListener(`click`, handler);
+
+    this.favoriteButtonClickHandler = handler;
   }
 }
 

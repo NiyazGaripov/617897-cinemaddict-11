@@ -1,11 +1,12 @@
-import {Film} from './../models/film.js';
+import {Method, HttpStatus} from './../constants.js';
 import {Comment} from './../models/comment.js';
-import {Method} from './../constants.js';
+import {Film} from './../models/film.js';
 
 const checkStatus = (response) => {
-  if (response.status >= 200 || response.status < 300) {
+  if (response.status >= HttpStatus.SUCCESS || response.status < HttpStatus.REDIRECT) {
     return response;
   }
+
   throw new Error(`${response.status}: ${response.statusText}`);
 };
 
@@ -18,13 +19,13 @@ const API = class {
   getFilms() {
     return this._load({url: `movies`})
       .then((response) => response.json())
-      .then(Film.parseFilms);
+      .then(Film.parseList);
   }
 
-  getComments(id) {
-    return this._load({url: `comments/${id}`})
+  getComments(film) {
+    return this._load({url: `comments/${film.id}`})
       .then((response) => response.json())
-      .then(Comment.parseComments);
+      .then((data) => Comment.parseList(data, film.id));
   }
 
   updateFilm(id, data) {
@@ -35,7 +36,30 @@ const API = class {
       headers: new Headers({"Content-Type": `application/json`}),
     })
       .then((response) => response.json())
-      .then(Film.parseFilm);
+      .then(Film.parseItem);
+  }
+
+  createComment(comment, filmId) {
+    return this._load({
+      url: `comments/${filmId}`,
+      method: Method.POST,
+      body: JSON.stringify(comment.toRaw()),
+      headers: new Headers({"Content-Type": `application/json`}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return {
+          movie: Film.parseItem(data.movie),
+          comments: Comment.parseList(data.comments, filmId),
+        };
+      });
+  }
+
+  deleteComment(comment) {
+    return this._load({
+      url: `comments/${comment.id}`,
+      method: Method.DELETE
+    });
   }
 
   _load({url, method = Method.GET, body = null, headers = new Headers()}) {

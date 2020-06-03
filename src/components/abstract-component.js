@@ -1,11 +1,12 @@
-import {createElement} from './../utils/render.js';
 import {HIDDEN_CLASS} from './../constants.js';
+import {createElement} from './../utils/render.js';
 
 class AbstractComponent {
   constructor() {
     if (new.target === AbstractComponent) {
       throw new Error(`Can't instantiate AbstractComponent, only concrete one.`);
     }
+
     this._element = null;
   }
 

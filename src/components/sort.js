@@ -1,5 +1,13 @@
 import {AbstractComponent} from './../components/abstract-component.js';
-import {setActiveClass} from './../utils/common.js';
+
+const setActiveClass = (container, element, activeClass) => {
+  const node = container.querySelector(`.${activeClass}`);
+
+  if (!element.classList.contains(`${activeClass}`)) {
+    node.classList.remove(activeClass);
+    element.classList.add(activeClass);
+  }
+};
 
 const createSortItemComponent = (SortType) => {
   const {type, isActive} = SortType;
@@ -40,7 +48,7 @@ class Sort extends AbstractComponent {
     setActiveClass(container, item, activeClass);
   }
 
-  setSortTypeChangeHandler(callback) {
+  setTypeChangeHandler(handler) {
     this.getElement().addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
@@ -56,7 +64,7 @@ class Sort extends AbstractComponent {
 
       this._currentSortType = sortType;
       this._setActiveElement(this._currentSortType);
-      callback(this._currentSortType);
+      handler(this._currentSortType);
     });
   }
 }
