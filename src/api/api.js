@@ -55,6 +55,13 @@ const API = class {
       });
   }
 
+  deleteComment(comment) {
+    return this._load({
+      url: `comments/${comment.id}`,
+      method: Method.DELETE
+    });
+  }
+
   _load({url, method = Method.GET, body = null, headers = new Headers()}) {
     headers.append(`Authorization`, this._authorization);
 
