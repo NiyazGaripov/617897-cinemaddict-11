@@ -28,7 +28,7 @@ class FilmController {
     this._filmDetailsComponent = null;
     this._commentsController = null;
     this._commentsModel = new Comments();
-    this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
+    this._escKeyDown = this._escKeyDown.bind(this);
     this._onCommentsDataChange = this._onCommentsDataChange.bind(this);
     this._commentsModel.setDataChangeHandlers(this._onCommentsDataChange);
   }
@@ -93,7 +93,7 @@ class FilmController {
   destroy() {
     removeComponent(this._filmCardComponent);
     removeComponent(this._filmDetailsComponent);
-    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    document.removeEventListener(`keydown`, this._escKeyDown);
   }
 
   setDefaultView() {
@@ -106,13 +106,13 @@ class FilmController {
     this._onViewChange();
     body.classList.add(`hide-overflow`);
     body.appendChild(this._filmDetailsComponent.getElement());
-    document.addEventListener(`keydown`, this._escKeyDownHandler);
+    document.addEventListener(`keydown`, this._escKeyDown);
   }
 
   _hideFilmDetails() {
     body.classList.remove(`hide-overflow`);
     body.removeChild(this._filmDetailsComponent.getElement());
-    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    document.removeEventListener(`keydown`, this._escKeyDown);
   }
 
   _addFilmToWatchList() {
@@ -175,11 +175,11 @@ class FilmController {
     this._filmCardComponent.updateCommentsAmount(film.comments.length);
   }
 
-  _escKeyDownHandler(evt) {
+  _escKeyDown(evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       this._hideFilmDetails();
       this._removeComments();
-      document.removeEventListener(`keydown`, this._escKeyDownHandler);
+      document.removeEventListener(`keydown`, this._escKeyDown);
     }
   }
 
