@@ -37,7 +37,7 @@ const getTopGenre = (watchedFilms) => {
   let maxGenreAmount = 1;
   let topGenre = ``;
 
-  Object.keys(genresAmount).map((genre) => {
+  Object.keys(genresAmount).forEach((genre) => {
     if (maxGenreAmount === 1 || genresAmount[genre] > maxGenreAmount) {
       maxGenreAmount = genresAmount[genre];
       topGenre = genre;
