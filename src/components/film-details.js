@@ -99,7 +99,7 @@ const createFilmDetailsComponent = (film) => {
   );
 };
 
-class FilmInfo extends AbstractSmartComponent {
+class FilmDetails extends AbstractSmartComponent {
   constructor(film) {
     super();
     this._film = film;
@@ -113,24 +113,8 @@ class FilmInfo extends AbstractSmartComponent {
     return createFilmDetailsComponent(this._film);
   }
 
-  setCloseButtonClickHandler(callback) {
-    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, callback);
-    this._closeButtonClickHandler = callback;
-  }
-
-  setWatchListInputChangeHandler(callback) {
-    this.getElement().querySelector(`#watchlist`).addEventListener(`change`, callback);
-    this._watchListInputChangeHandler = callback;
-  }
-
-  setWatchedInputChangeHandler(callback) {
-    this.getElement().querySelector(`#watched`).addEventListener(`change`, callback);
-    this._watchedInputChangeHandler = callback;
-  }
-
-  setFavoriteInputChangeHandler(callback) {
-    this.getElement().querySelector(`#favorite`).addEventListener(`change`, callback);
-    this._favoriteInputChangeHandler = callback;
+  rerender() {
+    super.rerender();
   }
 
   recoveryListeners() {
@@ -140,9 +124,25 @@ class FilmInfo extends AbstractSmartComponent {
     this.setFavoriteInputChangeHandler(this._favoriteInputChangeHandler);
   }
 
-  rerender() {
-    super.rerender();
+  setCloseButtonClickHandler(handler) {
+    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, handler);
+    this._closeButtonClickHandler = handler;
+  }
+
+  setWatchListInputChangeHandler(handler) {
+    this.getElement().querySelector(`#watchlist`).addEventListener(`change`, handler);
+    this._watchListInputChangeHandler = handler;
+  }
+
+  setWatchedInputChangeHandler(handler) {
+    this.getElement().querySelector(`#watched`).addEventListener(`change`, handler);
+    this._watchedInputChangeHandler = handler;
+  }
+
+  setFavoriteInputChangeHandler(handler) {
+    this.getElement().querySelector(`#favorite`).addEventListener(`change`, handler);
+    this._favoriteInputChangeHandler = handler;
   }
 }
 
-export {FilmInfo};
+export {FilmDetails};

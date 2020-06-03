@@ -26,7 +26,7 @@ class FilmList extends AbstractComponent {
     return createFilmListComponent(this._sections);
   }
 
-  getListContainer() {
+  getContainer() {
     return this.getElement().querySelector(`.films-list__container`);
   }
 }

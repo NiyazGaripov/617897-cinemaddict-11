@@ -1,6 +1,6 @@
-import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 import {EMOJIS} from './../constants.js';
 import {formatCommentDate} from './../utils/date.js';
+import {AbstractSmartComponent} from './../components/abstract-smart-component.js';
 
 const TextButtonDelete = {
   DEFAULT: `Delete`,
@@ -87,18 +87,14 @@ class Comments extends AbstractSmartComponent {
   constructor(comments) {
     super();
     this._comments = comments;
-
     this._selectedEmoji = null;
     this._deleteButtonCLickHandler = null;
     this._submitHandler = null;
     this._commentText = ``;
-
     this._pressedButton = {};
-
     this._keyUpHandler = () => {
       this._pressedButton = {};
     };
-
     this._setEmojiChangeHandler();
     this._setTextareaChangeHandler();
   }
@@ -110,15 +106,35 @@ class Comments extends AbstractSmartComponent {
     });
   }
 
+  rerender() {
+    super.rerender();
+  }
+
+  disabledDeleteButton(evt) {
+    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+
+    deleteButtons.forEach((button) => {
+      if (button === evt.target) {
+        evt.target.disabled = true;
+        evt.target.textContent = TextButtonDelete.SEND;
+      }
+    });
+  }
+
+  enabledDeleteButton() {
+    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+
+    deleteButtons.forEach((button) => {
+      button.disabled = false;
+      button.textContent = TextButtonDelete.DEFAULT;
+    });
+  }
+
   recoveryListeners() {
     this._setEmojiChangeHandler();
     this._setTextareaChangeHandler();
     this.setDeleteButtonClickHandler(this._deleteButtonCLickHandler);
     this.setSubmitHandler(this._submitInitialHandler);
-  }
-
-  rerender() {
-    super.rerender();
   }
 
   removeElement() {
@@ -131,15 +147,15 @@ class Comments extends AbstractSmartComponent {
     return new FormData(form);
   }
 
-  setDeleteButtonClickHandler(callback) {
+  setDeleteButtonClickHandler(handler) {
     this.getElement()
       .querySelectorAll(`.film-details__comment-delete`)
       .forEach((item, index) => {
 
-        item.addEventListener(`click`, (evt) => callback(evt, index));
+        item.addEventListener(`click`, (evt) => handler(evt, index));
       });
 
-    this._deleteButtonCLickHandler = callback;
+    this._deleteButtonCLickHandler = handler;
   }
 
   removeEvents() {
@@ -147,15 +163,15 @@ class Comments extends AbstractSmartComponent {
     document.removeEventListener(`keyup`, this._keyUpHandler);
   }
 
-  setSubmitHandler(callback) {
-    this._submitHandler = this._getSubmitHandler(callback);
-    this._submitInitialHandler = callback;
+  setSubmitHandler(handler) {
+    this._submitHandler = this._getSubmitHandler(handler);
+    this._submitInitialHandler = handler;
 
     document.addEventListener(`keydown`, this._submitHandler);
     document.addEventListener(`keyup`, this._keyUpHandler);
   }
 
-  _getSubmitHandler(callback) {
+  _getSubmitHandler(handler) {
     return (evt) => {
       const isCtrlKey = evt.key === `Meta` || evt.key === `Control`;
       const isEnterKey = evt.key === `Enter`;
@@ -167,7 +183,7 @@ class Comments extends AbstractSmartComponent {
       }
 
       if (this._pressedButton.ctrl && this._pressedButton.enter) {
-        callback(evt);
+        handler(evt);
       }
     };
   }
@@ -188,6 +204,7 @@ class Comments extends AbstractSmartComponent {
 
   _setCommentAfterUpdate() {
     const textarea = this.getElement().querySelector(`.film-details__comment-input`);
+
     textarea.value = this._commentText;
     this.rerender();
   }
@@ -197,28 +214,7 @@ class Comments extends AbstractSmartComponent {
 
     textarea.addEventListener(`input`, (evt) => {
       this._commentText = evt.target.value;
-
       this._removeErrorClass();
-    });
-  }
-
-  disabledDeleteButton(evt) {
-    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
-
-    deleteButtons.forEach((button) => {
-      if (button === evt.target) {
-        evt.target.disabled = true;
-        evt.target.textContent = TextButtonDelete.SEND;
-      }
-    });
-  }
-
-  enabledDeleteButton() {
-    const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
-
-    deleteButtons.forEach((button) => {
-      button.disabled = false;
-      button.textContent = TextButtonDelete.DEFAULT;
     });
   }
 
