@@ -146,13 +146,9 @@ class PageController {
         const allFilms = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
 
         if (isSuccess) {
-          allFilms.forEach((film) => {
-            const currentFilm = film._filmCardComponent._filmCard;
+          const currentFilm = allFilms.find((film) => film._filmCardComponent._filmCard === oldData);
 
-            if (currentFilm === oldData) {
-              film.render(newData);
-            }
-          });
+          currentFilm.render(newData);
         }
       });
   }

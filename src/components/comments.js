@@ -112,13 +112,11 @@ class Comments extends AbstractSmartComponent {
 
   disabledDeleteButton(evt) {
     const deleteButtons = this.getElement().querySelectorAll(`.film-details__comment-delete`);
+    const currentDeleteButton = Array.from(deleteButtons).find((button) => button === evt.target);
 
-    deleteButtons.forEach((button) => {
-      if (button === evt.target) {
-        evt.target.disabled = true;
-        evt.target.textContent = TextButtonDelete.SEND;
-      }
-    });
+    currentDeleteButton.disabled = true;
+    currentDeleteButton.style.cursor = `progress`;
+    currentDeleteButton.textContent = TextButtonDelete.SEND;
   }
 
   enabledDeleteButton() {
