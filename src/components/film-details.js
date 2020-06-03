@@ -126,21 +126,25 @@ class FilmDetails extends AbstractSmartComponent {
 
   setCloseButtonClickHandler(handler) {
     this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, handler);
+
     this._closeButtonClickHandler = handler;
   }
 
   setWatchListInputChangeHandler(handler) {
     this.getElement().querySelector(`#watchlist`).addEventListener(`change`, handler);
+
     this._watchListInputChangeHandler = handler;
   }
 
   setWatchedInputChangeHandler(handler) {
     this.getElement().querySelector(`#watched`).addEventListener(`change`, handler);
+
     this._watchedInputChangeHandler = handler;
   }
 
   setFavoriteInputChangeHandler(handler) {
     this.getElement().querySelector(`#favorite`).addEventListener(`change`, handler);
+
     this._favoriteInputChangeHandler = handler;
   }
 }
