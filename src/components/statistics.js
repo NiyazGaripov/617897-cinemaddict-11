@@ -204,6 +204,13 @@ class Statistic extends AbstractSmartComponent {
     return createStatisticComponent(this._filteredFilms, this._activePeriod, this._userRank);
   }
 
+  setUserRank(films) {
+    const watchedFilms = getWatchedFilms(films);
+    const watchedFilmsAmount = watchedFilms.length;
+
+    this._userRank = getUserRank(watchedFilmsAmount);
+  }
+
   show() {
     super.show();
     this.rerender();
@@ -211,10 +218,6 @@ class Statistic extends AbstractSmartComponent {
 
   hide() {
     super.hide();
-  }
-
-  recoveryListeners() {
-    this._subscribeOnEvents();
   }
 
   rerender() {
@@ -226,11 +229,8 @@ class Statistic extends AbstractSmartComponent {
     this._renderCharts();
   }
 
-  setUserRank(films) {
-    const watchedFilms = getWatchedFilms(films);
-    const watchedFilmsAmount = watchedFilms.length;
-
-    this._userRank = getUserRank(watchedFilmsAmount);
+  recoveryListeners() {
+    this._subscribeOnEvents();
   }
 
   _subscribeOnEvents() {
