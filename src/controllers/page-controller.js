@@ -67,6 +67,14 @@ class PageController {
     }
   }
 
+  show() {
+    this._container.show();
+  }
+
+  hide() {
+    this._container.hide();
+  }
+
   _renderFilmsList(component, films) {
     const filmsListContainer = component.getContainer();
 
@@ -123,6 +131,10 @@ class PageController {
     this._renderShowMoreButton();
   }
 
+  _onFilterChange() {
+    this._updateFilms(FILM_CARDS_AMOUNT_ON_START);
+  }
+
   _onSortTypeChange() {
     this._updateFilms(FILM_CARDS_AMOUNT_ON_START);
   }
@@ -149,18 +161,6 @@ class PageController {
     const allInstances = [...this._showedFilmControllers, ...this._topRatedFilmControllers, ...this._mostCommentedFilmControllers];
 
     allInstances.forEach((instances) => instances.setDefaultView());
-  }
-
-  _onFilterChange() {
-    this._updateFilms(FILM_CARDS_AMOUNT_ON_START);
-  }
-
-  show() {
-    this._container.show();
-  }
-
-  hide() {
-    this._container.hide();
   }
 }
 
